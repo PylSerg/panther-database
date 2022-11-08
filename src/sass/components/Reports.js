@@ -1,29 +1,45 @@
 import { useState } from "react";
 
 export default function Reports() {
+	const [rows, setRows] = useState({ indx: [0] });
+
 	const [usersList, setUsersList] = useState({
-		send: false,
 		names: [],
+		telephones: [],
+		cities: [],
 	});
-	console.log(`names =>`, usersList.names);
 
-	const BASE_URL = "https://script.google.com/macros/s/AKfycbzOOWQNaRWik7mpc3RZ2VPjEshXtA5OcWPsdEShZE6ADYhg6XYdZghB0p0Z-BuBqWIE/exec";
+	const BASE_URL = "https://script.google.com/macros/s/AKfycbxIOZ-x_TNtxNHJEXsysaiuXdJyosXFJJw_Db-hxCM34u4r6tQgABFjHtUtsSd5Yf9x/exec";
 
-	function changesUser(e) {
-		const indx = e.currentTarget.id;
-		const value = e.currentTarget.value;
-		const newNames = usersList.names;
+	// Creates new row
+	function createNewRow() {
+		const newRows = rows.indx;
 
-		newNames.splice(indx, 1);
-		newNames.splice(indx, 0, value);
+		newRows.push(rows.indx.length);
 
-		setUsersList({ ...usersList, names: newNames });
+		setRows({ indx: newRows });
 	}
 
+	// Changes cell
+	function changeCell(e) {
+		const indx = e.currentTarget.id;
+		const column = e.currentTarget.name;
+		const value = e.currentTarget.value;
+
+		const newArray = usersList[`${column}`];
+		newArray.splice(indx, 1);
+		newArray.splice(indx, 0, value);
+
+		setUsersList({ ...usersList, [`${column}`]: newArray });
+	}
+
+	// Sends data
 	function onSubmit() {
 		const formData = new FormData();
 
 		formData.append("name", usersList.names.join("|"));
+		formData.append("tel", usersList.telephones.join("|"));
+		formData.append("city", usersList.cities.join("|"));
 
 		postRequest();
 
@@ -34,16 +50,33 @@ export default function Reports() {
 			})
 				.then(response => response.json())
 				.then(response => console.log(response))
-				.catch(function (error) {
-					console.log(`\x1b[31m ${error}`);
-				});
+				.catch(error => console.log(`\x1b[31m ${error}`));
 		}
 	}
+
 	return (
 		<div>
-			<input key="0" id="0" type="text" value={usersList.names[0]} onChange={changesUser} /> <br />
-			<input key="1" id="1" type="text" value={usersList.names[1]} onChange={changesUser} /> <br />
+			<button type="button" onClick={createNewRow}>
+				+
+			</button>
+
 			<br />
+			<br />
+
+			<ul>
+				{rows &&
+					rows.indx.map(row => (
+						<li key={row}>
+							<input name="names" id={row} type="text" value={usersList.names[row]} onChange={changeCell} />
+							<input name="telephones" id={row} type="text" value={usersList.telephones[row]} onChange={changeCell} />
+							<input name="cities" id={row} type="text" value={usersList.cities[row]} onChange={changeCell} />
+						</li>
+					))}
+			</ul>
+
+			<br />
+			<br />
+
 			<button type="button" onClick={onSubmit}>
 				Send
 			</button>
