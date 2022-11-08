@@ -1,7 +1,12 @@
 import React from "react";
+import Reports from "./sass/components/Reports";
 
 function App() {
-	return <div></div>;
+	return (
+		<div>
+			<Reports />
+		</div>
+	);
 }
 
 export default App;
