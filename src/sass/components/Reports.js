@@ -1,15 +1,21 @@
 import { useState } from "react";
+import axios from "axios";
 
 export default function Reports() {
 	const [rows, setRows] = useState({ indx: [0] });
 
-	const [usersList, setUsersList] = useState({
-		names: [],
-		telephones: [],
-		cities: [],
+	const [data, setData] = useState({
+		responsible: "Серёга",
+		objects: [],
+		stages: [],
+		materials: [],
+		quantity: [],
+		prices: [],
+		sums: [],
+		comments: [],
 	});
 
-	const BASE_URL = "https://script.google.com/macros/s/AKfycbxIOZ-x_TNtxNHJEXsysaiuXdJyosXFJJw_Db-hxCM34u4r6tQgABFjHtUtsSd5Yf9x/exec";
+	const BASE_URL = "https://script.google.com/macros/s/AKfycbwL_tsu1SY7KjX7vX4EccOfb0jkiSYpH5M2vJQXlVuQwIZ0GDJl1t3cxc2gLsespB4v/exec";
 
 	// Creates new row
 	function createNewRow() {
@@ -26,20 +32,25 @@ export default function Reports() {
 		const column = e.currentTarget.name;
 		const value = e.currentTarget.value;
 
-		const newArray = usersList[`${column}`];
+		const newArray = data[`${column}`];
 		newArray.splice(indx, 1);
 		newArray.splice(indx, 0, value);
 
-		setUsersList({ ...usersList, [`${column}`]: newArray });
+		setData({ ...data, [`${column}`]: newArray });
 	}
 
 	// Sends data
 	function onSubmit() {
 		const formData = new FormData();
 
-		formData.append("name", usersList.names.join("|"));
-		formData.append("tel", usersList.telephones.join("|"));
-		formData.append("city", usersList.cities.join("|"));
+		formData.append("responsible", data.responsible);
+		formData.append("objects", data.objects.join("|"));
+		formData.append("stages", data.stages.join("|"));
+		formData.append("materials", data.materials.join("|"));
+		formData.append("quantity", data.quantity.join("|"));
+		formData.append("prices", data.prices.join("|"));
+		formData.append("sums", data.sums.join("|"));
+		formData.append("comments", data.comments.join("|"));
 
 		postRequest();
 
@@ -67,9 +78,40 @@ export default function Reports() {
 				{rows &&
 					rows.indx.map(row => (
 						<li key={row}>
-							<input name="names" id={row} type="text" value={usersList.names[row]} onChange={changeCell} />
-							<input name="telephones" id={row} type="text" value={usersList.telephones[row]} onChange={changeCell} />
-							<input name="cities" id={row} type="text" value={usersList.cities[row]} onChange={changeCell} />
+							<div>
+								<p>Об&rsquo;єкт</p>
+								<input name="objects" id={row} type="text" value={data.objects[row]} onChange={changeCell} />
+							</div>
+
+							<div>
+								<p>Етап</p>
+								<input name="stages" id={row} type="text" value={data.stages[row]} onChange={changeCell} />
+							</div>
+
+							<div>
+								<p>Матеріал</p>
+								<input name="materials" id={row} type="text" value={data.materials[row]} onChange={changeCell} />
+							</div>
+
+							<div>
+								<p>Кількість</p>
+								<input name="quantity" id={row} type="text" value={data.quantity[row]} onChange={changeCell} />
+							</div>
+
+							<div>
+								<p>Ціна</p>
+								<input name="prices" id={row} type="text" value={data.prices[row]} onChange={changeCell} />
+							</div>
+
+							<div>
+								<p>Сума</p>
+								<input name="sums" id={row} type="text" value={data.sums[row]} onChange={changeCell} />
+							</div>
+
+							<div>
+								<p>Коментар</p>
+								<input name="comments" id={row} type="text" value={data.comments[row]} onChange={changeCell} />
+							</div>
 						</li>
 					))}
 			</ul>
