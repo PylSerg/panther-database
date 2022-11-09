@@ -14,7 +14,7 @@ export default function Reports() {
 		comments: [],
 	});
 
-	const BASE_URL = "https://script.google.com/macros/s/AKfycbwL_tsu1SY7KjX7vX4EccOfb0jkiSYpH5M2vJQXlVuQwIZ0GDJl1t3cxc2gLsespB4v/exec";
+	const BASE_URL = "https://script.google.com/macros/s/AKfycbyve8M7da8gp-Pngarat2kN22AF9YGbGtYfjxXCKQND3hcjH1gwj495eKy9fdYk7LiQ/exec";
 
 	// Creates new row
 	function createNewRow() {
@@ -38,10 +38,36 @@ export default function Reports() {
 		setData({ ...data, [`${column}`]: newArray });
 	}
 
+	// Creates date
+	function createDate() {
+		const dateNow = new Date();
+
+		const date = dateNow.getDate();
+		const month = dateNow.getMonth() + 1;
+		const year = dateNow.getFullYear();
+
+		return `${date}.${month}.${year}`;
+	}
+
+	// Creates time
+	function createTime() {
+		const dateNow = new Date();
+
+		let hours = dateNow.getHours();
+		let minutes = dateNow.getMinutes();
+
+		if (hours < 10) hours = `0${hours}`;
+		if (minutes < 10) minutes = `0${minutes}`;
+
+		return `${hours}:${minutes}`;
+	}
+
 	// Sends data
 	function onSubmit() {
 		const formData = new FormData();
 
+		formData.append("date", createDate());
+		formData.append("time", createTime());
 		formData.append("responsible", data.responsible);
 		formData.append("objects", data.objects.join("|"));
 		formData.append("stages", data.stages.join("|"));
@@ -104,7 +130,7 @@ export default function Reports() {
 
 							<div>
 								<p>Сума</p>
-								<input name="sums" id={row} type="text" value={data.sums[row]} onChange={changeCell} />
+								<input name="sums" id={row} type="text" value={data.sums[row]} onChange={changeCell} readOnly />
 							</div>
 
 							<div>
