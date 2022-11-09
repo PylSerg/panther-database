@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 
 export default function Reports() {
 	const [rows, setRows] = useState({ indx: [0] });
