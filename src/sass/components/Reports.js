@@ -14,7 +14,7 @@ export default function Reports() {
 		comments: [],
 	});
 
-	const BASE_URL = "https://script.google.com/macros/s/AKfycbyve8M7da8gp-Pngarat2kN22AF9YGbGtYfjxXCKQND3hcjH1gwj495eKy9fdYk7LiQ/exec";
+	const BASE_URL = "https://script.google.com/macros/s/AKfycbw8x4ytMRcrnozptsgMwjbW1iBgJ2jGELixG26Hg_FsnbePDB-mNYZrjIXuNyWcl2MM/exec";
 
 	// Creates new row
 	function createNewRow() {
@@ -36,12 +36,14 @@ export default function Reports() {
 		newArray.splice(indx, 1);
 		newArray.splice(indx, 0, value);
 
-		setData({ ...data, [`${column}`]: newArray });
-
 		if (column === "prices" || column === "quantity") {
 			commaSubstitution(indx, column, value);
 			calcSum(indx);
+
+			return;
 		}
+
+		setData({ ...data, [`${column}`]: newArray });
 	}
 
 	// Comma substitution
