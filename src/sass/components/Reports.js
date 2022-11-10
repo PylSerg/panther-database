@@ -138,7 +138,7 @@ export default function Reports() {
 	}
 
 	return (
-		<div>
+		<div className="report__block">
 			<button type="button" onClick={createNewRow}>
 				+
 			</button>
@@ -146,42 +146,42 @@ export default function Reports() {
 			<br />
 			<br />
 
-			<ul>
+			<ul className="report__table">
 				{rows &&
 					rows.indx.map(row => (
-						<li key={row}>
+						<li className="report__row" key={row}>
 							<div>
-								<p>Об&rsquo;єкт</p>
+								{row === 0 && <p>Об&rsquo;єкт</p>}
 								<input name="objects" id={row} type="text" value={data.objects[row]} onChange={changeCell} />
 							</div>
 
 							<div>
-								<p>Етап</p>
+								{row === 0 && <p>Етап</p>}
 								<input name="stages" id={row} type="text" value={data.stages[row]} onChange={changeCell} />
 							</div>
 
 							<div>
-								<p>Матеріал</p>
+								{row === 0 && <p>Матеріал</p>}
 								<input name="materials" id={row} type="text" value={data.materials[row]} onChange={changeCell} />
 							</div>
 
 							<div>
-								<p>Кількість</p>
+								{row === 0 && <p>Кількість</p>}
 								<input name="quantity" id={row} type="text" value={data.quantity[row]} onChange={changeCell} />
 							</div>
 
 							<div>
-								<p>Ціна</p>
+								{row === 0 && <p>Ціна</p>}
 								<input name="prices" id={row} type="text" value={data.prices[row]} onChange={changeCell} onBlur={changePrice} />
 							</div>
 
 							<div>
-								<p>Сума</p>
+								{row === 0 && <p>Сума</p>}
 								<input name="sums" id={row} type="text" value={data.sums[row]} onChange={changeCell} readOnly />
 							</div>
 
 							<div>
-								<p>Коментар</p>
+								{row === 0 && <p>Коментар</p>}
 								<input name="comments" id={row} type="text" value={data.comments[row]} onChange={changeCell} />
 							</div>
 						</li>
