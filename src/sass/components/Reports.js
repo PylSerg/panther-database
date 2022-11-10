@@ -32,10 +32,39 @@ export default function Reports() {
 		const value = e.currentTarget.value;
 
 		const newArray = data[`${column}`];
+
 		newArray.splice(indx, 1);
 		newArray.splice(indx, 0, value);
 
 		setData({ ...data, [`${column}`]: newArray });
+
+		if (column === "prices" || column === "quantity") {
+			calcSum(indx);
+		}
+	}
+
+	// Changes prise
+	function changePrice(e) {
+		const indx = e.currentTarget.id;
+		const value = e.currentTarget.value;
+
+		const newPrice = Number(value).toFixed(2);
+
+		const newPricesArray = data.prices;
+
+		newPricesArray.splice(indx, 1);
+		newPricesArray.splice(indx, 0, newPrice);
+	}
+
+	// Calc sum
+	function calcSum(indx) {
+		const newSumsArray = data.sums;
+		let sum = (data.quantity[indx] * data.prices[indx]).toFixed(2);
+
+		if (isNaN(sum)) sum = 0;
+
+		newSumsArray.splice(indx, 1);
+		newSumsArray.splice(indx, 0, sum);
 	}
 
 	// Creates date
@@ -125,7 +154,7 @@ export default function Reports() {
 
 							<div>
 								<p>Ціна</p>
-								<input name="prices" id={row} type="text" value={data.prices[row]} onChange={changeCell} />
+								<input name="prices" id={row} type="text" value={data.prices[row]} onChange={changeCell} onBlur={changePrice} />
 							</div>
 
 							<div>
