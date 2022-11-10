@@ -36,11 +36,9 @@ export default function Reports() {
 		newArray.splice(indx, 1);
 		newArray.splice(indx, 0, value);
 
-		if (column === "prices" || column === "quantity") {
+		if (column === "quantity" || column === "prices") {
 			commaSubstitution(indx, column, value);
 			calcSum(indx);
-
-			return;
 		}
 
 		setData({ ...data, [`${column}`]: newArray });
