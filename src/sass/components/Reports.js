@@ -39,8 +39,24 @@ export default function Reports() {
 		setData({ ...data, [`${column}`]: newArray });
 
 		if (column === "prices" || column === "quantity") {
+			commaSubstitution(indx, column, value);
 			calcSum(indx);
 		}
+	}
+
+	// Comma substitution
+	function commaSubstitution(indx, column, value) {
+		const newValue = value.split("");
+
+		if (newValue[newValue.length - 1] === ",") newValue[newValue.length - 1] = ".";
+		if (newValue[0] === ".") newValue.unshift(0);
+
+		const newArray = data[`${column}`];
+
+		newArray.splice(indx, 1);
+		newArray.splice(indx, 0, newValue.join(""));
+
+		setData({ ...data, [`${column}`]: newArray });
 	}
 
 	// Changes prise
@@ -54,6 +70,8 @@ export default function Reports() {
 
 		newPricesArray.splice(indx, 1);
 		newPricesArray.splice(indx, 0, newPrice);
+
+		setData({ ...data, prices: newPricesArray });
 	}
 
 	// Calc sum
