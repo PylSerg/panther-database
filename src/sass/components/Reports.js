@@ -5,24 +5,57 @@ export default function Reports() {
 
 	const [data, setData] = useState({
 		responsible: "Серёга",
-		objects: [],
-		stages: [],
-		materials: [],
-		quantity: [],
-		prices: [],
-		sums: [],
-		comments: [],
+		objects: [""],
+		stages: [""],
+		materials: [""],
+		quantity: [""],
+		prices: [""],
+		sums: [""],
+		comments: [""],
 	});
+
+	console.log(`data =>`, data);
 
 	const BASE_URL = "https://script.google.com/macros/s/AKfycbw8x4ytMRcrnozptsgMwjbW1iBgJ2jGELixG26Hg_FsnbePDB-mNYZrjIXuNyWcl2MM/exec";
 
 	// Creates new row
 	function createNewRow() {
-		const newRows = rows.indx;
+		const newRow = rows.indx;
 
-		newRows.push(rows.indx.length);
+		newRow.push(rows.indx.length);
 
-		setRows({ indx: newRows });
+		setRows({ indx: newRow });
+	}
+
+	// Paste object and stage
+	function pasteObjectAndStage(e) {
+		const indx = e.currentTarget.id;
+		const previousObject = data.objects[indx - 1];
+		const previousStage = data.stages[indx - 1];
+
+		const newObjectArray = data.objects;
+		const newStagesArray = data.stages;
+
+		if (data.objects[indx] === undefined) {
+			newObjectArray.push(previousObject);
+		} else {
+			newObjectArray.splice(indx, 1);
+			newObjectArray.splice(indx, 0, previousObject);
+		}
+
+		if (data.stages[indx] === undefined) {
+			newStagesArray.push(previousStage);
+		} else {
+			newStagesArray.splice(indx, 1);
+			newStagesArray.splice(indx, 0, previousStage);
+		}
+
+		setData({ ...data, objects: newObjectArray, stages: newStagesArray });
+	}
+
+	// Deletes row
+	function deleteRow(e) {
+		const indx = e.currentTarget.id;
 	}
 
 	// Changes cell
@@ -150,6 +183,14 @@ export default function Reports() {
 				{rows &&
 					rows.indx.map(row => (
 						<li className="report__row" key={row}>
+							<button id={row} className="report__copy" type="button" onClick={pasteObjectAndStage}>
+								C
+							</button>
+
+							<button id={row} className="report__delete" type="button" onClick={deleteRow}>
+								D
+							</button>
+
 							<div>
 								{row === 0 && <p className="report__header">Об&rsquo;єкт</p>}
 

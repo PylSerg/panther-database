@@ -10,15 +10,12 @@
 
     width: calc(100% - 2 * 10px);
 
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
 
     @media screen and (max-width: 1365px) {
-        align-items: flex-start;
-
         max-width: 650px;
 
-        margin: 0 auto;
         padding: 0 10px;
     }
 
@@ -29,8 +26,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-
-    width: calc(100% - 10px);
+    align-items: flex-end;
 
     margin: 0;
     margin-bottom: 1px;
@@ -39,12 +35,38 @@
 
     @media screen and (max-width: 1365px) {
         flex-wrap: wrap;
+
+        width: calc(100% - 10px);
+
+        margin-bottom: 50px;
+
+        &:not(:first-child) {
+            border-top: 3px solid #777;
+        }
     }
 
     @media screen and (max-width: 767px) {
         flex-direction: column;
     }
+
+    &:first-child .report__copy {
+        opacity: 0;
+        pointer-events: none;
+    }
 }
+
+.report__copy,
+.report__delete {
+    width: 28px;
+    height: 28px;
+
+    border: 1px solid #888;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+
 
 .report__row div {
     &:not(:last-child) {
@@ -99,7 +121,7 @@
     border: 1px solid #888;
 
     &[name=objects] {
-        width: 300px;
+        width: 250px;
 
         border-radius: 5px 0 0 5px;
     }
@@ -111,7 +133,7 @@
     }
 
     &[name=materials] {
-        width: 300px;
+        width: 250px;
     }
 
     &[name=quantity],
