@@ -8,7 +8,7 @@
     flex-wrap: nowrap;
     align-items: center;
 
-    width: 100%;
+    width: calc(100% - 2 * 10px);
 
     margin: 0;
     padding: 0;
@@ -16,7 +16,7 @@
     @media screen and (max-width: 1365px) {
         align-items: flex-start;
 
-        max-width: 600px;
+        max-width: 650px;
 
         margin: 0 auto;
         padding: 0 10px;
@@ -30,6 +30,8 @@
     flex-direction: row;
     flex-wrap: nowrap;
 
+    width: calc(100% - 10px);
+
     margin: 0;
     margin-bottom: 1px;
 
@@ -37,6 +39,10 @@
 
     @media screen and (max-width: 1365px) {
         flex-wrap: wrap;
+    }
+
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
     }
 }
 
@@ -69,16 +75,33 @@
     }
 }
 
+.report__header {
+    display: block;
+
+    @media screen and (max-width: 1365px) {
+        display: none;
+    }
+}
+
+.report__label {
+    display: none;
+
+    @media screen and (max-width: 1365px) {
+        display: block;
+    }
+}
+
 .report__row input {
     padding: 5px;
 
     font-size: 14px;
 
     border: 1px solid #888;
-    border-radius: 5px;
 
     &[name=objects] {
         width: 300px;
+
+        border-radius: 5px 0 0 5px;
     }
 
     &[name=stages] {
@@ -101,5 +124,29 @@
 
     &[name=comments] {
         width: 250px;
+
+        border-radius: 0 5px 5px 0;
+    }
+
+    @media screen and (max-width: 1365px) {
+        border-radius: 5px;
+
+        &[name=objects],
+        &[name=comments] {
+            border-radius: 5px;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+
+        &[name=objects],
+        &[name=stages],
+        &[name=materials],
+        &[name=quantity],
+        &[name=prices],
+        &[name=sums],
+        &[name=comments] {
+            width: 100%;
+        }
     }
 }

@@ -151,37 +151,58 @@ export default function Reports() {
 					rows.indx.map(row => (
 						<li className="report__row" key={row}>
 							<div>
-								{row === 0 && <p>Об&rsquo;єкт</p>}
+								{row === 0 && <p className="report__header">Об&rsquo;єкт</p>}
+
+								<p className="report__label">Об&rsquo;єкт</p>
+
 								<input name="objects" id={row} type="text" value={data.objects[row]} onChange={changeCell} />
 							</div>
 
 							<div>
-								{row === 0 && <p>Етап</p>}
+								{row === 0 && <p className="report__header">Етап</p>}
+
+								<p className="report__label">Етап</p>
+
 								<input name="stages" id={row} type="text" value={data.stages[row]} onChange={changeCell} />
 							</div>
 
 							<div>
-								{row === 0 && <p>Матеріал</p>}
+								{row === 0 && <p className="report__header">Матеріал</p>}
+
+								<p className="report__label">Матеріал</p>
+
 								<input name="materials" id={row} type="text" value={data.materials[row]} onChange={changeCell} />
 							</div>
 
 							<div>
-								{row === 0 && <p>Кількість</p>}
+								{row === 0 && <p className="report__header">Кількість</p>}
+
+								<p className="report__label">Кількість</p>
+
 								<input name="quantity" id={row} type="text" value={data.quantity[row]} onChange={changeCell} />
 							</div>
 
 							<div>
-								{row === 0 && <p>Ціна</p>}
+								{row === 0 && <p className="report__header">Ціна</p>}
+
+								<p className="report__label">Ціна</p>
+
 								<input name="prices" id={row} type="text" value={data.prices[row]} onChange={changeCell} onBlur={changePrice} />
 							</div>
 
 							<div>
-								{row === 0 && <p>Сума</p>}
+								{row === 0 && <p className="report__header">Сума</p>}
+
+								<p className="report__label">Сума</p>
+
 								<input name="sums" id={row} type="text" value={data.sums[row]} onChange={changeCell} readOnly />
 							</div>
 
 							<div>
-								{row === 0 && <p>Коментар</p>}
+								{row === 0 && <p className="report__header">Коментар</p>}
+
+								<p className="report__label">Коментар</p>
+
 								<input name="comments" id={row} type="text" value={data.comments[row]} onChange={changeCell} />
 							</div>
 						</li>
