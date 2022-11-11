@@ -14,8 +14,6 @@ export default function Reports() {
 		comments: [""],
 	});
 
-	console.log(`data =>`, data);
-
 	const BASE_URL = "https://script.google.com/macros/s/AKfycbw8x4ytMRcrnozptsgMwjbW1iBgJ2jGELixG26Hg_FsnbePDB-mNYZrjIXuNyWcl2MM/exec";
 
 	// Creates new row
@@ -23,6 +21,22 @@ export default function Reports() {
 		const newRow = rows.indx;
 
 		newRow.push(rows.indx.length);
+
+		const newObjectsArray = data.objects;
+		const newStagesArray = data.stages;
+		const newMaterialsArray = data.materials;
+		const newQuantityArray = data.quantity;
+		const newPricesArray = data.prices;
+		const newSumsArray = data.sums;
+		const newCommentsArray = data.comments;
+
+		newObjectsArray.push("");
+		newStagesArray.push("");
+		newMaterialsArray.push("");
+		newQuantityArray.push("");
+		newPricesArray.push("");
+		newSumsArray.push("");
+		newCommentsArray.push("");
 
 		setRows({ indx: newRow });
 	}
@@ -33,14 +47,14 @@ export default function Reports() {
 		const previousObject = data.objects[indx - 1];
 		const previousStage = data.stages[indx - 1];
 
-		const newObjectArray = data.objects;
+		const newObjectsArray = data.objects;
 		const newStagesArray = data.stages;
 
 		if (data.objects[indx] === undefined) {
-			newObjectArray.push(previousObject);
+			newObjectsArray.push(previousObject);
 		} else {
-			newObjectArray.splice(indx, 1);
-			newObjectArray.splice(indx, 0, previousObject);
+			newObjectsArray.splice(indx, 1);
+			newObjectsArray.splice(indx, 0, previousObject);
 		}
 
 		if (data.stages[indx] === undefined) {
@@ -50,12 +64,47 @@ export default function Reports() {
 			newStagesArray.splice(indx, 0, previousStage);
 		}
 
-		setData({ ...data, objects: newObjectArray, stages: newStagesArray });
+		setData({ ...data, objects: newObjectsArray, stages: newStagesArray });
 	}
 
 	// Deletes row
 	function deleteRow(e) {
 		const indx = e.currentTarget.id;
+
+		const newObjectsArray = data.objects;
+		const newStagesArray = data.stages;
+		const newMaterialsArray = data.materials;
+		const newQuantityArray = data.quantity;
+		const newPricesArray = data.prices;
+		const newSumsArray = data.sums;
+		const newCommentsArray = data.comments;
+
+		newObjectsArray.splice(indx, 1);
+		newStagesArray.splice(indx, 1);
+		newMaterialsArray.splice(indx, 1);
+		newQuantityArray.splice(indx, 1);
+		newPricesArray.splice(indx, 1);
+		newSumsArray.splice(indx, 1);
+		newCommentsArray.splice(indx, 1);
+
+		const newRowsArray = [];
+
+		for (let i = 0; i < newObjectsArray.length; i++) {
+			newRowsArray.push(i);
+		}
+
+		setRows({ indx: newRowsArray });
+
+		setData({
+			...data,
+			objects: newObjectsArray,
+			stages: newStagesArray,
+			materials: newMaterialsArray,
+			quantity: newQuantityArray,
+			prices: newPricesArray,
+			sums: newSumsArray,
+			comments: newCommentsArray,
+		});
 	}
 
 	// Changes cell
