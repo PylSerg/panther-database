@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Reports() {
+	const [report, setReport] = useState({ sended: false });
 	const [rows, setRows] = useState({ indx: [0] });
-
 	const [data, setData] = useState({
 		responsible: "Серёга",
 		objects: [""],
@@ -15,6 +15,13 @@ export default function Reports() {
 	});
 
 	const BASE_URL = "https://script.google.com/macros/s/AKfycbw8x4ytMRcrnozptsgMwjbW1iBgJ2jGELixG26Hg_FsnbePDB-mNYZrjIXuNyWcl2MM/exec";
+
+	// Changes report status to false
+	useEffect(() => {
+		setTimeout(() => {
+			setReport({ sended: false });
+		}, 3000);
+	}, [report]);
 
 	// Creates new row
 	function createNewRow() {
@@ -191,6 +198,26 @@ export default function Reports() {
 		return `${hours}:${minutes}`;
 	}
 
+	// Clears data
+	function clearData() {
+		setRows({ indx: [0] });
+		setData({
+			responsible: "Серёга",
+			objects: [""],
+			stages: [""],
+			materials: [""],
+			quantity: [""],
+			prices: [""],
+			sums: [""],
+			comments: [""],
+		});
+	}
+
+	// Changes report status to true
+	function changeReportStatus() {
+		setReport({ sended: true });
+	}
+
 	// Sends data
 	function onSubmit() {
 		const formData = new FormData();
@@ -215,13 +242,21 @@ export default function Reports() {
 			})
 				.then(response => response.json())
 				.then(response => console.log(response))
+				.then(clearData())
+				.then(changeReportStatus())
 				.catch(error => console.log(`\x1b[31m ${error}`));
 		}
 	}
 
 	return (
 		<div className="report__block">
-			<button type="button" onClick={createNewRow}>
+			{report.sended && (
+				<div className="report__status">
+					<p>Звіт успішно відправлений</p>
+				</div>
+			)}
+
+			<button type="button" title="Додати запис" onClick={createNewRow}>
 				+
 			</button>
 
@@ -232,11 +267,11 @@ export default function Reports() {
 				{rows &&
 					rows.indx.map(row => (
 						<li className="report__row" key={row}>
-							<button id={row} className="report__copy" type="button" onClick={pasteObjectAndStage}>
+							<button id={row} className="report__copy" type="button" title="Скопіювати попередій об'єкт та етап" onClick={pasteObjectAndStage}>
 								C
 							</button>
 
-							<button id={row} className="report__delete" type="button" onClick={deleteRow}>
+							<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={deleteRow}>
 								D
 							</button>
 

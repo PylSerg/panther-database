@@ -2,6 +2,25 @@
     width: 100%;
 }
 
+.report__status {
+    position: fixed;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    padding: 20px;
+
+    background-color: #8de294;
+    border-radius: 15px;
+}
+
+.report__status p {
+    font-weight: 700;
+
+    margin: 0;
+    padding: 0;
+}
+
 .report__table {
     display: flex;
     flex-direction: column;
