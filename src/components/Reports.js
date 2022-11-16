@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { BASE_URL } from "../../../.env";
 
 export default function Reports() {
 	const [report, setReport] = useState({ sended: false });
@@ -13,8 +14,6 @@ export default function Reports() {
 		sums: [""],
 		comments: [""],
 	});
-
-	const BASE_URL = "https://script.google.com/macros/s/AKfycbw8x4ytMRcrnozptsgMwjbW1iBgJ2jGELixG26Hg_FsnbePDB-mNYZrjIXuNyWcl2MM/exec";
 
 	// Changes report status to false
 	useEffect(() => {
