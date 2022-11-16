@@ -252,7 +252,7 @@ export default function Reports() {
 		<div className="report__block">
 			{report.sended && (
 				<div className="report__status">
-					<p>Звіт успішно відправлений</p>
+					<p>Звіт успішно відправлено</p>
 				</div>
 			)}
 
