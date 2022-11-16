@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BASE_URL } from "../../../.env";
+import { BASE_URL } from "../url";
 
 export default function Reports() {
 	const [report, setReport] = useState({ sended: false });

@@ -1,5 +1,5 @@
 import React from "react";
-import Reports from "./sass/components/Reports";
+import Reports from "./components/Reports";
 
 function App() {
 	return (
