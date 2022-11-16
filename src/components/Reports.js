@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
-import { BASE_URL } from "../url";
+import { useState } from "react";
+import { showNotification, hideNotification } from "../assets/js/notifications";
+import { createNewRow, deleteRow } from "../assets/js/rows";
+import { MATERIALS_URL } from "../assets/js/urls";
+import formData from "../assets/js/form-data";
 
 export default function Reports() {
-	const [report, setReport] = useState({ sended: false });
+	const [notification, setNotification] = useState({ show: false, message: "" });
 	const [rows, setRows] = useState({ indx: [0] });
 	const [data, setData] = useState({
 		responsible: "Серёга",
@@ -14,38 +17,7 @@ export default function Reports() {
 		sums: [""],
 		comments: [""],
 	});
-
-	// Changes report status to false
-	useEffect(() => {
-		setTimeout(() => {
-			setReport({ sended: false });
-		}, 3000);
-	}, [report]);
-
-	// Creates new row
-	function createNewRow() {
-		const newRow = rows.indx;
-
-		newRow.push(rows.indx.length);
-
-		const newObjectsArray = data.objects;
-		const newStagesArray = data.stages;
-		const newMaterialsArray = data.materials;
-		const newQuantityArray = data.quantity;
-		const newPricesArray = data.prices;
-		const newSumsArray = data.sums;
-		const newCommentsArray = data.comments;
-
-		newObjectsArray.push("");
-		newStagesArray.push("");
-		newMaterialsArray.push("");
-		newQuantityArray.push("");
-		newPricesArray.push("");
-		newSumsArray.push("");
-		newCommentsArray.push("");
-
-		setRows({ indx: newRow });
-	}
+	console.log(`data =>`, data);
 
 	// Paste object and stage
 	function pasteObjectAndStage(e) {
@@ -71,46 +43,6 @@ export default function Reports() {
 		}
 
 		setData({ ...data, objects: newObjectsArray, stages: newStagesArray });
-	}
-
-	// Deletes row
-	function deleteRow(e) {
-		const indx = e.currentTarget.id;
-
-		const newObjectsArray = data.objects;
-		const newStagesArray = data.stages;
-		const newMaterialsArray = data.materials;
-		const newQuantityArray = data.quantity;
-		const newPricesArray = data.prices;
-		const newSumsArray = data.sums;
-		const newCommentsArray = data.comments;
-
-		newObjectsArray.splice(indx, 1);
-		newStagesArray.splice(indx, 1);
-		newMaterialsArray.splice(indx, 1);
-		newQuantityArray.splice(indx, 1);
-		newPricesArray.splice(indx, 1);
-		newSumsArray.splice(indx, 1);
-		newCommentsArray.splice(indx, 1);
-
-		const newRowsArray = [];
-
-		for (let i = 0; i < newObjectsArray.length; i++) {
-			newRowsArray.push(i);
-		}
-
-		setRows({ indx: newRowsArray });
-
-		setData({
-			...data,
-			objects: newObjectsArray,
-			stages: newStagesArray,
-			materials: newMaterialsArray,
-			quantity: newQuantityArray,
-			prices: newPricesArray,
-			sums: newSumsArray,
-			comments: newCommentsArray,
-		});
 	}
 
 	// Changes cell
@@ -173,30 +105,6 @@ export default function Reports() {
 		newSumsArray.splice(indx, 0, sum);
 	}
 
-	// Creates date
-	function createDate() {
-		const dateNow = new Date();
-
-		const date = dateNow.getDate();
-		const month = dateNow.getMonth() + 1;
-		const year = dateNow.getFullYear();
-
-		return `${date}.${month}.${year}`;
-	}
-
-	// Creates time
-	function createTime() {
-		const dateNow = new Date();
-
-		let hours = dateNow.getHours();
-		let minutes = dateNow.getMinutes();
-
-		if (hours < 10) hours = `0${hours}`;
-		if (minutes < 10) minutes = `0${minutes}`;
-
-		return `${hours}:${minutes}`;
-	}
-
 	// Clears data
 	function clearData() {
 		setRows({ indx: [0] });
@@ -212,50 +120,39 @@ export default function Reports() {
 		});
 	}
 
-	// Changes report status to true
-	function changeReportStatus() {
-		setReport({ sended: true });
-	}
-
 	// Sends data
 	function onSubmit() {
-		const formData = new FormData();
-
-		formData.append("date", createDate());
-		formData.append("time", createTime());
-		formData.append("responsible", data.responsible);
-		formData.append("objects", data.objects.join("|"));
-		formData.append("stages", data.stages.join("|"));
-		formData.append("materials", data.materials.join("|"));
-		formData.append("quantity", data.quantity.join("|"));
-		formData.append("prices", data.prices.join("|"));
-		formData.append("sums", data.sums.join("|"));
-		formData.append("comments", data.comments.join("|"));
-
 		postRequest();
 
 		async function postRequest() {
-			await fetch(BASE_URL, {
+			await fetch(MATERIALS_URL, {
 				method: "POST",
-				body: formData,
+				body: formData(data),
 			})
 				.then(response => response.json())
-				.then(response => console.log(response))
+				.then(response => {
+					console.log(response);
+
+					showNotification(response.status, setNotification, "Звіт успішно відправлено");
+					hideNotification(setNotification);
+				})
 				.then(clearData())
-				.then(changeReportStatus())
-				.catch(error => console.log(`\x1b[31m ${error}`));
+				.catch(error => {
+					setNotification({ sended: true, message: error });
+					console.log(`\x1b[31m ${error}`);
+				});
 		}
 	}
 
 	return (
 		<div className="report__block">
-			{report.sended && (
+			{notification.show && (
 				<div className="report__status">
-					<p>Звіт успішно відправлено</p>
+					<p>{notification.message}</p>
 				</div>
 			)}
 
-			<button type="button" title="Додати запис" onClick={createNewRow}>
+			<button type="button" title="Додати запис" onClick={() => createNewRow(rows, setRows, data)}>
 				+
 			</button>
 
@@ -270,7 +167,7 @@ export default function Reports() {
 								C
 							</button>
 
-							<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={deleteRow}>
+							<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={e => deleteRow(e, data, setData, rows, setRows)}>
 								D
 							</button>
 
