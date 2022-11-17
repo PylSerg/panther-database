@@ -1,19 +1,18 @@
-import createDate from "./date-creator";
-import createTime from "./time-creator";
+import { getDate, getTime } from "./date";
 
 export default function formData(data) {
 	const formData = new FormData();
 
-	formData.append("date", createDate());
-	formData.append("time", createTime());
-	formData.append("responsible", data.responsible);
-	formData.append("objects", data.objects.join("|"));
-	formData.append("stages", data.stages.join("|"));
-	formData.append("materials", data.materials.join("|"));
-	formData.append("quantity", data.quantity.join("|"));
-	formData.append("prices", data.prices.join("|"));
-	formData.append("sums", data.sums.join("|"));
-	formData.append("comments", data.comments.join("|"));
+	formData.append("date", getDate());
+	formData.append("time", getTime());
+
+	for (const key in data) {
+		if (typeof data[key] === "object") {
+			formData.append(`${key}`, data[`${key}`].join("|"));
+		} else {
+			formData.append(`${key}`, data[`${key}`]);
+		}
+	}
 
 	return formData;
 }

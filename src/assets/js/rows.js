@@ -25,30 +25,13 @@ export function deleteRow(e, data, setData, rows, setRows) {
 
 	setRows({ indx: newRowsArray });
 
-	// const newObjectsArray = data.objects;
-	// const newStagesArray = data.stages;
-	// const newMaterialsArray = data.materials;
-	// const newQuantityArray = data.quantity;
-	// const newPricesArray = data.prices;
-	// const newSumsArray = data.sums;
-	// const newCommentsArray = data.comments;
+	for (const key in data) {
+		const newArray = data[key];
 
-	// newObjectsArray.splice(indx, 1);
-	// newStagesArray.splice(indx, 1);
-	// newMaterialsArray.splice(indx, 1);
-	// newQuantityArray.splice(indx, 1);
-	// newPricesArray.splice(indx, 1);
-	// newSumsArray.splice(indx, 1);
-	// newCommentsArray.splice(indx, 1);
+		if (typeof newArray === "object") {
+			newArray.splice(indx, 1);
 
-	// setData({
-	// 	...data,
-	// 	objects: newObjectsArray,
-	// 	stages: newStagesArray,
-	// 	materials: newMaterialsArray,
-	// 	quantity: newQuantityArray,
-	// 	prices: newPricesArray,
-	// 	sums: newSumsArray,
-	// 	comments: newCommentsArray,
-	// });
+			setData({ ...data, [key]: newArray });
+		}
+	}
 }
