@@ -1,10 +1,10 @@
 import React from "react";
-import Report from "./components/Report";
+import Profile from "./components/Profile";
 
 function App() {
 	return (
 		<div>
-			<Report />
+			<Profile />
 		</div>
 	);
 }
