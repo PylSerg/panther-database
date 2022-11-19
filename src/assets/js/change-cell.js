@@ -71,6 +71,8 @@ export function pasteObjectAndStage(e, data, setData, setSendData) {
 	const newObjectsArray = data.objects;
 	const newStagesArray = data.stages;
 
+	if (previousObject === "") return;
+
 	if (data.objects[indx] === undefined) {
 		newObjectsArray.push(previousObject);
 	} else {

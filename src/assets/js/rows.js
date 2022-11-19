@@ -1,3 +1,5 @@
+import { readyToSend } from "./ready-to-send";
+
 // Creates new row
 export function createNewRow(rows, setRows, data) {
 	const newRow = rows.indx;
@@ -14,7 +16,7 @@ export function createNewRow(rows, setRows, data) {
 }
 
 // Deletes row
-export function deleteRow(e, data, setData, rows, setRows) {
+export function deleteRow(e, data, setData, rows, setRows, setSendData) {
 	const indx = e.currentTarget.id;
 
 	const newRowsArray = [];
@@ -34,4 +36,6 @@ export function deleteRow(e, data, setData, rows, setRows) {
 			setData({ ...data, [key]: newArray });
 		}
 	}
+
+	readyToSend(-1, data, setSendData, rows);
 }

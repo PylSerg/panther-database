@@ -39,7 +39,7 @@ export default function Report({ responsible }) {
 								C
 							</button>
 
-							<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={e => deleteRow(e, data, setData, rows, setRows)}>
+							<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={e => deleteRow(e, data, setData, rows, setRows, setSendData)}>
 								D
 							</button>
 
