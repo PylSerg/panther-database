@@ -10,6 +10,7 @@ export default function Report({ responsible }) {
 	const [notification, setNotification] = useState(notificationState);
 	const [rows, setRows] = useState(rowsState);
 	const [data, setData] = useState(reportState);
+	const [sendData, setSendData] = useState(false);
 
 	useEffect(() => {
 		setData({ ...data, responsible: responsible.name });
@@ -34,7 +35,7 @@ export default function Report({ responsible }) {
 				{rows &&
 					rows.indx.map(row => (
 						<li className="report__row" key={row}>
-							<button id={row} className="report__copy" type="button" title="Скопіювати попередій об'єкт та етап" onClick={e => pasteObjectAndStage(e, data, setData)}>
+							<button id={row} className="report__copy" type="button" title="Скопіювати попередій об'єкт та етап" onClick={e => pasteObjectAndStage(e, data, setData, setSendData)}>
 								C
 							</button>
 
@@ -47,7 +48,7 @@ export default function Report({ responsible }) {
 
 								<p className="report__label">Об&rsquo;єкт</p>
 
-								<input name="objects" id={row} type="text" value={data.objects[row]} onChange={e => changeCell(e, data, setData)} />
+								<input name="objects" id={row} type="text" value={data.objects[row]} onChange={e => changeCell(e, data, setData, setSendData)} />
 							</div>
 
 							<div>
@@ -55,7 +56,7 @@ export default function Report({ responsible }) {
 
 								<p className="report__label">Етап</p>
 
-								<input name="stages" id={row} type="text" value={data.stages[row]} onChange={e => changeCell(e, data, setData)} />
+								<input name="stages" id={row} type="text" value={data.stages[row]} onChange={e => changeCell(e, data, setData, setSendData)} />
 							</div>
 
 							<div>
@@ -63,7 +64,7 @@ export default function Report({ responsible }) {
 
 								<p className="report__label">Матеріал</p>
 
-								<input name="materials" id={row} type="text" value={data.materials[row]} onChange={e => changeCell(e, data, setData)} />
+								<input name="materials" id={row} type="text" value={data.materials[row]} onChange={e => changeCell(e, data, setData, setSendData)} />
 							</div>
 
 							<div>
@@ -71,7 +72,7 @@ export default function Report({ responsible }) {
 
 								<p className="report__label">Кількість</p>
 
-								<input name="quantity" id={row} type="text" value={data.quantity[row]} onChange={e => changeCell(e, data, setData)} />
+								<input name="quantity" id={row} type="text" value={data.quantity[row]} onChange={e => changeCell(e, data, setData, setSendData)} />
 							</div>
 
 							<div>
@@ -79,7 +80,14 @@ export default function Report({ responsible }) {
 
 								<p className="report__label">Ціна</p>
 
-								<input name="prices" id={row} type="text" value={data.prices[row]} onChange={e => changeCell(e, data, setData)} onBlur={e => changePrice(e, data, setData)} />
+								<input
+									name="prices"
+									id={row}
+									type="text"
+									value={data.prices[row]}
+									onChange={e => changeCell(e, data, setData, setSendData)}
+									onBlur={e => changePrice(e, data, setData)}
+								/>
 							</div>
 
 							<div>
@@ -87,7 +95,7 @@ export default function Report({ responsible }) {
 
 								<p className="report__label">Сума</p>
 
-								<input name="sums" id={row} type="text" value={data.sums[row]} onChange={e => changeCell(e, data, setData)} readOnly />
+								<input name="sums" id={row} type="text" value={data.sums[row]} onChange={e => changeCell(e, data, setData, setSendData)} readOnly />
 							</div>
 
 							<div>
@@ -95,7 +103,7 @@ export default function Report({ responsible }) {
 
 								<p className="report__label">Коментар</p>
 
-								<input name="comments" id={row} type="text" value={data.comments[row]} onChange={e => changeCell(e, data, setData)} />
+								<input name="comments" id={row} type="text" value={data.comments[row]} onChange={e => changeCell(e, data, setData, setSendData)} />
 							</div>
 						</li>
 					))}
@@ -104,7 +112,7 @@ export default function Report({ responsible }) {
 			<br />
 			<br />
 
-			<button type="button" onClick={() => postRequest(MATERIALS_URL, data, setData, setRows, setNotification)}>
+			<button type="button" disabled={!sendData} onClick={() => postRequest(MATERIALS_URL, data, setData, setRows, setNotification)}>
 				Send
 			</button>
 		</div>
