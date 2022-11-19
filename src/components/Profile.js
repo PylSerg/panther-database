@@ -1,10 +1,11 @@
-import { React } from "react";
-import Report from "./components/Report";
+import React from "react";
 
-export default function Profile() {
+import Report from "./Report";
+
+export default function Profile({ responsible }) {
 	return (
 		<div>
-			<Report />
+			<Report responsible={responsible} />
 		</div>
 	);
 }

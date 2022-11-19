@@ -1,15 +1,19 @@
 import { notificationState, rowsState, reportState } from "../assets/js/states";
 import { MATERIALS_URL } from "../assets/js/urls";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createNewRow, deleteRow } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
 import { postRequest } from "../assets/js/post-request";
 
-export default function Report() {
+export default function Report({ responsible }) {
 	const [notification, setNotification] = useState(notificationState);
 	const [rows, setRows] = useState(rowsState);
 	const [data, setData] = useState(reportState);
+
+	useEffect(() => {
+		setData({ ...data, responsible: responsible.name });
+	}, []);
 
 	return (
 		<div className="report__block">
