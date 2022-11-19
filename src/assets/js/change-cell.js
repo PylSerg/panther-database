@@ -1,5 +1,7 @@
+import { readyToSend } from "./ready-to-send";
+
 // Changes cell
-export function changeCell(e, data, setData) {
+export function changeCell(e, data, setData, setSendData) {
 	const indx = e.currentTarget.id;
 	const column = e.currentTarget.name;
 	const value = e.currentTarget.value;
@@ -13,6 +15,8 @@ export function changeCell(e, data, setData) {
 		commaSubstitution(indx, column, value, data, setData);
 		calcSum(indx, data);
 	}
+
+	readyToSend(indx, data, setSendData);
 
 	setData({ ...data, [`${column}`]: newArray });
 }
@@ -59,7 +63,7 @@ function calcSum(indx, data) {
 }
 
 // Pastes object and stage
-export function pasteObjectAndStage(e, data, setData) {
+export function pasteObjectAndStage(e, data, setData, setSendData) {
 	const indx = e.currentTarget.id;
 	const previousObject = data.objects[indx - 1];
 	const previousStage = data.stages[indx - 1];
@@ -80,6 +84,8 @@ export function pasteObjectAndStage(e, data, setData) {
 		newStagesArray.splice(indx, 1);
 		newStagesArray.splice(indx, 0, previousStage);
 	}
+
+	readyToSend(indx, data, setSendData);
 
 	setData({ ...data, objects: newObjectsArray, stages: newStagesArray });
 }
