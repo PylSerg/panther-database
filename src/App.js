@@ -1,10 +1,10 @@
 import React from "react";
-import Reports from "./components/Reports";
+import Report from "./components/Report";
 
 function App() {
 	return (
 		<div>
-			<Reports />
+			<Report />
 		</div>
 	);
 }

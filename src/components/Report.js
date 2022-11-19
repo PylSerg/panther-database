@@ -1,49 +1,15 @@
-import { useState } from "react";
-import { showNotification, hideNotification } from "../assets/js/notifications";
-import { createNewRow, deleteRow } from "../assets/js/rows";
-import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
-import formData from "../assets/js/form-data";
-import clearData from "../assets/js/clear-data";
+import { notificationState, rowsState, reportState } from "../assets/js/states";
 import { MATERIALS_URL } from "../assets/js/urls";
 
-export default function Reports() {
-	const [notification, setNotification] = useState({ show: false, message: "" });
-	const [rows, setRows] = useState({ indx: [0] });
-	const [data, setData] = useState({
-		responsible: "Серёга",
-		objects: [""],
-		stages: [""],
-		materials: [""],
-		quantity: [""],
-		prices: [""],
-		sums: [""],
-		comments: [""],
-	});
-	console.log(`data`, data);
+import { useState } from "react";
+import { createNewRow, deleteRow } from "../assets/js/rows";
+import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
+import { postRequest } from "../assets/js/post-request";
 
-	// Sends data
-	function onSubmit(e) {
-		postRequest();
-
-		async function postRequest() {
-			await fetch(MATERIALS_URL, {
-				method: "POST",
-				body: formData(data),
-			})
-				.then(response => response.json())
-				.then(response => {
-					console.log(response);
-
-					showNotification(response.status, setNotification, "Звіт успішно відправлено");
-					hideNotification(setNotification);
-				})
-				.then(clearData(data, setData, setRows))
-				.catch(error => {
-					setNotification({ sended: true, message: error });
-					console.log(`\x1b[31m ${error}`);
-				});
-		}
-	}
+export default function Report() {
+	const [notification, setNotification] = useState(notificationState);
+	const [rows, setRows] = useState(rowsState);
+	const [data, setData] = useState(reportState);
 
 	return (
 		<div className="report__block">
@@ -134,7 +100,7 @@ export default function Reports() {
 			<br />
 			<br />
 
-			<button id="materials" type="button" onClick={onSubmit}>
+			<button type="button" onClick={() => postRequest(MATERIALS_URL, data, setData, setRows, setNotification)}>
 				Send
 			</button>
 		</div>
