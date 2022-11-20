@@ -37,5 +37,5 @@ export function deleteRow(e, data, setData, rows, setRows, setSendData) {
 		}
 	}
 
-	readyToSend(-1, data, setSendData, rows);
+	readyToSend(-1, rows, data, setSendData);
 }

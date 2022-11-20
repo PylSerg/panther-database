@@ -1,9 +1,9 @@
-export function readyToSend(indx, data, setSendData, rows) {
-	if (indx === -1) {
-		let counter = 0;
-		const keys = Object.keys(data);
-		const rowsNumber = rows.indx;
+export function readyToSend(indx, rows, data, setSendData) {
+	let counter = 0;
+	const keys = Object.keys(data);
+	const rowsNumber = rows.indx;
 
+	if (indx === -1) {
 		rowsNumber.pop();
 
 		if (rowsNumber.length === 0) return setSendData(false);
@@ -16,13 +16,7 @@ export function readyToSend(indx, data, setSendData, rows) {
 					}
 				}
 
-				if (counter === 0 || (counter === keys.length - 2 && rowsNumber.length > 1)) {
-					counter = 0;
-
-					setSendData(true);
-				} else {
-					setSendData(false);
-				}
+				rowValidation();
 			}
 		});
 
@@ -31,9 +25,19 @@ export function readyToSend(indx, data, setSendData, rows) {
 
 	for (const key in data) {
 		if (typeof data[key] === "object") {
-			if (data[key][indx] === "" && key !== "comments") return setSendData(false);
-		} else {
+			if (data[key][indx] === "" && key !== "comments") counter++;
+		}
+
+		rowValidation();
+	}
+
+	function rowValidation() {
+		if (counter === 0 || (counter === keys.length - 2 && rowsNumber.length > 1)) {
+			counter = 0;
+
 			setSendData(true);
+		} else {
+			setSendData(false);
 		}
 	}
 
