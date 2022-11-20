@@ -1,5 +1,7 @@
 export function readyToSend(indx, rows, data, setSendData) {
 	let counter = 0;
+	let rowsCounter = 0;
+
 	const keys = Object.keys(data);
 	const rowsNumber = rows.indx;
 
@@ -8,6 +10,14 @@ export function readyToSend(indx, rows, data, setSendData) {
 
 		if (rowsNumber.length === 0) return setSendData(false);
 
+		addCount();
+
+		return;
+	}
+
+	addCount();
+
+	function addCount() {
 		rowsNumber.map(row => {
 			for (const key in data) {
 				if (typeof data[key] === "object" && key !== "comments") {
@@ -15,25 +25,18 @@ export function readyToSend(indx, rows, data, setSendData) {
 						counter++;
 					}
 				}
-
-				rowValidation();
 			}
+
+			if (counter > 0 && counter !== keys.length - 2) rowsCounter++;
+
+			rowValidation();
 		});
-
-		return;
-	}
-
-	for (const key in data) {
-		if (typeof data[key] === "object") {
-			if (data[key][indx] === "" && key !== "comments") counter++;
-		}
-
-		rowValidation();
 	}
 
 	function rowValidation() {
-		if (counter === 0 || (counter === keys.length - 2 && rowsNumber.length > 1)) {
+		if (rowsCounter === 0) {
 			counter = 0;
+			rowsCounter = 0;
 
 			setSendData(true);
 		} else {

@@ -1,5 +1,12 @@
 import { readyToSend } from "./ready-to-send";
 
+// Auto creates new row
+export function autoCreateNewRow(indx, rows, setRows, data) {
+	if (Number(indx) === rows.indx.length - 1) {
+		createNewRow(rows, setRows, data);
+	}
+}
+
 // Creates new row
 export function createNewRow(rows, setRows, data) {
 	const newRow = rows.indx;
