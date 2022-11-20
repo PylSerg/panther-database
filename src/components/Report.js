@@ -24,10 +24,6 @@ export default function Report({ responsible }) {
 				</div>
 			)}
 
-			<button type="button" title="Додати запис" onClick={() => createNewRow(rows, setRows, data)}>
-				+
-			</button>
-
 			<br />
 			<br />
 
