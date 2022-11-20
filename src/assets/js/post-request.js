@@ -2,10 +2,10 @@ import { showNotification, hideNotification } from "./notifications";
 import formData from "./form-data";
 import clearData from "./clear-data";
 
-export async function postRequest(url, data, setData, setRows, setNotification) {
+export async function postRequest(url, data, setData, rows, setRows, setNotification) {
 	await fetch(url, {
 		method: "POST",
-		body: formData(data),
+		body: formData(data, rows),
 	})
 		.then(response => response.json())
 		.then(response => {

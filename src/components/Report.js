@@ -39,7 +39,7 @@ export default function Report({ responsible }) {
 								C
 							</button>
 
-							<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={e => deleteRow(e, data, setData, rows, setRows, setSendData)}>
+							<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={e => deleteRow(e.currentTarget.id, data, setData, rows, setRows, setSendData)}>
 								D
 							</button>
 
@@ -112,7 +112,7 @@ export default function Report({ responsible }) {
 			<br />
 			<br />
 
-			<button type="button" disabled={!sendData} onClick={() => postRequest(MATERIALS_URL, data, setData, setRows, setNotification)}>
+			<button type="button" disabled={!sendData} onClick={() => postRequest(MATERIALS_URL, data, setData, rows, setRows, setNotification)}>
 				Send
 			</button>
 		</div>

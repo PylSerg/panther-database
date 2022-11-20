@@ -16,9 +16,7 @@ export function createNewRow(rows, setRows, data) {
 }
 
 // Deletes row
-export function deleteRow(e, data, setData, rows, setRows, setSendData) {
-	const indx = e.currentTarget.id;
-
+export function deleteRow(indx, data, setData, rows, setRows, setSendData) {
 	const newRowsArray = [];
 
 	for (let i = 0; i < rows.indx.length - 1; i++) {
