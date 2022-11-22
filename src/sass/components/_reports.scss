@@ -14,7 +14,7 @@
     border-radius: 15px;
 }
 
-.report__status p {
+.report__message {
     font-weight: 700;
     text-align: center;
 
@@ -73,30 +73,90 @@
     }
 }
 
+.report__options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    @media screen and (max-width: 1365px) {
+        justify-content: space-between;
+
+        width: 100%;
+
+        margin-top: 15px;
+    }
+}
+
+.report__info {
+    display: none;
+
+    margin: 0;
+    margin-right: 10px;
+
+    padding: 0;
+
+    color: #555;
+    text-align: left;
+
+    overflow: hidden;
+    white-space: nowrap;
+
+    @media screen and (max-width: 1365px) {
+        display: block;
+    }
+}
+
+.report__options-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
 .report__copy,
 .report__delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 28px;
     height: 28px;
+
+    margin-right: 5px;
+    padding: 0;
+
+    color: #555;
+    font-size: 20px;
 
     border: 1px solid #888;
     border-radius: 5px;
 
     cursor: pointer;
-}
 
+    @media screen and (max-width: 1365px) {
+        width: 36px;
+        height: 36px;
 
-
-.report__row div {
-    &:not(:last-child) {
-        margin-right: 1px;
-
-        @media screen and (max-width: 1365px) {
-            margin-right: 5px;
-        }
+        margin-right: 15px;
     }
 }
 
-.report__row p {
+.report__entry {
+    margin-right: 1px;
+
+    @media screen and (max-width: 1365px) {
+        margin-right: 5px;
+    }
+
+    @media screen and (max-width: 767px) {
+        width: 100%;
+
+        margin-top: 15px;
+        margin-right: 0;
+    }
+}
+
+.report__header,
+.report__label {
     font-weight: 700;
     text-align: center;
 
@@ -107,9 +167,15 @@
     padding: 0;
 
     @media screen and (max-width: 1365px) {
-        text-align-last: left;
+        text-align: left;
 
         margin-left: 5px;
+    }
+
+    @media screen and (max-width: 767px) {
+        & {
+            margin-top: 5px;
+        }
     }
 }
 
@@ -129,7 +195,7 @@
     }
 }
 
-.report__row input {
+.report__field {
     padding: 5px;
 
     font-size: 14px;
@@ -167,7 +233,15 @@
     }
 
     @media screen and (max-width: 1365px) {
+        height: 26px;
+
+        font-size: 16px;
+
         border-radius: 5px;
+
+        &[name=objects] {
+            text-align: center;
+        }
 
         &[name=objects],
         &[name=comments] {
@@ -184,7 +258,9 @@
         &[name=prices],
         &[name=sums],
         &[name=comments] {
-            width: 100%;
+            width: 95%;
+
+            text-align: left;
         }
     }
 }
