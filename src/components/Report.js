@@ -31,6 +31,7 @@ export default function Report({ responsible, setNotification, setReport }) {
 		if (rows.indx.length === 0) createNewRow(rows, setRows, data);
 	}, [rows.indx]);
 
+	//Gets objects list
 	async function getObjects() {
 		await fetch(OBJECTS_LIST_URL)
 			.then(response => response.json())
@@ -43,6 +44,7 @@ export default function Report({ responsible, setNotification, setReport }) {
 			});
 	}
 
+	// Gets stages list
 	async function getStages() {
 		await fetch(STAGES_LIST_URL)
 			.then(response => response.json())
@@ -55,6 +57,7 @@ export default function Report({ responsible, setNotification, setReport }) {
 			});
 	}
 
+	// Gets materials list
 	async function getMaterials() {
 		await fetch(MATERIALS_LIST_URL)
 			.then(response => response.json())
