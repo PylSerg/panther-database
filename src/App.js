@@ -17,8 +17,8 @@ export default function App() {
 	return (
 		<div>
 			{notification.show && (
-				<div className="report__status">
-					<p className="report__message">{notification.message}</p>
+				<div className="notification__block">
+					<p className="notification__message">{notification.message}</p>
 				</div>
 			)}
 
