@@ -4,7 +4,7 @@ import { RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
 import DeleteRowModal from "./DeleteRowModal";
 
 import { useState, useEffect } from "react";
-import { openDeleteRowModal } from "../assets/js/rows";
+import { createNewRow, openDeleteRowModal } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
 import { postRequest } from "../assets/js/post-request";
 
@@ -25,6 +25,10 @@ export default function Report({ responsible }) {
 		getStages();
 		getMaterials();
 	}, []);
+
+	useEffect(() => {
+		if (rows.indx.length === 0) createNewRow(rows, setRows, data);
+	}, [rows.indx]);
 
 	async function getObjects() {
 		await fetch(OBJECTS_LIST_URL)
