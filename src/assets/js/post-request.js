@@ -9,15 +9,17 @@ export async function postRequest(url, data, setData, rows, setRows, setNotifica
 	})
 		.then(response => response.json())
 		.then(response => {
-			console.log(response);
-
-			showNotification(response.status, setNotification, "Звіт успішно відправлено");
-			setReport({ show: false, url: null });
+			showNotification(setNotification, "Звіт успішно відправлено");
 			hideNotification(setNotification);
+			setReport({ show: false, url: null });
+
+			console.log(response);
 		})
 		.then(clearData(data, setData, setRows))
 		.catch(error => {
-			setNotification({ sended: true, message: error });
+			setNotification({ show: true, message: error });
+			hideNotification(setNotification);
+
 			console.log(`\x1b[31m ${error}`);
 		});
 }

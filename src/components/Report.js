@@ -1,12 +1,14 @@
 import { rowsState, reportState } from "../assets/js/states";
 import { REPORT_MATERIALS_URL, OBJECTS_LIST_URL, STAGES_LIST_URL, MATERIALS_LIST_URL } from "../assets/js/urls";
 import { RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
-import DeleteRowModal from "./DeleteRowModal";
 
 import { useState, useEffect } from "react";
 import { createNewRow, openDeleteRowModal } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
 import { postRequest } from "../assets/js/post-request";
+import { showNotification, hideNotification } from "../assets/js/notifications";
+
+import DeleteRowModal from "./DeleteRowModal";
 
 export default function Report({ responsible, setNotification, setReport }) {
 	const [deleteRowModal, setDeleteRowModal] = useState({ show: false, indx: null });
@@ -34,7 +36,9 @@ export default function Report({ responsible, setNotification, setReport }) {
 			.then(response => response.json())
 			.then(response => setObjectsList(response.data.objects))
 			.catch(error => {
-				setNotification({ sended: true, message: error });
+				showNotification(setNotification, error);
+				hideNotification(setNotification);
+
 				console.log(`\x1b[31m ${error}`);
 			});
 	}
@@ -44,7 +48,9 @@ export default function Report({ responsible, setNotification, setReport }) {
 			.then(response => response.json())
 			.then(response => setStagesList(response.data.stages))
 			.catch(error => {
-				setNotification({ sended: true, message: error });
+				showNotification(setNotification, error);
+				hideNotification(setNotification);
+
 				console.log(`\x1b[31m ${error}`);
 			});
 	}
@@ -54,7 +60,9 @@ export default function Report({ responsible, setNotification, setReport }) {
 			.then(response => response.json())
 			.then(response => setMaterialsList(response.data.materials))
 			.catch(error => {
-				setNotification({ sended: true, message: error });
+				showNotification(setNotification, error);
+				hideNotification(setNotification);
+
 				console.log(`\x1b[31m ${error}`);
 			});
 	}
