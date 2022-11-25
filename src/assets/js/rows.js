@@ -22,8 +22,13 @@ export function createNewRow(rows, setRows, data) {
 	setRows({ indx: newRow });
 }
 
+// Opens modal window for delete row
+export function openDeleteRowModal(indx, setDeleteRowModal) {
+	setDeleteRowModal({ show: true, indx });
+}
+
 // Deletes row
-export function deleteRow(indx, data, setData, rows, setRows, setSendData) {
+export function deleteRow(indx, data, setData, rows, setRows, setSendData, setDeleteRowModal) {
 	const newRowsArray = [];
 
 	for (let i = 0; i < rows.indx.length - 1; i++) {
@@ -43,4 +48,6 @@ export function deleteRow(indx, data, setData, rows, setRows, setSendData) {
 	}
 
 	readyToSend(-1, rows, data, setSendData);
+
+	setDeleteRowModal({ show: false, indx: null });
 }

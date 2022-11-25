@@ -1,14 +1,16 @@
 import { notificationState, rowsState, reportState } from "../assets/js/states";
 import { REPORT_MATERIALS_URL, OBJECTS_LIST_URL, STAGES_LIST_URL, MATERIALS_LIST_URL } from "../assets/js/urls";
 import { RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
+import DeleteRowModal from "./DeleteRowModal";
 
 import { useState, useEffect } from "react";
-import { deleteRow } from "../assets/js/rows";
+import { openDeleteRowModal } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
 import { postRequest } from "../assets/js/post-request";
 
 export default function Report({ responsible }) {
 	const [notification, setNotification] = useState(notificationState);
+	const [deleteRowModal, setDeleteRowModal] = useState({ show: false, indx: null });
 	const [rows, setRows] = useState(rowsState);
 	const [data, setData] = useState(reportState);
 	const [sendData, setSendData] = useState(false);
@@ -62,6 +64,10 @@ export default function Report({ responsible }) {
 				</div>
 			)}
 
+			{deleteRowModal.show && (
+				<DeleteRowModal indx={deleteRowModal.indx} data={data} setData={setData} rows={rows} setRows={setRows} setSendData={setSendData} setDeleteRowModal={setDeleteRowModal} />
+			)}
+
 			<ul className="report__table">
 				{rows &&
 					rows.indx.map(row => (
@@ -82,13 +88,7 @@ export default function Report({ responsible }) {
 										<RiFileCopy2Line />
 									</button>
 
-									<button
-										id={row}
-										className="report__delete"
-										type="button"
-										title="Видалити запис"
-										onClick={e => deleteRow(e.currentTarget.id, data, setData, rows, setRows, setSendData)}
-									>
+									<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={e => openDeleteRowModal(e.currentTarget.id, setDeleteRowModal)}>
 										<RiDeleteBin2Line />
 									</button>
 								</div>
