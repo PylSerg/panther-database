@@ -9,13 +9,14 @@ import Profile from "./components/Profile";
 export default function App() {
 	const [responsible, setResponsible] = useState(responsibleState);
 	const [notification, setNotification] = useState(notificationState);
+	const [appStyle, setAppStyle] = useState({ app__block: ["app__block"] });
 
 	useEffect(() => {
 		setResponsible({ name: "Admin", group: "admin" });
 	}, []);
 
 	return (
-		<div>
+		<div className={appStyle.app__block.join(" ")}>
 			{notification.show && (
 				<div className="notification__block">
 					<p className="notification__message">{notification.message}</p>
@@ -24,7 +25,9 @@ export default function App() {
 
 			{responsible.group === "" && <Authorization setResponsible={setResponsible} />}
 
-			{(responsible.group === "admin" || responsible.group === "foreman" || responsible.group === "driver") && <Profile responsible={responsible} setNotification={setNotification} />}
+			{(responsible.group === "admin" || responsible.group === "foreman" || responsible.group === "driver") && (
+				<Profile responsible={responsible} setNotification={setNotification} appStyle={appStyle} setAppStyle={setAppStyle} />
+			)}
 		</div>
 	);
 }

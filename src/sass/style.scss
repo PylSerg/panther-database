@@ -9,5 +9,7 @@ body {
     padding: 0;
 }
 
+@import "./components/app";
 @import "./modules/notification";
-@import "./components/reports"
+@import "./components/reports";
+@import "./components/delete-row-modal";

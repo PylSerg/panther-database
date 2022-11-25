@@ -10,7 +10,7 @@ import { showNotification, hideNotification } from "../assets/js/notifications";
 
 import DeleteRowModal from "./DeleteRowModal";
 
-export default function Report({ responsible, setNotification, setReport }) {
+export default function Report({ responsible, setNotification, setReport, appStyle, setAppStyle }) {
 	const [deleteRowModal, setDeleteRowModal] = useState({ show: false, indx: null });
 	const [rows, setRows] = useState(rowsState);
 	const [data, setData] = useState(reportState);
@@ -72,10 +72,6 @@ export default function Report({ responsible, setNotification, setReport }) {
 
 	return (
 		<div className="report__block">
-			{deleteRowModal.show && (
-				<DeleteRowModal indx={deleteRowModal.indx} data={data} setData={setData} rows={rows} setRows={setRows} setSendData={setSendData} setDeleteRowModal={setDeleteRowModal} />
-			)}
-
 			<ul className="report__table">
 				{rows &&
 					rows.indx.map(row => (
@@ -96,7 +92,13 @@ export default function Report({ responsible, setNotification, setReport }) {
 										<RiFileCopy2Line />
 									</button>
 
-									<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={e => openDeleteRowModal(e.currentTarget.id, setDeleteRowModal)}>
+									<button
+										id={row}
+										className="report__delete"
+										type="button"
+										title="Видалити запис"
+										onClick={e => openDeleteRowModal(e.currentTarget.id, setDeleteRowModal, appStyle, setAppStyle)}
+									>
 										<RiDeleteBin2Line />
 									</button>
 								</div>
@@ -248,6 +250,20 @@ export default function Report({ responsible, setNotification, setReport }) {
 			<button type="button" disabled={!sendData} onClick={() => postRequest(REPORT_MATERIALS_URL, data, setData, rows, setRows, setNotification, setReport)}>
 				Send
 			</button>
+
+			{deleteRowModal.show && (
+				<DeleteRowModal
+					indx={deleteRowModal.indx}
+					data={data}
+					setData={setData}
+					rows={rows}
+					setRows={setRows}
+					setSendData={setSendData}
+					setDeleteRowModal={setDeleteRowModal}
+					appStyle={appStyle}
+					setAppStyle={setAppStyle}
+				/>
+			)}
 		</div>
 	);
 }

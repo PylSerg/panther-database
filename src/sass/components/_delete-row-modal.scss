@@ -1,0 +1,74 @@
+.delete__block {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 30px 20px;
+
+    background-color: #fff;
+    border: 2px solid #555;
+    border-radius: 15px;
+
+    overflow: hidden;
+    pointer-events: all;
+
+    @media screen and (max-width: 600px) {
+        width: 70%;
+    }
+}
+
+.delete__text {
+    margin: 0;
+    margin-bottom: 30px;
+
+    padding: 0;
+
+    text-align: center;
+}
+
+.delete__buttons {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    width: 100%;
+}
+
+.delete__cancel,
+.delete__delete {
+    width: 50%;
+
+    padding: 8px 0;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    border: none;
+
+    cursor: pointer;
+}
+
+.delete__cancel {
+    background-color: #eeeeee;
+
+    &:hover,
+    &:focus {
+        background-color: #b9b9b9;
+    }
+}
+
+.delete__delete {
+    color: #fff;
+
+    background-color: #f14646;
+
+    &:hover,
+    &:focus {
+        background-color: #f30e0e;
+    }
+}
