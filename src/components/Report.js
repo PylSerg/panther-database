@@ -1,4 +1,4 @@
-import { notificationState, rowsState, reportState } from "../assets/js/states";
+import { rowsState, reportState } from "../assets/js/states";
 import { REPORT_MATERIALS_URL, OBJECTS_LIST_URL, STAGES_LIST_URL, MATERIALS_LIST_URL } from "../assets/js/urls";
 import { RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
 import DeleteRowModal from "./DeleteRowModal";
@@ -8,8 +8,7 @@ import { createNewRow, openDeleteRowModal } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
 import { postRequest } from "../assets/js/post-request";
 
-export default function Report({ responsible }) {
-	const [notification, setNotification] = useState(notificationState);
+export default function Report({ responsible, setNotification, setReport }) {
 	const [deleteRowModal, setDeleteRowModal] = useState({ show: false, indx: null });
 	const [rows, setRows] = useState(rowsState);
 	const [data, setData] = useState(reportState);
@@ -62,12 +61,6 @@ export default function Report({ responsible }) {
 
 	return (
 		<div className="report__block">
-			{notification.show && (
-				<div className="report__status">
-					<p className="report__message">{notification.message}</p>
-				</div>
-			)}
-
 			{deleteRowModal.show && (
 				<DeleteRowModal indx={deleteRowModal.indx} data={data} setData={setData} rows={rows} setRows={setRows} setSendData={setSendData} setDeleteRowModal={setDeleteRowModal} />
 			)}
@@ -241,7 +234,7 @@ export default function Report({ responsible }) {
 					))}
 			</ul>
 
-			<button type="button" disabled={!sendData} onClick={() => postRequest(REPORT_MATERIALS_URL, data, setData, rows, setRows, setNotification)}>
+			<button type="button" disabled={!sendData} onClick={() => postRequest(REPORT_MATERIALS_URL, data, setData, rows, setRows, setNotification, setReport)}>
 				Send
 			</button>
 		</div>

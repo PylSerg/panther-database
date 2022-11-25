@@ -2,7 +2,7 @@ import { showNotification, hideNotification } from "./notifications";
 import formData from "./form-data";
 import clearData from "./clear-data";
 
-export async function postRequest(url, data, setData, rows, setRows, setNotification) {
+export async function postRequest(url, data, setData, rows, setRows, setNotification, setReport) {
 	await fetch(url, {
 		method: "POST",
 		body: formData(data, rows),
@@ -12,6 +12,7 @@ export async function postRequest(url, data, setData, rows, setRows, setNotifica
 			console.log(response);
 
 			showNotification(response.status, setNotification, "Звіт успішно відправлено");
+			setReport({ show: false, url: null });
 			hideNotification(setNotification);
 		})
 		.then(clearData(data, setData, setRows))
