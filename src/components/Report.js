@@ -20,6 +20,7 @@ export default function Report({ responsible, setNotification, setReport, appSty
 	const [stagesList, setStagesList] = useState();
 	const [materialsList, setMaterialsList] = useState();
 
+	// Adds responsible and gets objects, stages and materials
 	useEffect(() => {
 		setData({ ...data, responsible: responsible.name });
 
@@ -28,10 +29,12 @@ export default function Report({ responsible, setNotification, setReport, appSty
 		getMaterials();
 	}, []);
 
+	// Creates new row if quantity rows is 0
 	useEffect(() => {
 		if (rows.indx.length === 0) createNewRow(rows, setRows, data);
 	}, [rows.indx]);
 
+	// Calcs total sum
 	useEffect(() => {
 		const sums = data.sums;
 
