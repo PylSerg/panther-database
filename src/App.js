@@ -1,18 +1,23 @@
-import { responsibleState } from "./assets/js/states";
 import { notificationState } from "./assets/js/states";
 
 import { useState, useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { changeResponsible } from "./redux/features/responsibleSlice";
 
 import Authorization from "./components/Authorization";
 import Profile from "./components/Profile";
 
 export default function App() {
-	const [responsible, setResponsible] = useState(responsibleState);
 	const [notification, setNotification] = useState(notificationState);
 	const [appStyle, setAppStyle] = useState({ app__block: ["app__block"] });
 
+	const responsible = useSelector(state => state.responsible);
+
+	const dispatch = useDispatch();
+
 	useEffect(() => {
-		setResponsible({ name: "Admin", group: "admin" });
+		dispatch(changeResponsible({ name: "Admin", group: "admin" }));
 	}, []);
 
 	return (
@@ -23,10 +28,14 @@ export default function App() {
 				</div>
 			)}
 
-			{responsible.group === "" && <Authorization setResponsible={setResponsible} />}
+			{responsible.group === "" && <Authorization />}
+
+			<p>
+				{responsible.name} [{responsible.group}]
+			</p>
 
 			{(responsible.group === "admin" || responsible.group === "foreman" || responsible.group === "driver") && (
-				<Profile responsible={responsible} setNotification={setNotification} appStyle={appStyle} setAppStyle={setAppStyle} />
+				<Profile setNotification={setNotification} appStyle={appStyle} setAppStyle={setAppStyle} />
 			)}
 		</div>
 	);

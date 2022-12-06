@@ -8,9 +8,11 @@ import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/chang
 import { postRequest } from "../assets/js/post-request";
 import { showNotification, hideNotification } from "../assets/js/notifications";
 
+import { useSelector } from "react-redux";
+
 import DeleteRowModal from "./DeleteRowModal";
 
-export default function Report({ responsible, setNotification, setReport, appStyle, setAppStyle }) {
+export default function Report({ setNotification, setReport, appStyle, setAppStyle }) {
 	const [deleteRowModal, setDeleteRowModal] = useState({ show: false, indx: null });
 	const [totalSum, setTotalSum] = useState(0);
 	const [rows, setRows] = useState(rowsState);
@@ -19,6 +21,8 @@ export default function Report({ responsible, setNotification, setReport, appSty
 	const [objectsList, setObjectsList] = useState();
 	const [stagesList, setStagesList] = useState();
 	const [materialsList, setMaterialsList] = useState();
+
+	const responsible = useSelector(state => state.responsible.name);
 
 	// Adds responsible and gets objects, stages and materials
 	useEffect(() => {
