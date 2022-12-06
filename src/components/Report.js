@@ -12,6 +12,7 @@ import DeleteRowModal from "./DeleteRowModal";
 
 export default function Report({ responsible, setNotification, setReport, appStyle, setAppStyle }) {
 	const [deleteRowModal, setDeleteRowModal] = useState({ show: false, indx: null });
+	const [totalSum, setTotalSum] = useState(0);
 	const [rows, setRows] = useState(rowsState);
 	const [data, setData] = useState(reportState);
 	const [sendData, setSendData] = useState(false);
@@ -30,6 +31,16 @@ export default function Report({ responsible, setNotification, setReport, appSty
 	useEffect(() => {
 		if (rows.indx.length === 0) createNewRow(rows, setRows, data);
 	}, [rows.indx]);
+
+	useEffect(() => {
+		const sums = data.sums;
+
+		const total = sums.reduce((accum, sum) => {
+			return accum + Number(sum);
+		}, 0);
+
+		setTotalSum(total.toFixed(2));
+	}, [data]);
 
 	//Gets objects list
 	async function getObjects() {
@@ -72,6 +83,10 @@ export default function Report({ responsible, setNotification, setReport, appSty
 
 	return (
 		<div className="report__block">
+			<p>
+				Сума звіту: <b>{totalSum} грн.</b>
+			</p>
+
 			<ul className="report__table">
 				{rows &&
 					rows.indx.map(row => (
