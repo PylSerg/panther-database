@@ -29,7 +29,7 @@ export default function Report({ responsible, setNotification, setReport, appSty
 		getMaterials();
 	}, []);
 
-	// Creates new row if quantity rows is 0
+	// Creates new row if rows quantity is 0
 	useEffect(() => {
 		if (rows.indx.length === 0) createNewRow(rows, setRows, data);
 	}, [rows.indx]);
