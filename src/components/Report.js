@@ -90,10 +90,16 @@ export default function Report({ responsible, setNotification, setReport, appSty
 				Сума звіту: <b>{totalSum} грн.</b>
 			</p>
 
+			{/*
+				Report form
+			*/}
 			<ul className="report__table">
 				{rows &&
 					rows.indx.map(row => (
 						<li className="report__row" key={row}>
+							{/*
+								Report options
+							*/}
 							<div className="report__options">
 								<p className="report__info">
 									№ {row + 1} {data.materials[row] && `- ${data.materials[row]}`}
@@ -122,6 +128,9 @@ export default function Report({ responsible, setNotification, setReport, appSty
 								</div>
 							</div>
 
+							{/*
+								Object
+							*/}
 							<div className="report__entry">
 								{row === 0 && <p className="report__header">Об&rsquo;єкт</p>}
 
@@ -148,6 +157,9 @@ export default function Report({ responsible, setNotification, setReport, appSty
 								</datalist>
 							</div>
 
+							{/*
+								Stage
+							*/}
 							<div className="report__entry">
 								{row === 0 && <p className="report__header">Етап</p>}
 
@@ -174,6 +186,9 @@ export default function Report({ responsible, setNotification, setReport, appSty
 								</datalist>
 							</div>
 
+							{/*
+								Material
+							*/}
 							<div className="report__entry">
 								{row === 0 && <p className="report__header">Найменування</p>}
 
@@ -200,6 +215,9 @@ export default function Report({ responsible, setNotification, setReport, appSty
 								</datalist>
 							</div>
 
+							{/*
+								Quantity
+							*/}
 							<div className="report__entry">
 								{row === 0 && <p className="report__header">Кількість</p>}
 
@@ -215,6 +233,9 @@ export default function Report({ responsible, setNotification, setReport, appSty
 								/>
 							</div>
 
+							{/*
+								Price
+							*/}
 							<div className="report__entry">
 								{row === 0 && <p className="report__header">Ціна</p>}
 
@@ -231,6 +252,9 @@ export default function Report({ responsible, setNotification, setReport, appSty
 								/>
 							</div>
 
+							{/*
+								Sum
+							*/}
 							<div className="report__entry">
 								{row === 0 && <p className="report__header">Сума</p>}
 
@@ -247,6 +271,9 @@ export default function Report({ responsible, setNotification, setReport, appSty
 								/>
 							</div>
 
+							{/*
+								Comment
+							*/}
 							<div className="report__entry">
 								{row === 0 && <p className="report__header">Коментар</p>}
 
@@ -265,10 +292,16 @@ export default function Report({ responsible, setNotification, setReport, appSty
 					))}
 			</ul>
 
+			{/*
+				Send button
+			*/}
 			<button type="button" disabled={!sendData} onClick={() => postRequest(REPORT_MATERIALS_URL, data, setData, rows, setRows, setNotification, setReport)}>
 				Send
 			</button>
 
+			{/*
+				Delete modal window
+			*/}
 			{deleteRowModal.show && (
 				<DeleteRowModal
 					indx={deleteRowModal.indx}
