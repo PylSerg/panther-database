@@ -1,4 +1,6 @@
-export function readyToSend(indx, rows, data, setSendData) {
+import { allowAbilityToSendData, disableAbilityToSendData } from "../../redux/features/abilityToSendDataSlice";
+
+export function readyToSend(dispatch, indx, rows, data) {
 	let counter = 0;
 	let rowsCounter = 0;
 
@@ -8,7 +10,7 @@ export function readyToSend(indx, rows, data, setSendData) {
 	if (indx === -1) {
 		rowsNumber.pop();
 
-		if (rowsNumber.length === 0) return setSendData(false);
+		if (rowsNumber.length === 0) return dispatch(disableAbilityToSendData());
 
 		addCount();
 
@@ -38,9 +40,9 @@ export function readyToSend(indx, rows, data, setSendData) {
 			counter = 0;
 			rowsCounter = 0;
 
-			setSendData(true);
+			dispatch(allowAbilityToSendData());
 		} else {
-			setSendData(false);
+			dispatch(disableAbilityToSendData());
 		}
 	}
 

@@ -17,13 +17,13 @@ export default function Report({ setReport }) {
 	const [totalSum, setTotalSum] = useState(0);
 	const [rows, setRows] = useState(rowsState);
 	const [data, setData] = useState(reportState);
-	const [sendData, setSendData] = useState(false);
 	const [objectsList, setObjectsList] = useState();
 	const [stagesList, setStagesList] = useState();
 	const [materialsList, setMaterialsList] = useState();
 
 	const responsible = useSelector(state => state.responsible.name);
 	const deleteRowModal = useSelector(state => state.deleteRowModal);
+	const abilityToSendData = useSelector(state => state.abilityToSendData.allowSending);
 
 	const dispatch = useDispatch();
 
@@ -115,7 +115,7 @@ export default function Report({ setReport }) {
 										className="report__copy"
 										type="button"
 										title="Вставити попередій об'єкт та етап"
-										onClick={e => pasteObjectAndStage(e, rows, setRows, data, setData, setSendData)}
+										onClick={e => pasteObjectAndStage(dispatch, e, rows, setRows, data, setData)}
 									>
 										<RiFileCopy2Line />
 									</button>
@@ -141,7 +141,7 @@ export default function Report({ setReport }) {
 									value={data.objects[row]}
 									list="objectsList"
 									autoComplete="off"
-									onChange={e => changeCell(e, rows, setRows, data, setData, setSendData)}
+									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
 								/>
 
 								<datalist id="objectsList">
@@ -170,7 +170,7 @@ export default function Report({ setReport }) {
 									value={data.stages[row]}
 									list="stagesList"
 									autoComplete="off"
-									onChange={e => changeCell(e, rows, setRows, data, setData, setSendData)}
+									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
 								/>
 
 								<datalist id="stagesList">
@@ -199,7 +199,7 @@ export default function Report({ setReport }) {
 									value={data.materials[row]}
 									list="materialsList"
 									autoComplete="off"
-									onChange={e => changeCell(e, rows, setRows, data, setData, setSendData)}
+									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
 								/>
 
 								<datalist id="materialsList">
@@ -227,7 +227,7 @@ export default function Report({ setReport }) {
 									id={row}
 									value={data.quantity[row]}
 									autoComplete="off"
-									onChange={e => changeCell(e, rows, setRows, data, setData, setSendData)}
+									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
 								/>
 							</div>
 
@@ -245,7 +245,7 @@ export default function Report({ setReport }) {
 									id={row}
 									value={data.prices[row]}
 									autoComplete="off"
-									onChange={e => changeCell(e, rows, setRows, data, setData, setSendData)}
+									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
 									onBlur={e => changePrice(e, data, setData)}
 								/>
 							</div>
@@ -264,7 +264,7 @@ export default function Report({ setReport }) {
 									id={row}
 									value={data.sums[row]}
 									autoComplete="off"
-									onChange={e => changeCell(e, rows, setRows, data, setData, setSendData)}
+									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
 									readOnly
 								/>
 							</div>
@@ -283,7 +283,7 @@ export default function Report({ setReport }) {
 									id={row}
 									value={data.comments[row]}
 									autoComplete="off"
-									onChange={e => changeCell(e, rows, setRows, data, setData, setSendData)}
+									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
 								/>
 							</div>
 						</li>
@@ -293,14 +293,14 @@ export default function Report({ setReport }) {
 			{/*
 				Send button
 			*/}
-			<button type="button" disabled={!sendData} onClick={() => postRequest(dispatch, REPORT_MATERIALS_URL, data, setData, rows, setRows, setReport)}>
+			<button type="button" disabled={!abilityToSendData} onClick={() => postRequest(dispatch, REPORT_MATERIALS_URL, data, setData, rows, setRows, setReport)}>
 				Send
 			</button>
 
 			{/*
 				Delete modal window
 			*/}
-			{deleteRowModal.show && <DeleteRowModal data={data} setData={setData} rows={rows} setRows={setRows} setSendData={setSendData} />}
+			{deleteRowModal.show && <DeleteRowModal data={data} setData={setData} rows={rows} setRows={setRows} />}
 		</div>
 	);
 }

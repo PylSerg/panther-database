@@ -5,7 +5,7 @@ import { hideDeleteRowModal } from "../redux/features/deleteRowModalSlice";
 import { pointerEventsON } from "../assets/js/pointer-events";
 import { deleteRow } from "../assets/js/rows";
 
-export default function DeleteRowModal({ data, setData, rows, setRows, setSendData }) {
+export default function DeleteRowModal({ data, setData, rows, setRows }) {
 	const indx = useSelector(state => state.deleteRowModal.indx);
 
 	const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export default function DeleteRowModal({ data, setData, rows, setRows, setSendDa
 
 	function handelDeleteRow() {
 		closeDeleteRowModal();
-		deleteRow(indx, data, setData, rows, setRows, setSendData);
+		deleteRow(dispatch, indx, data, setData, rows, setRows);
 	}
 
 	return (

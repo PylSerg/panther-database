@@ -2,7 +2,7 @@ import { autoCreateNewRow } from "./rows";
 import { readyToSend } from "./ready-to-send";
 
 // Changes cell
-export function changeCell(e, rows, setRows, data, setData, setSendData) {
+export function changeCell(dispatch, e, rows, setRows, data, setData) {
 	const indx = e.currentTarget.id;
 	const column = e.currentTarget.name;
 	const value = e.currentTarget.value;
@@ -19,7 +19,7 @@ export function changeCell(e, rows, setRows, data, setData, setSendData) {
 
 	autoCreateNewRow(indx, rows, setRows, data);
 
-	readyToSend(indx, rows, data, setSendData);
+	readyToSend(dispatch, indx, rows, data);
 
 	setData({ ...data, [`${column}`]: newArray });
 }
@@ -66,7 +66,7 @@ function calcSum(indx, data) {
 }
 
 // Pastes object and stage
-export function pasteObjectAndStage(e, rows, setRows, data, setData, setSendData) {
+export function pasteObjectAndStage(dispatch, e, rows, setRows, data, setData) {
 	const indx = e.currentTarget.id;
 	const previousObject = data.objects[indx - 1];
 	const previousStage = data.stages[indx - 1];
@@ -92,7 +92,7 @@ export function pasteObjectAndStage(e, rows, setRows, data, setData, setSendData
 
 	autoCreateNewRow(indx, rows, setRows, data);
 
-	readyToSend(indx, rows, data, setSendData);
+	readyToSend(dispatch, indx, rows, data);
 
 	setData({ ...data, objects: newObjectsArray, stages: newStagesArray });
 }

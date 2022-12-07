@@ -23,7 +23,7 @@ export function createNewRow(rows, setRows, data) {
 }
 
 // Deletes row
-export function deleteRow(indx, data, setData, rows, setRows, setSendData) {
+export function deleteRow(dispatch, indx, data, setData, rows, setRows) {
 	const newRowsArray = [];
 
 	for (let i = 0; i < rows.indx.length - 1; i++) {
@@ -42,5 +42,5 @@ export function deleteRow(indx, data, setData, rows, setRows, setSendData) {
 		}
 	}
 
-	readyToSend(-1, rows, data, setSendData);
+	readyToSend(dispatch, -1, rows, data);
 }

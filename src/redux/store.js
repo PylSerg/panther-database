@@ -4,6 +4,7 @@ import appStyleSlice from "./features/appStyleSlice";
 import notificationSlice from "./features/notificationSlice";
 import responsibleSlice from "./features/responsibleSlice";
 import deleteRowModalSlice from "./features/deleteRowModalSlice";
+import abilityToSendDataSlice from "./features/abilityToSendDataSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -11,5 +12,6 @@ export const store = configureStore({
 		notification: notificationSlice,
 		responsible: responsibleSlice,
 		deleteRowModal: deleteRowModalSlice,
+		abilityToSendData: abilityToSendDataSlice,
 	},
 });
