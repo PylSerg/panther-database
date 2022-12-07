@@ -2,7 +2,7 @@ import notification from "./notification";
 import formData from "./form-data";
 import clearData from "./clear-data";
 
-export async function postRequest(url, data, setData, rows, setRows, setReport, dispatch) {
+export async function postRequest(dispatch, url, data, setData, rows, setRows, setReport) {
 	await fetch(url, {
 		method: "POST",
 		body: formData(data, rows),

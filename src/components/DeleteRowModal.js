@@ -1,14 +1,16 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+
+import { hideDeleteRowModal } from "../redux/features/deleteRowModalSlice";
 import { pointerEventsON } from "../assets/js/pointer-events";
 import { deleteRow } from "../assets/js/rows";
 
-export default function DeleteRowModal({ indx, data, setData, rows, setRows, setSendData, setDeleteRowModal }) {
+export default function DeleteRowModal({ indx, data, setData, rows, setRows, setSendData }) {
 	const dispatch = useDispatch();
 
 	function closeDeleteRowModal() {
 		pointerEventsON(dispatch);
-		setDeleteRowModal({ show: false, indx: null });
+		dispatch(hideDeleteRowModal());
 	}
 
 	function handelDeleteRow() {

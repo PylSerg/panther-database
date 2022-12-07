@@ -1,8 +1,8 @@
+import { showDeleteRowModal } from "../../redux/features/deleteRowModalSlice";
 import { pointerEventsOFF } from "./pointer-events";
 
 // Opens modal window for delete row
-export function openDeleteRowModal(indx, dispatch, setDeleteRowModal) {
-	setDeleteRowModal({ show: true, indx });
-
+export function openDeleteRowModal(dispatch, indx) {
+	dispatch(showDeleteRowModal(indx));
 	pointerEventsOFF(dispatch);
 }

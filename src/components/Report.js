@@ -14,7 +14,6 @@ import { useSelector, useDispatch } from "react-redux";
 import DeleteRowModal from "./DeleteRowModal";
 
 export default function Report({ setReport }) {
-	const [deleteRowModal, setDeleteRowModal] = useState({ show: false, indx: null });
 	const [totalSum, setTotalSum] = useState(0);
 	const [rows, setRows] = useState(rowsState);
 	const [data, setData] = useState(reportState);
@@ -24,6 +23,7 @@ export default function Report({ setReport }) {
 	const [materialsList, setMaterialsList] = useState();
 
 	const responsible = useSelector(state => state.responsible.name);
+	const deleteRowModal = useSelector(state => state.deleteRowModal);
 
 	const dispatch = useDispatch();
 
@@ -120,7 +120,7 @@ export default function Report({ setReport }) {
 										<RiFileCopy2Line />
 									</button>
 
-									<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={e => openDeleteRowModal(e.currentTarget.id, dispatch, setDeleteRowModal)}>
+									<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={e => openDeleteRowModal(dispatch, e.currentTarget.id)}>
 										<RiDeleteBin2Line />
 									</button>
 								</div>
@@ -293,16 +293,14 @@ export default function Report({ setReport }) {
 			{/*
 				Send button
 			*/}
-			<button type="button" disabled={!sendData} onClick={() => postRequest(REPORT_MATERIALS_URL, data, setData, rows, setRows, setReport, dispatch)}>
+			<button type="button" disabled={!sendData} onClick={() => postRequest(dispatch, REPORT_MATERIALS_URL, data, setData, rows, setRows, setReport)}>
 				Send
 			</button>
 
 			{/*
 				Delete modal window
 			*/}
-			{deleteRowModal.show && (
-				<DeleteRowModal indx={deleteRowModal.indx} data={data} setData={setData} rows={rows} setRows={setRows} setSendData={setSendData} setDeleteRowModal={setDeleteRowModal} />
-			)}
+			{deleteRowModal.show && <DeleteRowModal indx={deleteRowModal.indx} data={data} setData={setData} rows={rows} setRows={setRows} setSendData={setSendData} />}
 		</div>
 	);
 }
