@@ -300,7 +300,7 @@ export default function Report({ setReport }) {
 			{/*
 				Delete modal window
 			*/}
-			{deleteRowModal.show && <DeleteRowModal indx={deleteRowModal.indx} data={data} setData={setData} rows={rows} setRows={setRows} setSendData={setSendData} />}
+			{deleteRowModal.show && <DeleteRowModal data={data} setData={setData} rows={rows} setRows={setRows} setSendData={setSendData} />}
 		</div>
 	);
 }
