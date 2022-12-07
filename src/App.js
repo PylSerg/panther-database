@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { changeResponsible } from "./redux/features/responsibleSlice";
@@ -8,8 +8,7 @@ import Authorization from "./components/Authorization";
 import Profile from "./components/Profile";
 
 export default function App() {
-	const [appStyle, setAppStyle] = useState({ app__block: ["app__block"] });
-
+	const appStyle = useSelector(state => state.appStyle);
 	const responsible = useSelector(state => state.responsible);
 
 	const dispatch = useDispatch();
@@ -28,7 +27,7 @@ export default function App() {
 				{responsible.name} [{responsible.group}]
 			</p>
 
-			{(responsible.group === "admin" || responsible.group === "foreman" || responsible.group === "driver") && <Profile appStyle={appStyle} setAppStyle={setAppStyle} />}
+			{(responsible.group === "admin" || responsible.group === "foreman" || responsible.group === "driver") && <Profile />}
 		</div>
 	);
 }

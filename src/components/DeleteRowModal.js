@@ -1,11 +1,19 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { pointerEventsON } from "../assets/js/pointer-events";
 import { deleteRow } from "../assets/js/rows";
 
-export default function DeleteRowModal({ indx, data, setData, rows, setRows, setSendData, setDeleteRowModal, appStyle, setAppStyle }) {
+export default function DeleteRowModal({ indx, data, setData, rows, setRows, setSendData, setDeleteRowModal }) {
+	const dispatch = useDispatch();
+
 	function closeDeleteRowModal() {
-		pointerEventsON(appStyle, setAppStyle);
+		pointerEventsON(dispatch);
 		setDeleteRowModal({ show: false, indx: null });
+	}
+
+	function handelDeleteRow() {
+		closeDeleteRowModal();
+		deleteRow(indx, data, setData, rows, setRows, setSendData);
 	}
 
 	return (
@@ -17,7 +25,7 @@ export default function DeleteRowModal({ indx, data, setData, rows, setRows, set
 					Відміна
 				</button>
 
-				<button className="delete__delete" type="button" onClick={() => deleteRow(indx, data, setData, rows, setRows, setSendData, setDeleteRowModal, appStyle, setAppStyle)}>
+				<button className="delete__delete" type="button" onClick={handelDeleteRow}>
 					Видалити
 				</button>
 			</div>

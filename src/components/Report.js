@@ -3,16 +3,17 @@ import { REPORT_MATERIALS_URL, OBJECTS_LIST_URL, STAGES_LIST_URL, MATERIALS_LIST
 import { RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
 
 import { useState, useEffect } from "react";
-import { createNewRow, openDeleteRowModal } from "../assets/js/rows";
+import { createNewRow } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
 import { postRequest } from "../assets/js/post-request";
+import { openDeleteRowModal } from "../assets/js/open-delete-row-modal";
 import notification from "../assets/js/notification";
 
 import { useSelector, useDispatch } from "react-redux";
 
 import DeleteRowModal from "./DeleteRowModal";
 
-export default function Report({ setReport, appStyle, setAppStyle }) {
+export default function Report({ setReport }) {
 	const [deleteRowModal, setDeleteRowModal] = useState({ show: false, indx: null });
 	const [totalSum, setTotalSum] = useState(0);
 	const [rows, setRows] = useState(rowsState);
@@ -119,13 +120,7 @@ export default function Report({ setReport, appStyle, setAppStyle }) {
 										<RiFileCopy2Line />
 									</button>
 
-									<button
-										id={row}
-										className="report__delete"
-										type="button"
-										title="Видалити запис"
-										onClick={e => openDeleteRowModal(e.currentTarget.id, setDeleteRowModal, appStyle, setAppStyle)}
-									>
+									<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={e => openDeleteRowModal(e.currentTarget.id, dispatch, setDeleteRowModal)}>
 										<RiDeleteBin2Line />
 									</button>
 								</div>
@@ -306,17 +301,7 @@ export default function Report({ setReport, appStyle, setAppStyle }) {
 				Delete modal window
 			*/}
 			{deleteRowModal.show && (
-				<DeleteRowModal
-					indx={deleteRowModal.indx}
-					data={data}
-					setData={setData}
-					rows={rows}
-					setRows={setRows}
-					setSendData={setSendData}
-					setDeleteRowModal={setDeleteRowModal}
-					appStyle={appStyle}
-					setAppStyle={setAppStyle}
-				/>
+				<DeleteRowModal indx={deleteRowModal.indx} data={data} setData={setData} rows={rows} setRows={setRows} setSendData={setSendData} setDeleteRowModal={setDeleteRowModal} />
 			)}
 		</div>
 	);

@@ -1,4 +1,3 @@
-import { pointerEventsON, pointerEventsOFF } from "./pointer-events";
 import { readyToSend } from "./ready-to-send";
 
 // Auto creates new row
@@ -23,15 +22,8 @@ export function createNewRow(rows, setRows, data) {
 	setRows({ indx: newRow });
 }
 
-// Opens modal window for delete row
-export function openDeleteRowModal(indx, setDeleteRowModal, appStyle, setAppStyle) {
-	setDeleteRowModal({ show: true, indx });
-
-	pointerEventsOFF(appStyle, setAppStyle);
-}
-
 // Deletes row
-export function deleteRow(indx, data, setData, rows, setRows, setSendData, setDeleteRowModal, appStyle, setAppStyle) {
+export function deleteRow(indx, data, setData, rows, setRows, setSendData) {
 	const newRowsArray = [];
 
 	for (let i = 0; i < rows.indx.length - 1; i++) {
@@ -51,8 +43,4 @@ export function deleteRow(indx, data, setData, rows, setRows, setSendData, setDe
 	}
 
 	readyToSend(-1, rows, data, setSendData);
-
-	setDeleteRowModal({ show: false, indx: null });
-
-	pointerEventsON(appStyle, setAppStyle);
 }

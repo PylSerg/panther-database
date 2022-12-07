@@ -1,20 +1,13 @@
-export function pointerEventsON(appStyle, setAppStyle) {
+import { addStyleToAppBlock, deleteStyleFromAppBlock } from "../../redux/features/appStyleSlice";
+
+export function pointerEventsON(dispatch) {
 	document.body.style.overflow = "auto";
 
-	const styleAppBlock = appStyle.app__block;
-
-	for (let i = 0; i < styleAppBlock.length; i++) {
-		if (styleAppBlock[i] === "app__block--locked") styleAppBlock.splice(i, 1);
-	}
-
-	setAppStyle({ ...appStyle, app__block: styleAppBlock });
+	dispatch(deleteStyleFromAppBlock("app__block--locked"));
 }
 
-export function pointerEventsOFF(appStyle, setAppStyle) {
+export function pointerEventsOFF(dispatch) {
 	document.body.style.overflow = "hidden";
 
-	const appBlock = appStyle.app__block;
-	appBlock.push("app__block--locked");
-
-	setAppStyle({ ...appStyle, app__block: appBlock });
+	dispatch(addStyleToAppBlock("app__block--locked"));
 }
