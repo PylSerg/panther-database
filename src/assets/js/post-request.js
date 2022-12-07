@@ -18,5 +18,7 @@ export async function postRequest(url, data, setData, rows, setRows, setReport, 
 		.then(clearData(data, setData, setRows))
 		.catch(error => {
 			console.log(`\x1b[31m ${error}`);
+
+			notification(dispatch, error);
 		});
 }

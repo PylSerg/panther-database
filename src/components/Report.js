@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { createNewRow, openDeleteRowModal } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
 import { postRequest } from "../assets/js/post-request";
-// import { ShowNotification, HideNotification } from "../assets/js/notifications";
+import notification from "../assets/js/notification";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -57,8 +57,7 @@ export default function Report({ setReport, appStyle, setAppStyle }) {
 			.then(response => response.json())
 			.then(response => setObjectsList(response.data.objects))
 			.catch(error => {
-				// ShowNotification(error);
-				// HideNotification();
+				notification(dispatch, error);
 
 				console.log(`\x1b[31m ${error}`);
 			});
@@ -70,8 +69,7 @@ export default function Report({ setReport, appStyle, setAppStyle }) {
 			.then(response => response.json())
 			.then(response => setStagesList(response.data.stages))
 			.catch(error => {
-				// ShowNotification(error);
-				// HideNotification();
+				notification(dispatch, error);
 
 				console.log(`\x1b[31m ${error}`);
 			});
@@ -83,8 +81,7 @@ export default function Report({ setReport, appStyle, setAppStyle }) {
 			.then(response => response.json())
 			.then(response => setMaterialsList(response.data.materials))
 			.catch(error => {
-				// ShowNotification(error);
-				// HideNotification();
+				notification(dispatch, error);
 
 				console.log(`\x1b[31m ${error}`);
 			});
