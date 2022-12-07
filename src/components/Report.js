@@ -6,13 +6,13 @@ import { useState, useEffect } from "react";
 import { createNewRow, openDeleteRowModal } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
 import { postRequest } from "../assets/js/post-request";
-import { showNotification, hideNotification } from "../assets/js/notifications";
+// import { ShowNotification, HideNotification } from "../assets/js/notifications";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import DeleteRowModal from "./DeleteRowModal";
 
-export default function Report({ setNotification, setReport, appStyle, setAppStyle }) {
+export default function Report({ setReport, appStyle, setAppStyle }) {
 	const [deleteRowModal, setDeleteRowModal] = useState({ show: false, indx: null });
 	const [totalSum, setTotalSum] = useState(0);
 	const [rows, setRows] = useState(rowsState);
@@ -24,9 +24,11 @@ export default function Report({ setNotification, setReport, appStyle, setAppSty
 
 	const responsible = useSelector(state => state.responsible.name);
 
+	const dispatch = useDispatch();
+
 	// Adds responsible and gets objects, stages and materials
 	useEffect(() => {
-		setData({ ...data, responsible: responsible.name });
+		setData({ ...data, responsible: responsible });
 
 		getObjects();
 		getStages();
@@ -55,8 +57,8 @@ export default function Report({ setNotification, setReport, appStyle, setAppSty
 			.then(response => response.json())
 			.then(response => setObjectsList(response.data.objects))
 			.catch(error => {
-				showNotification(setNotification, error);
-				hideNotification(setNotification);
+				// ShowNotification(error);
+				// HideNotification();
 
 				console.log(`\x1b[31m ${error}`);
 			});
@@ -68,8 +70,8 @@ export default function Report({ setNotification, setReport, appStyle, setAppSty
 			.then(response => response.json())
 			.then(response => setStagesList(response.data.stages))
 			.catch(error => {
-				showNotification(setNotification, error);
-				hideNotification(setNotification);
+				// ShowNotification(error);
+				// HideNotification();
 
 				console.log(`\x1b[31m ${error}`);
 			});
@@ -81,8 +83,8 @@ export default function Report({ setNotification, setReport, appStyle, setAppSty
 			.then(response => response.json())
 			.then(response => setMaterialsList(response.data.materials))
 			.catch(error => {
-				showNotification(setNotification, error);
-				hideNotification(setNotification);
+				// ShowNotification(error);
+				// HideNotification();
 
 				console.log(`\x1b[31m ${error}`);
 			});
@@ -299,7 +301,7 @@ export default function Report({ setNotification, setReport, appStyle, setAppSty
 			{/*
 				Send button
 			*/}
-			<button type="button" disabled={!sendData} onClick={() => postRequest(REPORT_MATERIALS_URL, data, setData, rows, setRows, setNotification, setReport)}>
+			<button type="button" disabled={!sendData} onClick={() => postRequest(REPORT_MATERIALS_URL, data, setData, rows, setRows, setReport, dispatch)}>
 				Send
 			</button>
 

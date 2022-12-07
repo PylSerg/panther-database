@@ -1,15 +1,13 @@
-import { notificationState } from "./assets/js/states";
-
 import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { changeResponsible } from "./redux/features/responsibleSlice";
 
+import Notification from "./components/Notification";
 import Authorization from "./components/Authorization";
 import Profile from "./components/Profile";
 
 export default function App() {
-	const [notification, setNotification] = useState(notificationState);
 	const [appStyle, setAppStyle] = useState({ app__block: ["app__block"] });
 
 	const responsible = useSelector(state => state.responsible);
@@ -22,11 +20,7 @@ export default function App() {
 
 	return (
 		<div className={appStyle.app__block.join(" ")}>
-			{notification.show && (
-				<div className="notification__block">
-					<p className="notification__message">{notification.message}</p>
-				</div>
-			)}
+			<Notification />
 
 			{responsible.group === "" && <Authorization />}
 
@@ -34,9 +28,7 @@ export default function App() {
 				{responsible.name} [{responsible.group}]
 			</p>
 
-			{(responsible.group === "admin" || responsible.group === "foreman" || responsible.group === "driver") && (
-				<Profile setNotification={setNotification} appStyle={appStyle} setAppStyle={setAppStyle} />
-			)}
+			{(responsible.group === "admin" || responsible.group === "foreman" || responsible.group === "driver") && <Profile appStyle={appStyle} setAppStyle={setAppStyle} />}
 		</div>
 	);
 }
