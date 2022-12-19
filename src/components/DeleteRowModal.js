@@ -21,15 +21,15 @@ export default function DeleteRowModal({ data, setData, rows, setRows }) {
 	}
 
 	return (
-		<div className="delete__block">
-			<p className="delete__text">Ви дійсно хочете видалити запис?</p>
+		<div className="modal__block">
+			<p className="modal__text">Ви дійсно хочете видалити запис?</p>
 
-			<div className="delete__buttons">
-				<button className="delete__cancel" type="button" onClick={closeDeleteRowModal}>
+			<div className="modal__buttons">
+				<button className="modal__cancel" type="button" onClick={closeDeleteRowModal}>
 					Відміна
 				</button>
 
-				<button className="delete__delete" type="button" onClick={handelDeleteRow}>
+				<button className="modal__allow" type="button" onClick={handelDeleteRow}>
 					Видалити
 				</button>
 			</div>

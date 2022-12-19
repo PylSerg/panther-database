@@ -1,4 +1,4 @@
-.delete__block {
+.modal__block {
     position: fixed;
     left: 50%;
     top: 50%;
@@ -18,7 +18,7 @@
     }
 }
 
-.delete__text {
+.modal__text {
     margin: 0;
     margin-bottom: 30px;
 
@@ -27,7 +27,7 @@
     text-align: center;
 }
 
-.delete__buttons {
+.modal__buttons {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -39,8 +39,8 @@
     width: 100%;
 }
 
-.delete__cancel,
-.delete__delete {
+.modal__cancel,
+.modal__allow {
     width: 50%;
 
     padding: 8px 0;
@@ -53,7 +53,7 @@
     cursor: pointer;
 }
 
-.delete__cancel {
+.modal__cancel {
     background-color: #eeeeee;
 
     &:hover,
@@ -62,7 +62,7 @@
     }
 }
 
-.delete__delete {
+.modal__allow {
     color: #fff;
 
     background-color: #f14646;
