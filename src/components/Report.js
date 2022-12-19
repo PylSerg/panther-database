@@ -102,9 +102,15 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 	return (
 		<div className="report__block">
-			<p>
-				<b>{title}</b>
-			</p>
+			<div style={{ display: "flex" }}>
+				<button style={{ marginRight: "15px" }} type="button" onClick={() => closeReport(setReport, "manual")}>
+					Close
+				</button>
+
+				<p>
+					<b>{title}</b>
+				</p>
+			</div>
 
 			<p>
 				Сума звіту: <b>{totalSum} грн.</b>
@@ -309,15 +315,10 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			{/*
 				Send button
 			*/}
+			<br />
+
 			<button type="button" disabled={!abilityToSendData} onClick={() => postRequest(dispatch, reportUrl, data, rows, setReport)}>
 				Send
-			</button>
-
-			<br />
-			<br />
-
-			<button type="button" onClick={() => closeReport(setReport, "manual")}>
-				Close
 			</button>
 
 			{/*
