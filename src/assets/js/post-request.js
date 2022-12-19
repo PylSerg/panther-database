@@ -14,7 +14,7 @@ export async function postRequest(dispatch, reportUrl, data, rows, setReport) {
 			if (response.status === 200) {
 				notification(dispatch, "Звіт успішно відправлено");
 
-				closeReport(setReport, "auto");
+				closeReport(dispatch, setReport, "auto");
 			}
 		})
 		.catch(error => {
