@@ -6,7 +6,7 @@ import { createNewRow } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
 import { postRequest } from "../assets/js/post-request";
 import { openDeleteRowModal } from "../assets/js/open-delete-row-modal";
-import handleCloseReport from "../assets/js/handle-close-report";
+import closeReport from "../assets/js/close-report";
 import notification from "../assets/js/notification";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -316,7 +316,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			<br />
 			<br />
 
-			<button type="button" onClick={() => handleCloseReport(setReport)}>
+			<button type="button" onClick={() => closeReport(setReport, "manual")}>
 				Close
 			</button>
 

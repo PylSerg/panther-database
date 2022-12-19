@@ -1,7 +1,8 @@
 import notification from "./notification";
 import formData from "./form-data";
+import closeReport from "./close-report";
 
-export async function postRequest(dispatch, url, data, setData, rows, setRows, setReport) {
+export async function postRequest(dispatch, url, data, rows, setReport) {
 	await fetch(url, {
 		method: "POST",
 		body: formData(data, rows),
@@ -13,7 +14,7 @@ export async function postRequest(dispatch, url, data, setData, rows, setRows, s
 			if (response.status === 200) {
 				notification(dispatch, "Звіт успішно відправлено");
 
-				setReport({ show: false, url: null });
+				closeReport(setReport, "auto");
 			}
 		})
 		.catch(error => {

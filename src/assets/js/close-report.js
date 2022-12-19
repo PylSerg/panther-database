@@ -1,4 +1,6 @@
-export default function handleCloseReport(setReport) {
+export default function closeReport(setReport, method) {
+	/* Method can be only "auto" or "manual" */
+
 	setReport({
 		show: false,
 		type: null,
