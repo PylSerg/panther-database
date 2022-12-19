@@ -1,5 +1,5 @@
 import { rowsState, reportState } from "../assets/js/states";
-import { REPORT_MATERIALS_URL, OBJECTS_LIST_URL, STAGES_LIST_URL, MATERIALS_LIST_URL } from "../assets/js/urls";
+import { OBJECTS_LIST_URL, STAGES_LIST_URL, MATERIALS_LIST_URL } from "../assets/js/urls";
 import { RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
 
 import { useState, useEffect } from "react";
@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import DeleteRowModal from "./DeleteRowModal";
 
-export default function Report({ setReport }) {
+export default function Report({ url, setReport }) {
 	const [totalSum, setTotalSum] = useState(0);
 	const [rows, setRows] = useState(rowsState);
 	const [data, setData] = useState(reportState);
@@ -293,7 +293,7 @@ export default function Report({ setReport }) {
 			{/*
 				Send button
 			*/}
-			<button type="button" disabled={!abilityToSendData} onClick={() => postRequest(dispatch, REPORT_MATERIALS_URL, data, setData, rows, setRows, setReport)}>
+			<button type="button" disabled={!abilityToSendData} onClick={() => postRequest(dispatch, url, data, setData, rows, setRows, setReport)}>
 				Send
 			</button>
 
