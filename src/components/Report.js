@@ -14,7 +14,7 @@ import { disableAbilityToSendData } from "../redux/features/abilityToSendDataSli
 
 import DeleteRowModal from "./DeleteRowModal";
 
-export default function Report({ type, reportUrl, objectsUrl, positionsUrl, setReport }) {
+export default function Report({ type, title, reportUrl, objectsUrl, positionsUrl, setReport }) {
 	const [totalSum, setTotalSum] = useState(0);
 	const [rows, setRows] = useState({ indx: [0] });
 	const [data, setData] = useState({
@@ -102,6 +102,10 @@ export default function Report({ type, reportUrl, objectsUrl, positionsUrl, setR
 
 	return (
 		<div className="report__block">
+			<p>
+				<b>{title}</b>
+			</p>
+
 			<p>
 				Сума звіту: <b>{totalSum} грн.</b>
 			</p>
