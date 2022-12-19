@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { disableAbilityToSendData } from "../redux/features/abilityToSendDataSlice";
 
 import DeleteRowModal from "./DeleteRowModal";
+import CloseReportModal from "./CloseReportModal";
 
 export default function Report({ type, title, reportUrl, objectsUrl, positionsUrl, setReport }) {
 	const [totalSum, setTotalSum] = useState(0);
@@ -33,6 +34,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 	const responsible = useSelector(state => state.responsible.name);
 	const deleteRowModal = useSelector(state => state.deleteRowModal);
+	const closeReportModal = useSelector(state => state.closeReportModal);
 	const abilityToSendData = useSelector(state => state.abilityToSendData.allowSending);
 
 	const dispatch = useDispatch();
@@ -103,7 +105,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 	return (
 		<div className="report__block">
 			<div style={{ display: "flex" }}>
-				<button style={{ marginRight: "15px" }} type="button" onClick={() => closeReport(setReport, "manual")}>
+				<button style={{ marginRight: "15px" }} type="button" onClick={() => closeReport(dispatch, setReport, "manual")}>
 					Close
 				</button>
 
@@ -322,9 +324,14 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			</button>
 
 			{/*
-				Delete modal window
+				Modal window for deleting row
 			*/}
 			{deleteRowModal.show && <DeleteRowModal data={data} setData={setData} rows={rows} setRows={setRows} />}
+
+			{/*
+				Modal window for closing a report
+			*/}
+			{closeReportModal.show && <CloseReportModal setReport={setReport} />}
 		</div>
 	);
 }

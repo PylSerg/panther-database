@@ -4,6 +4,7 @@ import appStyleSlice from "./features/appStyleSlice";
 import notificationSlice from "./features/notificationSlice";
 import responsibleSlice from "./features/responsibleSlice";
 import deleteRowModalSlice from "./features/deleteRowModalSlice";
+import closeReportModalSlice from "./features/closeReportModalSlice";
 import abilityToSendDataSlice from "./features/abilityToSendDataSlice";
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
 		notification: notificationSlice,
 		responsible: responsibleSlice,
 		deleteRowModal: deleteRowModalSlice,
+		closeReportModal: closeReportModalSlice,
 		abilityToSendData: abilityToSendDataSlice,
 	},
 });
