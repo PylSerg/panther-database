@@ -16,6 +16,7 @@ import DeleteRowModal from "./DeleteRowModal";
 import CloseReportModal from "./CloseReportModal";
 
 export default function Report({ type, title, reportUrl, objectsUrl, positionsUrl, setReport }) {
+	const [closeReportMethod, setCloseReportMethod] = useState("auto");
 	const [totalSum, setTotalSum] = useState(0);
 	const [rows, setRows] = useState({ indx: [0] });
 	const [data, setData] = useState({
@@ -66,6 +67,15 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 		setTotalSum(total.toFixed(2));
 	}, [data]);
 
+	// Changes method for closing report
+	useEffect(() => {
+		if (rows.indx.length === 1 && !abilityToSendData) {
+			setCloseReportMethod("auto");
+		} else {
+			setCloseReportMethod("manual");
+		}
+	}, [data]);
+
 	//Gets objects list
 	async function getObjects() {
 		await fetch(objectsUrl)
@@ -105,7 +115,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 	return (
 		<div className="report__block">
 			<div style={{ display: "flex" }}>
-				<button style={{ marginRight: "15px" }} type="button" onClick={() => closeReport(dispatch, setReport, "manual")}>
+				<button style={{ marginRight: "15px" }} type="button" onClick={() => closeReport(dispatch, setReport, closeReportMethod)}>
 					Close
 				</button>
 
