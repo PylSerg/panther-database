@@ -2,8 +2,8 @@ import notification from "./notification";
 import formData from "./form-data";
 import closeReport from "./close-report";
 
-export async function postRequest(dispatch, url, data, rows, setReport) {
-	await fetch(url, {
+export async function postRequest(dispatch, reportUrl, data, rows, setReport) {
+	await fetch(reportUrl, {
 		method: "POST",
 		body: formData(data, rows),
 	})

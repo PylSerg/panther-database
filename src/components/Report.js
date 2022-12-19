@@ -309,7 +309,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			{/*
 				Send button
 			*/}
-			<button type="button" disabled={!abilityToSendData} onClick={() => postRequest(dispatch, reportUrl, data, setData, rows, setRows, setReport)}>
+			<button type="button" disabled={!abilityToSendData} onClick={() => postRequest(dispatch, reportUrl, data, rows, setReport)}>
 				Send
 			</button>
 
