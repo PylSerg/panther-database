@@ -1,4 +1,4 @@
-import { OBJECTS_LIST_URL, STAGES_LIST_URL, MATERIALS_LIST_URL } from "../assets/js/urls";
+import { STAGES_LIST_URL } from "../assets/js/urls";
 import { RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
 
 import { useState, useEffect } from "react";
@@ -13,7 +13,7 @@ import { disableAbilityToSendData } from "../redux/features/abilityToSendDataSli
 
 import DeleteRowModal from "./DeleteRowModal";
 
-export default function Report({ url, setReport }) {
+export default function Report({ type, reportUrl, objectsUrl, positionsUrl, setReport }) {
 	const [totalSum, setTotalSum] = useState(0);
 	const [rows, setRows] = useState({ indx: [0] });
 	const [data, setData] = useState({
@@ -25,6 +25,7 @@ export default function Report({ url, setReport }) {
 		sums: [""],
 		comments: [""],
 	});
+
 	const [objectsList, setObjectsList] = useState();
 	const [stagesList, setStagesList] = useState();
 	const [materialsList, setMaterialsList] = useState();
@@ -64,7 +65,7 @@ export default function Report({ url, setReport }) {
 
 	//Gets objects list
 	async function getObjects() {
-		await fetch(OBJECTS_LIST_URL)
+		await fetch(objectsUrl)
 			.then(response => response.json())
 			.then(response => setObjectsList(response.data.objects))
 			.catch(error => {
@@ -88,7 +89,7 @@ export default function Report({ url, setReport }) {
 
 	// Gets materials list
 	async function getMaterials() {
-		await fetch(MATERIALS_LIST_URL)
+		await fetch(positionsUrl)
 			.then(response => response.json())
 			.then(response => setMaterialsList(response.data.materials))
 			.catch(error => {
@@ -303,7 +304,7 @@ export default function Report({ url, setReport }) {
 			{/*
 				Send button
 			*/}
-			<button type="button" disabled={!abilityToSendData} onClick={() => postRequest(dispatch, url, data, setData, rows, setRows, setReport)}>
+			<button type="button" disabled={!abilityToSendData} onClick={() => postRequest(dispatch, reportUrl, data, setData, rows, setRows, setReport)}>
 				Send
 			</button>
 
