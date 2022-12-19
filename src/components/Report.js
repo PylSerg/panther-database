@@ -1,4 +1,3 @@
-import { rowsState, reportState } from "../assets/js/states";
 import { OBJECTS_LIST_URL, STAGES_LIST_URL, MATERIALS_LIST_URL } from "../assets/js/urls";
 import { RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
 
@@ -10,13 +9,22 @@ import { openDeleteRowModal } from "../assets/js/open-delete-row-modal";
 import notification from "../assets/js/notification";
 
 import { useSelector, useDispatch } from "react-redux";
+import { disableAbilityToSendData } from "../redux/features/abilityToSendDataSlice";
 
 import DeleteRowModal from "./DeleteRowModal";
 
 export default function Report({ url, setReport }) {
 	const [totalSum, setTotalSum] = useState(0);
-	const [rows, setRows] = useState(rowsState);
-	const [data, setData] = useState(reportState);
+	const [rows, setRows] = useState({ indx: [0] });
+	const [data, setData] = useState({
+		objects: [""],
+		stages: [""],
+		materials: [""],
+		quantity: [""],
+		prices: [""],
+		sums: [""],
+		comments: [""],
+	});
 	const [objectsList, setObjectsList] = useState();
 	const [stagesList, setStagesList] = useState();
 	const [materialsList, setMaterialsList] = useState();
@@ -30,6 +38,8 @@ export default function Report({ url, setReport }) {
 	// Adds responsible and gets objects, stages and materials
 	useEffect(() => {
 		setData({ ...data, responsible: responsible });
+
+		dispatch(disableAbilityToSendData());
 
 		getObjects();
 		getStages();
