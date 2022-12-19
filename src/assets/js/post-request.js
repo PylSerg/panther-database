@@ -11,11 +11,12 @@ export async function postRequest(dispatch, url, data, setData, rows, setRows, s
 		.then(response => {
 			console.log(response);
 
+			if (response.status === 200) clearData(data, setData, setRows);
+
 			notification(dispatch, "Звіт успішно відправлено");
 
 			setReport({ show: false, url: null });
 		})
-		.then(clearData(data, setData, setRows))
 		.catch(error => {
 			console.log(`\x1b[31m ${error}`);
 

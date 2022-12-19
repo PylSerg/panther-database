@@ -27,8 +27,6 @@ export default function Report({ setReport }) {
 
 	const dispatch = useDispatch();
 
-	console.log("DATA => ", data);
-
 	// Adds responsible and gets objects, stages and materials
 	useEffect(() => {
 		setData({ ...data, responsible: responsible });
