@@ -1,10 +1,12 @@
 import { pointerEventsON, pointerEventsOFF } from "./pointer-events";
+import { showProgress, hideProgress } from "../../redux/features/progressSlice";
 import notification from "./notification";
 import formData from "./form-data";
 import closeReport from "./close-report";
 
 export async function postRequest(dispatch, reportUrl, data, rows, setReport) {
 	pointerEventsOFF(dispatch);
+	dispatch(showProgress("Відправлення звіту..."));
 
 	await fetch(reportUrl, {
 		method: "POST",
@@ -17,6 +19,7 @@ export async function postRequest(dispatch, reportUrl, data, rows, setReport) {
 			if (response.status === 200) {
 				notification(dispatch, "Звіт успішно відправлено");
 				closeReport(dispatch, setReport, "auto");
+				dispatch(hideProgress());
 				pointerEventsON(dispatch);
 			}
 		})

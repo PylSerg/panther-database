@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { changeResponsible } from "./redux/features/responsibleSlice";
 
 import Notification from "./components/Notification";
+import Progress from "./components/Progress";
 import Authorization from "./components/Authorization";
 import Profile from "./components/Profile";
 
@@ -20,6 +21,7 @@ export default function App() {
 	return (
 		<div className={appStyle.app__block.join(" ")}>
 			<Notification />
+			<Progress />
 
 			{responsible.group === "" && <Authorization />}
 
