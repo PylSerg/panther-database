@@ -46,12 +46,8 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 	// Adds responsible and gets objects, stages and materials
 	useEffect(() => {
 		setData({ ...data, responsible: responsible });
-
 		dispatch(disableAbilityToSendData());
-
 		getObjects();
-		getStages();
-		getMaterials();
 	}, []);
 
 	// Creates new row if rows quantity is 0
@@ -87,7 +83,8 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			.then(response => response.json())
 			.then(response => {
 				setObjectsList(response.data.objects);
-				dispatch(hideProgress());
+				getStages();
+				// dispatch(hideProgress());
 			})
 			.catch(error => {
 				notification(dispatch, error);
@@ -103,8 +100,9 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 		await fetch(STAGES_LIST_URL)
 			.then(response => response.json())
 			.then(response => {
-				dispatch(hideProgress());
 				setStagesList(response.data.stages);
+				getMaterials();
+				// dispatch(hideProgress());
 			})
 			.catch(error => {
 				notification(dispatch, error);
