@@ -1,8 +1,13 @@
 .report__block {
     width: 100%;
+    max-width: 1366px;
+
+    margin: 0 auto;
 }
 
 .report__title-block {
+    position: relative;
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -40,6 +45,64 @@
     font-size: 20px;
 }
 
+.report__submit-button {
+    position: absolute;
+    right: 40px;
+    top: 0;
+
+    height: 32px;
+
+    margin: 0;
+    padding: 0 10px;
+
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+
+    background-color: #09b13b;
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    @media screen and (max-width: 767px) {
+        right: 20px;
+    }
+
+    &:hover,
+    &:focus {
+        background-color: #069431;
+    }
+
+    &:disabled {
+        color: #ddd;
+
+        background-color: #aaa;
+
+        cursor: not-allowed;
+
+        &:hover::before,
+        &:focus::before {
+            content: "Звіт заповнений некорректно!";
+            position: absolute;
+            left: -235px;
+            top: 0;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 10px;
+
+            height: 100%;
+
+            color: #fff;
+
+            background-color: #f00;
+            border-radius: 10px;
+        }
+    }
+}
+
 .report__table {
     display: flex;
     flex-direction: column;
@@ -49,6 +112,7 @@
     width: calc(100% - 2 * 10px);
 
     margin: 0 auto;
+    margin-bottom: 80px;
     padding: 0;
 
     @media screen and (max-width: 1365px) {

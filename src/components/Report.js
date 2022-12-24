@@ -132,6 +132,9 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 	return (
 		<div className="report__block">
+			{/*
+				Report title
+			*/}
 			<div className="report__title-block">
 				<button className="report__close-button" type="button" title="Закрити звіт" onClick={() => closeReport(dispatch, setReport, closeReportMethod)}>
 					<RiCloseFill />
@@ -140,6 +143,10 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 				<p className="report__title">
 					<b>{title}</b>
 				</p>
+
+				<button className="report__submit-button" type="button" disabled={!abilityToSendData} onClick={() => dispatch(showSubmitReportModal())}>
+					Відправити
+				</button>
 			</div>
 
 			<p>
@@ -341,15 +348,6 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 						</li>
 					))}
 			</ul>
-
-			{/*
-				Send button
-			*/}
-			<br />
-
-			<button type="button" disabled={!abilityToSendData} onClick={() => dispatch(showSubmitReportModal())}>
-				Send
-			</button>
 
 			{/*
 				Modal window for deleting row
