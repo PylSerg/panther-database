@@ -4,7 +4,6 @@ import { RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
 import { useState, useEffect } from "react";
 import { createNewRow } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
-import { postRequest } from "../assets/js/post-request";
 import { openDeleteRowModal } from "../assets/js/open-delete-row-modal";
 import closeReport from "../assets/js/close-report";
 import notification from "../assets/js/notification";
@@ -12,9 +11,11 @@ import notification from "../assets/js/notification";
 import { useSelector, useDispatch } from "react-redux";
 import { showProgress, hideProgress } from "../redux/features/progressSlice";
 import { disableAbilityToSendData } from "../redux/features/abilityToSendDataSlice";
+import { showSubmitReportModal } from "../redux/features/submitReportModalSlice";
 
 import DeleteRowModal from "./DeleteRowModal";
 import CloseReportModal from "./CloseReportModal";
+import SubmitReportModal from "./SubmitReportModal";
 
 export default function Report({ type, title, reportUrl, objectsUrl, positionsUrl, setReport }) {
 	const [closeReportMethod, setCloseReportMethod] = useState("auto");
@@ -38,6 +39,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 	const deleteRowModal = useSelector(state => state.deleteRowModal);
 	const closeReportModal = useSelector(state => state.closeReportModal);
 	const abilityToSendData = useSelector(state => state.abilityToSendData.allowSending);
+	const submitReportModal = useSelector(state => state.submitReportModal);
 
 	const dispatch = useDispatch();
 
@@ -345,7 +347,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			*/}
 			<br />
 
-			<button type="button" disabled={!abilityToSendData} onClick={() => postRequest(dispatch, reportUrl, data, rows, setReport)}>
+			<button type="button" disabled={!abilityToSendData} onClick={() => dispatch(showSubmitReportModal())}>
 				Send
 			</button>
 
@@ -358,6 +360,11 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 				Modal window for closing a report
 			*/}
 			{closeReportModal.show && <CloseReportModal setReport={setReport} />}
+
+			{/*
+				Modal window for submit a report
+			*/}
+			{submitReportModal.show && <SubmitReportModal reportUrl={reportUrl} data={data} rows={rows} setReport={setReport} />}
 		</div>
 	);
 }

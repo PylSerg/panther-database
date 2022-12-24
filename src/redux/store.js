@@ -7,6 +7,7 @@ import responsibleSlice from "./features/responsibleSlice";
 import deleteRowModalSlice from "./features/deleteRowModalSlice";
 import closeReportModalSlice from "./features/closeReportModalSlice";
 import abilityToSendDataSlice from "./features/abilityToSendDataSlice";
+import submitReportModalSlice from "./features/submitReportModalSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -17,5 +18,6 @@ export const store = configureStore({
 		deleteRowModal: deleteRowModalSlice,
 		closeReportModal: closeReportModalSlice,
 		abilityToSendData: abilityToSendDataSlice,
+		submitReportModal: submitReportModalSlice,
 	},
 });

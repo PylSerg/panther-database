@@ -1,11 +1,10 @@
-import { pointerEventsON, pointerEventsOFF } from "./pointer-events";
+import { pointerEventsON } from "./pointer-events";
 import { showProgress, hideProgress } from "../../redux/features/progressSlice";
 import notification from "./notification";
 import formData from "./form-data";
 import closeReport from "./close-report";
 
 export async function postRequest(dispatch, reportUrl, data, rows, setReport) {
-	pointerEventsOFF(dispatch);
 	dispatch(showProgress("Відправлення звіту..."));
 
 	await fetch(reportUrl, {
