@@ -4,6 +4,8 @@
     top: 50%;
     transform: translate(-50%, -50%);
 
+    min-width: 200px;
+
     padding: 30px 20px;
 
     background-color: #fff;
@@ -40,7 +42,8 @@
 }
 
 .modal__cancel,
-.modal__allow {
+.modal__allow,
+.modal__accept {
     width: 50%;
 
     padding: 8px 0;
@@ -70,5 +73,16 @@
     &:hover,
     &:focus {
         background-color: #f30e0e;
+    }
+}
+
+.modal__accept {
+    color: #fff;
+
+    background-color: #09b13b;
+
+    &:hover,
+    &:focus {
+        background-color: #069431;
     }
 }

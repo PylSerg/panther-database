@@ -36,7 +36,7 @@ export default function SubmitReportModal({ reportUrl, data, rows, setReport }) 
 					Відміна
 				</button>
 
-				<button className="modal__allow" type="button" onClick={submitReport}>
+				<button className="modal__accept" type="button" onClick={submitReport}>
 					Відправити
 				</button>
 			</div>
