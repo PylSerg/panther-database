@@ -21,8 +21,7 @@ export default function CloseReportModal({ setReport }) {
 
 	return (
 		<div className="modal__block">
-			<p className="modal__text">Звіт не був відправленний!</p>
-			<p className="modal__text">Якщо Ви зараз закриєте цей звіт, то всі його дані будуть видалені!</p>
+			<p className="modal__text">Звіт не був відправленний! Якщо Ви зараз закриєте цей звіт, то всі його дані будуть видалені!</p>
 
 			<div className="modal__buttons">
 				<button className="modal__cancel" type="button" onClick={closeCloseReportModal}>
