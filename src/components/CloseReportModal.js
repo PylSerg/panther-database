@@ -8,7 +8,7 @@ import { hideCloseReportModal } from "../redux/features/closeReportModalSlice";
 export default function CloseReportModal({ setReport }) {
 	const dispatch = useDispatch();
 
-	function closeClosingModal() {
+	function closeCloseReportModal() {
 		pointerEventsON(dispatch);
 		dispatch(hideCloseReportModal());
 	}
@@ -25,7 +25,7 @@ export default function CloseReportModal({ setReport }) {
 			<p className="modal__text">Якщо Ви зараз закриєте цей звіт, то всі його дані будуть видалені!</p>
 
 			<div className="modal__buttons">
-				<button className="modal__cancel" type="button" onClick={closeClosingModal}>
+				<button className="modal__cancel" type="button" onClick={closeCloseReportModal}>
 					Відміна
 				</button>
 
