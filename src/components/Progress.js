@@ -9,9 +9,11 @@ export default function Progress() {
 	return (
 		<div>
 			{progress.show && (
-				<div>
-					<img src={progressAnimation} alt="Progress" />
-					<p>{progress.message}</p>
+				<div className="progress__block">
+					<div className="progress__main">
+						<img className="progress__animation" src={progressAnimation} alt="Progress" />
+						<p className="progress__message">{progress.message}</p>
+					</div>
 				</div>
 			)}
 		</div>
