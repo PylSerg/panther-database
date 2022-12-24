@@ -10,6 +10,7 @@ import closeReport from "../assets/js/close-report";
 import notification from "../assets/js/notification";
 
 import { useSelector, useDispatch } from "react-redux";
+import { showProgress, hideProgress } from "../redux/features/progressSlice";
 import { disableAbilityToSendData } from "../redux/features/abilityToSendDataSlice";
 
 import DeleteRowModal from "./DeleteRowModal";
@@ -78,9 +79,14 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 	//Gets objects list
 	async function getObjects() {
+		dispatch(showProgress("Завантаження списку об'єктів..."));
+
 		await fetch(objectsUrl)
 			.then(response => response.json())
-			.then(response => setObjectsList(response.data.objects))
+			.then(response => {
+				setObjectsList(response.data.objects);
+				dispatch(hideProgress());
+			})
 			.catch(error => {
 				notification(dispatch, error);
 
@@ -90,9 +96,14 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 	// Gets stages list
 	async function getStages() {
+		dispatch(showProgress("Завантаження списку етапів..."));
+
 		await fetch(STAGES_LIST_URL)
 			.then(response => response.json())
-			.then(response => setStagesList(response.data.stages))
+			.then(response => {
+				dispatch(hideProgress());
+				setStagesList(response.data.stages);
+			})
 			.catch(error => {
 				notification(dispatch, error);
 
@@ -102,9 +113,14 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 	// Gets materials list
 	async function getMaterials() {
+		dispatch(showProgress("Завантаження списку найменувань..."));
+
 		await fetch(positionsUrl)
 			.then(response => response.json())
-			.then(response => setMaterialsList(response.data.materials))
+			.then(response => {
+				dispatch(hideProgress());
+				setMaterialsList(response.data.materials);
+			})
 			.catch(error => {
 				notification(dispatch, error);
 
