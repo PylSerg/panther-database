@@ -18,6 +18,7 @@ export function readyToSend(dispatch, indx, rows, data) {
 	}
 
 	addCount();
+	rowValidation();
 
 	function addCount() {
 		rowsNumber.map(row => {
@@ -30,8 +31,6 @@ export function readyToSend(dispatch, indx, rows, data) {
 			}
 
 			if (counter > 0 && counter !== keys.length - 2) rowsCounter++;
-
-			rowValidation();
 		});
 	}
 
