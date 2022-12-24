@@ -2,6 +2,44 @@
     width: 100%;
 }
 
+.report__title-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin: 0;
+    padding: 0;
+}
+
+.report__close-button {
+    margin: 0;
+    margin-right: 10px;
+    padding: 0;
+
+    width: 32px;
+    height: 32px;
+
+    color: #888;
+    font-size: 32px;
+
+    background-color: transparent;
+    border: none;
+
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        color: #a00;
+    }
+}
+
+.report__title {
+    margin: 0;
+    padding: 0;
+
+    font-size: 20px;
+}
+
 .report__table {
     display: flex;
     flex-direction: column;

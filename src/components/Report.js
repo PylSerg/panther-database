@@ -1,5 +1,5 @@
 import { STAGES_LIST_URL } from "../assets/js/urls";
-import { RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
+import { RiCloseFill, RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
 
 import { useState, useEffect } from "react";
 import { createNewRow } from "../assets/js/rows";
@@ -132,12 +132,12 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 	return (
 		<div className="report__block">
-			<div style={{ display: "flex" }}>
-				<button style={{ marginRight: "15px" }} type="button" onClick={() => closeReport(dispatch, setReport, closeReportMethod)}>
-					Close
+			<div className="report__title-block">
+				<button className="report__close-button" type="button" title="Закрити звіт" onClick={() => closeReport(dispatch, setReport, closeReportMethod)}>
+					<RiCloseFill />
 				</button>
 
-				<p>
+				<p className="report__title">
 					<b>{title}</b>
 				</p>
 			</div>
