@@ -50,8 +50,8 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 		dispatch(disableAbilityToSendData());
 
 		getObjects();
-		getStages();
-		getMaterials();
+		// getStages();
+		// getMaterials();
 	}, []);
 
 	// Creates new row if rows quantity is 0
@@ -87,10 +87,12 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			.then(response => response.json())
 			.then(response => {
 				setObjectsList(response.data.objects);
-				dispatch(hideProgress());
+				getStages();
+				// dispatch(hideProgress());
 			})
 			.catch(error => {
 				notification(dispatch, error);
+				dispatch(hideProgress());
 
 				console.log(`\x1b[31m ${error}`);
 			});
@@ -104,10 +106,12 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			.then(response => response.json())
 			.then(response => {
 				setStagesList(response.data.stages);
-				dispatch(hideProgress());
+				getMaterials();
+				// dispatch(hideProgress());
 			})
 			.catch(error => {
 				notification(dispatch, error);
+				dispatch(hideProgress());
 
 				console.log(`\x1b[31m ${error}`);
 			});
@@ -125,6 +129,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			})
 			.catch(error => {
 				notification(dispatch, error);
+				dispatch(hideProgress());
 
 				console.log(`\x1b[31m ${error}`);
 			});
