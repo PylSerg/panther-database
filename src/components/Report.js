@@ -4,6 +4,7 @@ import { RiCloseFill, RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
 import { useState, useEffect } from "react";
 import { createNewRow } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
+import { readyToSend } from "../assets/js/ready-to-send";
 import { openDeleteRowModal } from "../assets/js/open-delete-row-modal";
 import closeReport from "../assets/js/close-report";
 import notification from "../assets/js/notification";
@@ -58,6 +59,11 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 	useEffect(() => {
 		if (rows.indx.length === 0) createNewRow(rows, setRows, data);
 	}, [rows.indx]);
+
+	// Submit validation
+	useEffect(() => {
+		readyToSend(dispatch, rows, data);
+	});
 
 	// Calcs total sum
 	useEffect(() => {
@@ -205,7 +211,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 									value={data.objects[row]}
 									list="objectsList"
 									autoComplete="off"
-									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
+									onChange={e => changeCell(e, rows, setRows, data, setData)}
 								/>
 
 								<datalist id="objectsList">
@@ -234,7 +240,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 									value={data.stages[row]}
 									list="stagesList"
 									autoComplete="off"
-									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
+									onChange={e => changeCell(e, rows, setRows, data, setData)}
 								/>
 
 								<datalist id="stagesList">
@@ -263,7 +269,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 									value={data.materials[row]}
 									list="materialsList"
 									autoComplete="off"
-									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
+									onChange={e => changeCell(e, rows, setRows, data, setData)}
 								/>
 
 								<datalist id="materialsList">
@@ -285,14 +291,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 								<p className="report__label">Кількість</p>
 
-								<input
-									className="report__field"
-									name="quantity"
-									id={row}
-									value={data.quantity[row]}
-									autoComplete="off"
-									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
-								/>
+								<input className="report__field" name="quantity" id={row} value={data.quantity[row]} autoComplete="off" onChange={e => changeCell(e, rows, setRows, data, setData)} />
 							</div>
 
 							{/*
@@ -309,7 +308,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 									id={row}
 									value={data.prices[row]}
 									autoComplete="off"
-									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
+									onChange={e => changeCell(e, rows, setRows, data, setData)}
 									onBlur={e => changePrice(e, data, setData)}
 								/>
 							</div>
@@ -322,15 +321,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 								<p className="report__label">Сума</p>
 
-								<input
-									className="report__field"
-									name="sums"
-									id={row}
-									value={data.sums[row]}
-									autoComplete="off"
-									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
-									readOnly
-								/>
+								<input className="report__field" name="sums" id={row} value={data.sums[row]} autoComplete="off" onChange={e => changeCell(e, rows, setRows, data, setData)} readOnly />
 							</div>
 
 							{/*
@@ -341,14 +332,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 								<p className="report__label">Коментар</p>
 
-								<input
-									className="report__field"
-									name="comments"
-									id={row}
-									value={data.comments[row]}
-									autoComplete="off"
-									onChange={e => changeCell(dispatch, e, rows, setRows, data, setData)}
-								/>
+								<input className="report__field" name="comments" id={row} value={data.comments[row]} autoComplete="off" onChange={e => changeCell(e, rows, setRows, data, setData)} />
 							</div>
 						</li>
 					))}

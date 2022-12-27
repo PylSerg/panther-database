@@ -1,8 +1,7 @@
 import { autoCreateNewRow } from "./rows";
-import { readyToSend } from "./ready-to-send";
 
 // Changes cell
-export function changeCell(dispatch, e, rows, setRows, data, setData) {
+export function changeCell(e, rows, setRows, data, setData) {
 	const indx = e.currentTarget.id;
 	const column = e.currentTarget.name;
 	const value = e.currentTarget.value;
@@ -18,8 +17,6 @@ export function changeCell(dispatch, e, rows, setRows, data, setData) {
 	}
 
 	autoCreateNewRow(indx, rows, setRows, data);
-
-	readyToSend(dispatch, indx, rows, data);
 
 	setData({ ...data, [`${column}`]: newArray });
 }
@@ -91,8 +88,6 @@ export function pasteObjectAndStage(dispatch, e, rows, setRows, data, setData) {
 	}
 
 	autoCreateNewRow(indx, rows, setRows, data);
-
-	readyToSend(dispatch, indx, rows, data);
 
 	setData({ ...data, objects: newObjectsArray, stages: newStagesArray });
 }

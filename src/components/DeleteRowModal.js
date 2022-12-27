@@ -17,7 +17,7 @@ export default function DeleteRowModal({ data, setData, rows, setRows }) {
 
 	function handelDeleteRow() {
 		closeDeleteRowModal();
-		deleteRow(dispatch, indx, data, setData, rows, setRows);
+		deleteRow(indx, data, setData, rows, setRows);
 	}
 
 	return (

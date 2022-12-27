@@ -1,17 +1,11 @@
 import { allowAbilityToSendData, disableAbilityToSendData } from "../../redux/features/abilityToSendDataSlice";
 
-export function readyToSend(dispatch, indx, rows, data) {
+export function readyToSend(dispatch, rows, data) {
 	let counter = 0;
 	let rowsCounter = 0;
 
 	const keys = Object.keys(data);
 	const rowsNumber = rows.indx;
-
-	if (indx === -1) {
-		rowsNumber.pop();
-
-		if (rowsNumber.length === 0) return dispatch(disableAbilityToSendData());
-	}
 
 	addCount();
 	rowValidation();
@@ -31,6 +25,8 @@ export function readyToSend(dispatch, indx, rows, data) {
 	}
 
 	function rowValidation() {
+		if (counter === 6 && rowsNumber.length === 1) return dispatch(disableAbilityToSendData());
+
 		if (rowsCounter === 0) {
 			counter = 0;
 			rowsCounter = 0;

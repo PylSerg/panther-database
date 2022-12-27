@@ -1,5 +1,3 @@
-import { readyToSend } from "./ready-to-send";
-
 // Auto creates new row
 export function autoCreateNewRow(indx, rows, setRows, data) {
 	if (Number(indx) === rows.indx.length - 1) {
@@ -23,7 +21,7 @@ export function createNewRow(rows, setRows, data) {
 }
 
 // Deletes row
-export function deleteRow(dispatch, indx, data, setData, rows, setRows) {
+export function deleteRow(indx, data, setData, rows, setRows) {
 	const newRowsArray = [];
 
 	for (let i = 0; i < rows.indx.length - 1; i++) {
@@ -41,6 +39,4 @@ export function deleteRow(dispatch, indx, data, setData, rows, setRows) {
 			setData({ ...data, [key]: newArray });
 		}
 	}
-
-	readyToSend(dispatch, -1, rows, data);
 }
