@@ -10,8 +10,6 @@ export default function SubmitReportModal({ reportUrl, data, rows, setReport }) 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		console.log("useEffect running...");
-
 		pointerEventsOFF(dispatch);
 	}, [dispatch]);
 

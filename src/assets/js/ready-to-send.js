@@ -11,10 +11,6 @@ export function readyToSend(dispatch, indx, rows, data) {
 		rowsNumber.pop();
 
 		if (rowsNumber.length === 0) return dispatch(disableAbilityToSendData());
-
-		addCount();
-
-		return;
 	}
 
 	addCount();
