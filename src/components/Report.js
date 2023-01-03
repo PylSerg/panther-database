@@ -345,14 +345,14 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			{/*
 				Scrolling to bottom
 			*/}
-			<button className="report__to-bottom" type="button" onClick={toBottom}>
+			<button className="report__to-bottom" type="button" title="Перейти на кінець сторінки" onClick={toBottom}>
 				<RiDownloadLine className="report__to-bottom-icon" />
 			</button>
 
 			{/*
 				Scrolling to top
 			*/}
-			<button className="report__to-top" type="button" onClick={toTop}>
+			<button className="report__to-top" type="button" title="Перейти на початок сторінки" onClick={toTop}>
 				<RiDownloadLine className="report__to-top-icon" />
 			</button>
 
