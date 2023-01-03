@@ -1,5 +1,5 @@
 import { STAGES_LIST_URL } from "../assets/js/urls";
-import { RiCloseFill, RiFileCopy2Line, RiDeleteBin2Line } from "react-icons/ri";
+import { RiCloseFill, RiFileCopy2Line, RiDeleteBin2Line, RiDownloadLine } from "react-icons/ri";
 
 import { useState, useEffect } from "react";
 import { createNewRow } from "../assets/js/rows";
@@ -8,6 +8,7 @@ import { readyToSend } from "../assets/js/ready-to-send";
 import { openDeleteRowModal } from "../assets/js/open-delete-row-modal";
 import closeReport from "../assets/js/close-report";
 import notification from "../assets/js/notification";
+import { toTop, toBottom } from "../assets/js/scrolling";
 
 import { useSelector, useDispatch } from "react-redux";
 import { showProgress, hideProgress } from "../redux/features/progressSlice";
@@ -340,6 +341,20 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 						</li>
 					))}
 			</ul>
+
+			{/*
+				Scrolling to bottom
+			*/}
+			<button className="report__to-bottom" type="button" onClick={toBottom}>
+				<RiDownloadLine className="report__to-bottom-icon" />
+			</button>
+
+			{/*
+				Scrolling to top
+			*/}
+			<button className="report__to-top" type="button" onClick={toTop}>
+				<RiDownloadLine className="report__to-top-icon" />
+			</button>
 
 			{/*
 				Modal window for deleting row
