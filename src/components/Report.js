@@ -6,9 +6,10 @@ import { createNewRow } from "../assets/js/rows";
 import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
 import { readyToSend } from "../assets/js/ready-to-send";
 import { openDeleteRowModal } from "../assets/js/open-delete-row-modal";
+import { toTop, toBottom } from "../assets/js/scrolling";
+import reportDataValidation from "../assets/js/report-data-validation";
 import closeReport from "../assets/js/close-report";
 import notification from "../assets/js/notification";
-import { toTop, toBottom } from "../assets/js/scrolling";
 
 import { useSelector, useDispatch } from "react-redux";
 import { showProgress, hideProgress } from "../redux/features/progressSlice";
@@ -216,6 +217,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 									list="objectsList"
 									autoComplete="off"
 									onChange={e => changeCell(e, rows, setRows, data, setData)}
+									onBlur={e => reportDataValidation(e, objectsList, data, setData)}
 								/>
 
 								<datalist id="objectsList">
@@ -245,6 +247,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 									list="stagesList"
 									autoComplete="off"
 									onChange={e => changeCell(e, rows, setRows, data, setData)}
+									onBlur={e => reportDataValidation(e, stagesList, data, setData)}
 								/>
 
 								<datalist id="stagesList">
