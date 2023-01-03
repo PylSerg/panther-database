@@ -163,7 +163,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 				</button>
 			</div>
 
-			<p>
+			<p className="report__sum">
 				Сума звіту: <b>{totalSum} грн.</b>
 			</p>
 
