@@ -6,8 +6,16 @@
 
     padding: 20px;
 
+    color: #333;
+
     background-color: #8de294;
     border-radius: 15px;
+}
+
+.notification__block--error {
+    color: #fff;
+
+    background-color: #d61919;
 }
 
 .notification__message {

@@ -97,6 +97,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 				// dispatch(hideProgress());
 			})
 			.catch(error => {
+				closeReport(dispatch, setReport, "auto");
 				notification(dispatch, error);
 				dispatch(hideProgress());
 
@@ -116,6 +117,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 				// dispatch(hideProgress());
 			})
 			.catch(error => {
+				closeReport(dispatch, setReport, "auto");
 				notification(dispatch, error);
 				dispatch(hideProgress());
 
@@ -134,6 +136,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 				dispatch(hideProgress());
 			})
 			.catch(error => {
+				closeReport(dispatch, setReport, "auto");
 				notification(dispatch, error);
 				dispatch(hideProgress());
 
