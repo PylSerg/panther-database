@@ -81,6 +81,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 		if (totalArray.length > 6) totalArray.splice(totalArray.length - 6, 0, " ");
 		if (totalArray.length > 10) totalArray.splice(totalArray.length - 10, 0, " ");
+		if (totalArray.length > 14) totalArray.splice(totalArray.length - 14, 0, " ");
 
 		setTotalSum(totalArray.join(""));
 	}, [data]);

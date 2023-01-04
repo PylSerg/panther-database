@@ -39,6 +39,7 @@ export function changeQuantity(e, data, setData) {
 
 		if (firstPartQuantity.length > 3) firstPartQuantity.splice(firstPartQuantity.length - 3, 0, " ");
 		if (firstPartQuantity.length > 7) firstPartQuantity.splice(firstPartQuantity.length - 7, 0, " ");
+		if (firstPartQuantity.length > 11) firstPartQuantity.splice(firstPartQuantity.length - 11, 0, " ");
 
 		newQuantity = `${firstPartQuantity.join("")}.${newQuantityArray[1]}`;
 	} else {
@@ -46,6 +47,7 @@ export function changeQuantity(e, data, setData) {
 
 		if (newQuantityArray.length > 3) newQuantityArray.splice(newQuantityArray.length - 3, 0, " ");
 		if (newQuantityArray.length > 7) newQuantityArray.splice(newQuantityArray.length - 7, 0, " ");
+		if (newQuantityArray.length > 11) newQuantityArray.splice(newQuantityArray.length - 11, 0, " ");
 
 		newQuantity = newQuantityArray.join("");
 	}
@@ -69,6 +71,7 @@ export function changePrice(e, data, setData) {
 
 	if (newPriceArray.length > 6) newPriceArray.splice(newPriceArray.length - 6, 0, " ");
 	if (newPriceArray.length > 10) newPriceArray.splice(newPriceArray.length - 10, 0, " ");
+	if (newPriceArray.length > 14) newPriceArray.splice(newPriceArray.length - 14, 0, " ");
 
 	newPricesArray.splice(indx, 1);
 	newPricesArray.splice(indx, 0, newPriceArray.join(""));
@@ -109,6 +112,7 @@ function calcSum(indx, data) {
 
 	if (sumArray.length > 6) sumArray.splice(sumArray.length - 6, 0, " ");
 	if (sumArray.length > 10) sumArray.splice(sumArray.length - 10, 0, " ");
+	if (sumArray.length > 14) sumArray.splice(sumArray.length - 14, 0, " ");
 
 	newSumsArray.splice(indx, 1);
 	newSumsArray.splice(indx, 0, sumArray.join(""));
