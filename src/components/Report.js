@@ -3,7 +3,7 @@ import { RiCloseFill, RiFileCopy2Line, RiDeleteBin2Line, RiDownloadLine } from "
 
 import { useState, useEffect } from "react";
 import { createNewRow } from "../assets/js/rows";
-import { changeCell, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
+import { changeCell, changeQuantity, changePrice, pasteObjectAndStage } from "../assets/js/change-cell";
 import { readyToSend } from "../assets/js/ready-to-send";
 import { openDeleteRowModal } from "../assets/js/open-delete-row-modal";
 import { toTop, toBottom } from "../assets/js/scrolling";
@@ -72,10 +72,17 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 		const sums = data.sums;
 
 		const total = sums.reduce((accum, sum) => {
-			return accum + Number(sum);
+			const sumArray = sum.split(" ");
+
+			return accum + Number(sumArray.join(""));
 		}, 0);
 
-		setTotalSum(total.toFixed(2));
+		const totalArray = total.toFixed(2).split("");
+
+		if (totalArray.length > 6) totalArray.splice(totalArray.length - 6, 0, " ");
+		if (totalArray.length > 10) totalArray.splice(totalArray.length - 10, 0, " ");
+
+		setTotalSum(totalArray.join(""));
 	}, [data]);
 
 	// Changes method for closing report
@@ -298,7 +305,15 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 								<p className="report__label">Кількість</p>
 
-								<input className="report__field" name="quantity" id={row} value={data.quantity[row]} autoComplete="off" onChange={e => changeCell(e, rows, setRows, data, setData)} />
+								<input
+									className="report__field"
+									name="quantity"
+									id={row}
+									value={data.quantity[row]}
+									autoComplete="off"
+									onChange={e => changeCell(e, rows, setRows, data, setData)}
+									onBlur={e => changeQuantity(e, data, setData)}
+								/>
 							</div>
 
 							{/*
