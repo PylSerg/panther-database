@@ -25,6 +25,8 @@ export async function postRequest(dispatch, reportUrl, data, rows, setReport) {
 		.catch(error => {
 			console.log(`\x1b[31m ${error}`);
 
+			dispatch(hideProgress());
+			pointerEventsON(dispatch);
 			notification(dispatch, error);
 		});
 }
