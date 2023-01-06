@@ -27,7 +27,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 	const [data, setData] = useState({
 		objects: [""],
 		stages: [""],
-		materials: [""],
+		positions: [""],
 		quantity: [""],
 		prices: [""],
 		sums: [""],
@@ -36,7 +36,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 	const [objectsList, setObjectsList] = useState();
 	const [stagesList, setStagesList] = useState();
-	const [materialsList, setMaterialsList] = useState();
+	const [positionsList, setPositionsList] = useState();
 
 	const responsible = useSelector(state => state.responsible.name);
 	const deleteRowModal = useSelector(state => state.deleteRowModal);
@@ -52,9 +52,9 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 		dispatch(disableAbilityToSendData());
 
-		getObjects();
-		// getStages();
-		// getMaterials();
+		if (type !== "OFFICE") {
+			getObjects();
+		}
 	}, []);
 
 	// Creates new row if rows quantity is 0
@@ -104,7 +104,6 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			.then(response => {
 				setObjectsList(response.data.objects);
 				getStages();
-				// dispatch(hideProgress());
 			})
 			.catch(error => {
 				closeReport(dispatch, setReport, "auto");
@@ -123,8 +122,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			.then(response => response.json())
 			.then(response => {
 				setStagesList(response.data.stages);
-				getMaterials();
-				// dispatch(hideProgress());
+				getPositions();
 			})
 			.catch(error => {
 				closeReport(dispatch, setReport, "auto");
@@ -135,14 +133,14 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			});
 	}
 
-	// Gets materials list
-	async function getMaterials() {
+	// Gets positions list
+	async function getPositions() {
 		dispatch(showProgress("Завантаження списку найменувань..."));
 
 		await fetch(positionsUrl)
 			.then(response => response.json())
 			.then(response => {
-				setMaterialsList(response.data.materials);
+				setPositionsList(response.data.positions);
 				dispatch(hideProgress());
 			})
 			.catch(error => {
@@ -189,7 +187,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 							*/}
 							<div className="report__options">
 								<p className="report__info">
-									№ {row + 1} {data.materials[row] && `- ${data.materials[row]}`}
+									№ {row + 1} {data.positions[row] && `- ${data.positions[row]}`}
 								</p>
 
 								<div className="report__options-buttons">
@@ -197,7 +195,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 										id={row}
 										className="report__copy"
 										type="button"
-										title="Вставити попередій об'єкт та етап"
+										title="Вставити попередій обʼєкт та етап"
 										onClick={e => pasteObjectAndStage(dispatch, e, rows, setRows, data, setData)}
 									>
 										<RiFileCopy2Line />
@@ -213,9 +211,9 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 								Object
 							*/}
 							<div className="report__entry">
-								{row === 0 && <p className="report__header">Об&rsquo;єкт</p>}
+								{row === 0 && <p className="report__header">Обʼєкт</p>}
 
-								<p className="report__label">Об&rsquo;єкт</p>
+								<p className="report__label">Обʼєкт</p>
 
 								<input
 									className="report__field"
@@ -270,7 +268,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 							</div>
 
 							{/*
-								Material
+								Position
 							*/}
 							<div className="report__entry">
 								{row === 0 && <p className="report__header">Найменування</p>}
@@ -279,20 +277,20 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 								<input
 									className="report__field"
-									name="materials"
+									name="positions"
 									id={row}
-									value={data.materials[row]}
-									list="materialsList"
+									value={data.positions[row]}
+									list="positionsList"
 									autoComplete="off"
 									onChange={e => changeCell(e, rows, setRows, data, setData)}
 								/>
 
-								<datalist id="materialsList">
+								<datalist id="positionsList">
 									<option value="" key="mtr_null"></option>
-									{materialsList &&
-										materialsList.map(material => (
-											<option value={material} key={material}>
-												{material}
+									{positionsList &&
+										positionsList.map(position => (
+											<option value={position} key={position}>
+												{position}
 											</option>
 										))}
 								</datalist>

@@ -18,7 +18,7 @@ function doPost(request) {
 	// Creates new report number
 	const lastReportNumber = sheet.getRange(`B${lastRow}`).getValue();
 	const lastReportComponents = lastReportNumber.split("-");
-	const reportNumber = `M-23-${Number(lastReportComponents[2]) + 1}`;
+	const reportNumber = `S-23-${Number(lastReportComponents[2]) + 1}`;
 
 	// Changes dot to comma
 	changeDotToComma(quantityList);
