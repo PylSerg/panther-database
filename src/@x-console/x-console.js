@@ -1,3 +1,24 @@
+/*** X-CONSOLE ***/
+
+/*
+	Quick Start:
+? 	import xc
+
+	Get list of all methods:
+?	xc.help()
+*/
+/*
+ *	Version
+ */
+
+const version = "1.1.0";
+
+/*
+
+ !	CLASS 
+
+*/
+
 class X_CONSOLE {
 	/*
 	 * Text style
@@ -38,11 +59,15 @@ class X_CONSOLE {
 	WHITE_BG = "\x1b[47m";
 
 	/*
-	  ! METHODS
+
+	 !	METHODS
+
 	 */
 
 	/*
-	 * Alternative to "console.log"
+
+	 * Alternative to "console.log()"
+
 	 */
 
 	// DEFAULT
@@ -107,94 +132,276 @@ class X_CONSOLE {
 	}
 
 	/*
-	 * Logs the rendering of the component
+
+	 * Alternative to "console.table()"
+
 	 */
 
-	// DEFAULT
-	rnd(component) {
-		const log = componentRenderingLog(component, "");
-
-		return console.log(log);
-	}
-
-	// RED
-	rndd(component) {
-		const log = componentRenderingLog(component, this.BLACK);
-
-		return console.log(log);
-	}
-
-	// RED
-	rndr(component) {
-		const log = componentRenderingLog(component, this.RED);
-
-		return console.log(log);
-	}
-
-	// GREEN
-	rndg(component) {
-		const log = componentRenderingLog(component, this.GREEN);
-
-		return console.log(log);
-	}
-
-	// YELLOW
-	rndy(component) {
-		const log = componentRenderingLog(component, this.YELLOW);
-
-		return console.log(log);
-	}
-
-	// BLUE
-	rndb(component) {
-		const log = componentRenderingLog(component, this.BLUE);
-
-		return console.log(log);
-	}
-
-	// MAGENTA
-	rndm(component) {
-		const log = componentRenderingLog(component, this.MAGENTA);
-
-		return console.log(log);
-	}
-
-	// CYAN
-	rndc(component) {
-		const log = componentRenderingLog(component, this.CYAN);
-
-		return console.log(log);
-	}
-
-	// WHITE
-	rndw(component) {
-		const log = componentRenderingLog(component, this.WHITE);
-
-		return console.log(log);
+	t(...args) {
+		console.table(...args);
 	}
 
 	/*
-	  ! HELP
+
+	 * Alternative to "console.dir()"
+
+	 */
+
+	d(...args) {
+		console.dir(...args);
+	}
+
+	/*
+
+	 * Alternative to "console.count()"
+
+	 */
+
+	// DEFAULT
+	c(...args) {
+		return console.count(...args);
+	}
+
+	// BLACK
+	cd(...args) {
+		const data = args.join(" ");
+
+		return console.count(`${this.BLACK}${data}`);
+	}
+
+	// RED
+	cr(...args) {
+		const data = args.join(" ");
+
+		return console.count(`${this.RED}${data}`);
+	}
+
+	// GREEN
+	cg(...args) {
+		const data = args.join(" ");
+
+		console.count(`${this.GREEN}${data}`);
+	}
+
+	// YELLOW
+	cy(...args) {
+		const data = args.join(" ");
+
+		console.count(`${this.YELLOW}${data}`);
+	}
+
+	// BLUE
+	cb(...args) {
+		const data = args.join(" ");
+
+		console.count(`${this.BLUE}${data}`);
+	}
+
+	// MAGENTA
+	cm(...args) {
+		const data = args.join(" ");
+
+		console.count(`${this.MAGENTA}${data}`);
+	}
+
+	// CYAN
+	cc(...args) {
+		const data = args.join(" ");
+
+		console.count(`${this.CYAN}${data}`);
+	}
+
+	// WHITE
+	cw(...args) {
+		const data = args.join(" ");
+
+		console.count(`${this.WHITE}${data}`);
+	}
+
+	/*
+
+	 * Alternative to "console.error()"
+
+	 */
+
+	e(...args) {
+		console.error(...args);
+	}
+
+	/*
+
+	 * Alternative to "console.warn()"
+
+	 */
+
+	w(...args) {
+		console.warn(...args);
+	}
+
+	/*
+
+	 * Alternative to "console.trace()"
+
+	 */
+
+	trc(...args) {
+		console.trace(...args);
+	}
+
+	/*
+
+	 * Alternative to "console.clear()"
+
+	 */
+
+	clr() {
+		console.clear();
+	}
+
+	/*
+
+	 * Creates group
+
+	 */
+
+	// DEFAULT
+	grp(groupName = "GROUP") {
+		console.group(`${groupName.toUpperCase()}`);
+	}
+
+	// BLACK
+	grpd(groupName = "GROUP") {
+		console.group(`${this.BLACK}${groupName.toUpperCase()}`);
+	}
+
+	// RED
+	grpr(groupName = "GROUP") {
+		console.group(`${this.RED}${groupName.toUpperCase()}`);
+	}
+
+	// GREEN
+	grpg(groupName = "GROUP") {
+		console.group(`${this.GREEN}${groupName.toUpperCase()}`);
+	}
+
+	// YELLOW
+	grpy(groupName = "GROUP") {
+		console.group(`${this.YELLOW}${groupName.toUpperCase()}`);
+	}
+
+	// BLUE
+	grpb(groupName = "GROUP") {
+		console.group(`${this.BLUE}${groupName.toUpperCase()}`);
+	}
+
+	// MAGENTA
+	grpm(groupName = "GROUP") {
+		console.group(`${this.MAGENTA}${groupName.toUpperCase()}`);
+	}
+
+	// CYAN
+	grpc(groupName = "GROUP") {
+		console.group(`${this.CYAN}${groupName.toUpperCase()}`);
+	}
+
+	// WHITE
+	grpw(groupName = "GROUP") {
+		console.group(`${this.WHITE}${groupName.toUpperCase()}`);
+	}
+
+	/*
+
+	 * Closes group
+
+	 */
+
+	gcl() {
+		console.groupEnd();
+	}
+
+	/*
+
+	 * Logs the rendering of the component
+
+	 */
+
+	// DEFAULT
+	rnd(componentName = "Component") {
+		const log = componentRenderingLog(componentName, "");
+
+		console.log(log);
+	}
+
+	// BLACK
+	rndd(componentName = "Component") {
+		const log = componentRenderingLog(componentName, this.BLACK);
+
+		console.log(log);
+	}
+
+	// RED
+	rndr(componentName = "Component") {
+		const log = componentRenderingLog(componentName, this.RED);
+
+		console.log(log);
+	}
+
+	// GREEN
+	rndg(componentName = "Component") {
+		const log = componentRenderingLog(componentName, this.GREEN);
+
+		console.log(log);
+	}
+
+	// YELLOW
+	rndy(componentName = "Component") {
+		const log = componentRenderingLog(componentName, this.YELLOW);
+
+		console.log(log);
+	}
+
+	// BLUE
+	rndb(componentName = "Component") {
+		const log = componentRenderingLog(componentName, this.BLUE);
+
+		console.log(log);
+	}
+
+	// MAGENTA
+	rndm(componentName = "Component") {
+		const log = componentRenderingLog(componentName, this.MAGENTA);
+
+		console.log(log);
+	}
+
+	// CYAN
+	rndc(componentName = "Component") {
+		const log = componentRenderingLog(componentName, this.CYAN);
+
+		console.log(log);
+	}
+
+	// WHITE
+	rndw(componentName = "Component") {
+		const log = componentRenderingLog(componentName, this.WHITE);
+
+		console.log(log);
+	}
+
+	/*
+	 * HELP
 	 */
 
 	help() {
-		console.log(` *** X-CONSOLE METHODS: *** \n\n l    - alternative to "console.log()" \n rnd  - logs the rendering of the component \n`);
+		console.log(helper());
 	}
 }
 
 /*
- * Functions
+ !	Functions
  */
 
-function componentRenderingLog(component, textColor) {
-	let componentName;
-
-	if (component === undefined) {
-		componentName = "Component";
-	} else {
-		componentName = component.toUpperCase();
-	}
-
+function componentRenderingLog(componentName, textColor) {
 	return `${textColor}${Time()} - ${componentName} rendering...`;
 }
 
@@ -218,6 +425,14 @@ function Time() {
 
 	return time;
 }
+
+function helper() {
+	return `\n *** X-CONSOLE v${version} by PylSerg *** \n\n\n METHODS: \n\n xc.l()    - alternative to "console.log()" \n xc.t()    - alternative to "console.table()" \n xc.d()    - alternative to "console.dir()" \n xc.c()    - alternative to "console.count()" \n xc.e()    - alternative to "console.error()" \n xc.w()    - alternative to "console.warn()" \n xc.trc()  - alternative to "console.trace()" \n xc.clr()  - alternative to "console.clear()" \n xc.grp()  - creates group \n xc.gcl()  - closes group \n xc.rnd()  - logs the rendering of the component \n\n\n COLORS: \n\n d  - BLACK \n r  - RED \n g  - GREEN \n y  - YELLOW \n b  - BLUE \n m  - MAGENTA \n c  - CYAN \n w  - WHITE \n\n Example: xc.lr("test") - text color will be red \n\n Exception: color doesn't apply to objects and arrays \n\n`;
+}
+
+/*
+ !	EXPORT
+ */
 
 const xc = new X_CONSOLE();
 export default xc;
