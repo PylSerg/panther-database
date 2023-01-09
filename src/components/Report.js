@@ -49,7 +49,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 	const dispatch = useDispatch();
 
-	xc.rndc(`Report [${type}]`);
+	// xc.rndc(`Report [${type}]`);
 
 	// Adds responsible and gets objects, stages and materials
 	useEffect(() => {

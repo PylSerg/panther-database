@@ -20,7 +20,7 @@ export function readyToSend(dispatch, rows, data) {
 				}
 			}
 
-			if (counter > 0 && counter !== keys.length - 3) rowsCounter++;
+			if ((counter > 0 && counter !== keys.length - 3) || rowsNumber.length === 1) rowsCounter++;
 		});
 	}
 
