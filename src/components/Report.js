@@ -1,3 +1,5 @@
+import xc from "../@x-console/x-console";
+
 import { STAGES_LIST_URL } from "../assets/js/urls";
 import { RiCloseFill, RiFileCopy2Line, RiDeleteBin2Line, RiDownloadLine } from "react-icons/ri";
 
@@ -32,6 +34,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 		prices: [""],
 		sums: [""],
 		comments: [""],
+		type,
 	});
 
 	const [objectsList, setObjectsList] = useState();
@@ -46,6 +49,8 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 	const dispatch = useDispatch();
 
+	xc.rndc(`Report [${type}]`);
+
 	// Adds responsible and gets objects, stages and materials
 	useEffect(() => {
 		setData({ ...data, responsible: responsible });
@@ -53,7 +58,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 		dispatch(disableAbilityToSendData());
 
 		if (type !== "OFFICE") {
-			getObjects();
+			getObjects(type);
 		}
 	}, []);
 
@@ -103,7 +108,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			.then(response => response.json())
 			.then(response => {
 				setObjectsList(response.data.objects);
-				getStages();
+				getStages(type);
 			})
 			.catch(error => {
 				closeReport(dispatch, setReport, "auto");
@@ -115,14 +120,19 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 	}
 
 	// Gets stages list
-	async function getStages() {
+	async function getStages(type) {
 		dispatch(showProgress("Завантаження списку етапів..."));
 
 		await fetch(STAGES_LIST_URL)
 			.then(response => response.json())
 			.then(response => {
 				setStagesList(response.data.stages);
-				getPositions();
+
+				if (type === "FUEL") {
+					dispatch(hideProgress());
+				} else {
+					getPositions();
+				}
 			})
 			.catch(error => {
 				closeReport(dispatch, setReport, "auto");
@@ -196,7 +206,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 										className="report__copy"
 										type="button"
 										title="Вставити попередій обʼєкт та етап"
-										onClick={e => pasteObjectAndStage(dispatch, e, rows, setRows, data, setData)}
+										onClick={e => pasteObjectAndStage(e, rows, setRows, data, setData)}
 									>
 										<RiFileCopy2Line />
 									</button>
@@ -282,6 +292,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 									value={data.positions[row]}
 									list="positionsList"
 									autoComplete="off"
+									readOnly={data.type === "FUEL"}
 									onChange={e => changeCell(e, rows, setRows, data, setData)}
 								/>
 

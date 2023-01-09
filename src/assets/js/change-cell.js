@@ -16,6 +16,13 @@ export function changeCell(e, rows, setRows, data, setData) {
 		calcSum(indx, data);
 	}
 
+	if (data.type === "FUEL" && data.positions[indx] === "") {
+		const newPositionsArray = data.positions;
+
+		newPositionsArray.splice(indx, 1);
+		newPositionsArray.splice(indx, 0, "Паливо");
+	}
+
 	autoCreateNewRow(indx, rows, setRows, data);
 
 	setData({ ...data, [`${column}`]: newArray });
@@ -119,7 +126,7 @@ function calcSum(indx, data) {
 }
 
 // Pastes object and stage
-export function pasteObjectAndStage(dispatch, e, rows, setRows, data, setData) {
+export function pasteObjectAndStage(e, rows, setRows, data, setData) {
 	const indx = e.currentTarget.id;
 	const previousObject = data.objects[indx - 1];
 	const previousStage = data.stages[indx - 1];
@@ -141,6 +148,13 @@ export function pasteObjectAndStage(dispatch, e, rows, setRows, data, setData) {
 	} else {
 		newStagesArray.splice(indx, 1);
 		newStagesArray.splice(indx, 0, previousStage);
+	}
+
+	if (data.type === "FUEL" && data.positions[indx] === "") {
+		const newPositionsArray = data.positions;
+
+		newPositionsArray.splice(indx, 1);
+		newPositionsArray.splice(indx, 0, "Паливо");
 	}
 
 	autoCreateNewRow(indx, rows, setRows, data);
