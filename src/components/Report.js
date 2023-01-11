@@ -49,7 +49,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 
 	const dispatch = useDispatch();
 
-	// xc.rndc(`Report [${type}]`);
+	// xc.`rndc`(`Report [${type}]`);
 
 	// Adds responsible and gets objects, stages and materials
 	useEffect(() => {
@@ -201,15 +201,17 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 								</p>
 
 								<div className="report__options-buttons">
-									<button
-										id={row}
-										className="report__copy"
-										type="button"
-										title="Вставити попередій обʼєкт та етап"
-										onClick={e => pasteObjectAndStage(e, rows, setRows, data, setData)}
-									>
-										<RiFileCopy2Line />
-									</button>
+									{data.type !== "OFFICE" && (
+										<button
+											id={row}
+											className="report__copy"
+											type="button"
+											title="Вставити попередій обʼєкт та етап"
+											onClick={e => pasteObjectAndStage(e, rows, setRows, data, setData)}
+										>
+											<RiFileCopy2Line />
+										</button>
+									)}
 
 									<button id={row} className="report__delete" type="button" title="Видалити запис" onClick={e => openDeleteRowModal(dispatch, e.currentTarget.id)}>
 										<RiDeleteBin2Line />
@@ -220,62 +222,66 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 							{/*
 								Object
 							*/}
-							<div className="report__entry">
-								{row === 0 && <p className="report__header">Обʼєкт</p>}
+							{data.type !== "OFFICE" && (
+								<div className="report__entry">
+									{row === 0 && <p className="report__header">Обʼєкт</p>}
 
-								<p className="report__label">Обʼєкт</p>
+									<p className="report__label">Обʼєкт</p>
 
-								<input
-									className="report__field"
-									name="objects"
-									id={row}
-									value={data.objects[row]}
-									list="objectsList"
-									autoComplete="off"
-									onChange={e => changeCell(e, rows, setRows, data, setData)}
-									onBlur={e => reportDataValidation(e, objectsList, data, setData)}
-								/>
+									<input
+										className="report__field"
+										name="objects"
+										id={row}
+										value={data.objects[row]}
+										list="objectsList"
+										autoComplete="off"
+										onChange={e => changeCell(e, rows, setRows, data, setData)}
+										onBlur={e => reportDataValidation(e, objectsList, data, setData)}
+									/>
 
-								<datalist id="objectsList">
-									<option value="" key="obj_null"></option>
-									{objectsList &&
-										objectsList.map(object => (
-											<option value={object} key={object}>
-												{object}
-											</option>
-										))}
-								</datalist>
-							</div>
+									<datalist id="objectsList">
+										<option value="" key="obj_null"></option>
+										{objectsList &&
+											objectsList.map(object => (
+												<option value={object} key={object}>
+													{object}
+												</option>
+											))}
+									</datalist>
+								</div>
+							)}
 
 							{/*
 								Stage
 							*/}
-							<div className="report__entry">
-								{row === 0 && <p className="report__header">Етап</p>}
+							{data.type !== "OFFICE" && (
+								<div className="report__entry">
+									{row === 0 && <p className="report__header">Етап</p>}
 
-								<p className="report__label">Етап</p>
+									<p className="report__label">Етап</p>
 
-								<input
-									className="report__field"
-									name="stages"
-									id={row}
-									value={data.stages[row]}
-									list="stagesList"
-									autoComplete="off"
-									onChange={e => changeCell(e, rows, setRows, data, setData)}
-									onBlur={e => reportDataValidation(e, stagesList, data, setData)}
-								/>
+									<input
+										className="report__field"
+										name="stages"
+										id={row}
+										value={data.stages[row]}
+										list="stagesList"
+										autoComplete="off"
+										onChange={e => changeCell(e, rows, setRows, data, setData)}
+										onBlur={e => reportDataValidation(e, stagesList, data, setData)}
+									/>
 
-								<datalist id="stagesList">
-									<option value="" key="stg_null"></option>
-									{stagesList &&
-										stagesList.map(stage => (
-											<option value={stage} key={stage}>
-												{stage}
-											</option>
-										))}
-								</datalist>
-							</div>
+									<datalist id="stagesList">
+										<option value="" key="stg_null"></option>
+										{stagesList &&
+											stagesList.map(stage => (
+												<option value={stage} key={stage}>
+													{stage}
+												</option>
+											))}
+									</datalist>
+								</div>
+							)}
 
 							{/*
 								Position

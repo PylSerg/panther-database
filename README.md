@@ -2,4 +2,4 @@
 
 ## New database
 
-### https://docs.google.com/spreadsheets/d/1A4eolI3AaTS5Q-UnjPmyGbz9Xn5M0NSS55wFEe0dZOQ/edit#gid=0
+### https://drive.google.com/drive/folders/1aN34ithaVpXgVWWGS9NNYM9_pZ5wIshF?lfhs=2

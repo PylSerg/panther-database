@@ -23,7 +23,7 @@ export default function formData(data, rows) {
 				}
 			}
 
-			if (key === "comments" && data[`${keys[0]}`][row] !== "") {
+			if (key === "comments" && data[`${keys[2]}`][row] !== "") {
 				if (newData[key]) {
 					const newValueArray = newData[key];
 

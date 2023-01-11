@@ -246,6 +246,22 @@
 .report__entry {
     margin-right: 1px;
 
+    &:nth-child(2)>.report__field {
+        border-radius: 5px 0 0 5px;
+
+        @media screen and (max-width: 1365px) {
+            border-radius: 5px;
+        }
+    }
+
+    &:last-child>.report__field {
+        border-radius: 0 5px 5px 0;
+
+        @media screen and (max-width: 1365px) {
+            border-radius: 5px;
+        }
+    }
+
     @media screen and (max-width: 1365px) {
         margin-right: 5px;
     }
@@ -307,8 +323,6 @@
 
     &[name=objects] {
         width: 250px;
-
-        border-radius: 5px 0 0 5px;
     }
 
     &[name=stages] {
@@ -317,7 +331,7 @@
         text-align: center;
     }
 
-    &[name=materials] {
+    &[name=positions] {
         width: 250px;
     }
 
@@ -332,7 +346,6 @@
     &[name=comments] {
         width: 250px;
 
-        border-radius: 0 5px 5px 0;
     }
 
     @media screen and (max-width: 1365px) {
@@ -345,18 +358,13 @@
         &[name=objects] {
             text-align: center;
         }
-
-        &[name=objects],
-        &[name=comments] {
-            border-radius: 5px;
-        }
     }
 
     @media screen and (max-width: 767px) {
 
         &[name=objects],
         &[name=stages],
-        &[name=materials],
+        &[name=positions],
         &[name=quantity],
         &[name=prices],
         &[name=sums],

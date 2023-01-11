@@ -1,6 +1,14 @@
 import xc from "../@x-console/x-console";
 
-import { REPORT_MATERIALS_URL, REPORT_ADVANCES_AND_SALARIES_URL, REPORT_FUEL_URL, CURRENT_OBJECTS_LIST_URL, MATERIALS_LIST_URL, ADVANCES_AND_SALARIES_LIST_URL } from "../assets/js/urls";
+import {
+	REPORT_MATERIALS_URL,
+	REPORT_ADVANCES_AND_SALARIES_URL,
+	REPORT_FUEL_URL,
+	REPORT_OFFICE_URL,
+	CURRENT_OBJECTS_LIST_URL,
+	MATERIALS_LIST_URL,
+	ADVANCES_AND_SALARIES_LIST_URL,
+} from "../assets/js/urls";
 
 import { useState } from "react";
 
@@ -38,9 +46,7 @@ export default function Profile() {
 						Закриті обʼєкти
 					</button>
 
-					<button onClick={() => openReport("OFFICE", "Офіс")} disabled={true}>
-						Офіс
-					</button>
+					<button onClick={() => openReport("OFFICE", "Офіс", REPORT_OFFICE_URL)}>Офіс</button>
 				</div>
 			)}
 

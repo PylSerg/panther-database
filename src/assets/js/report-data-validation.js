@@ -4,14 +4,16 @@ export default function reportDataValidation(e, list, data, setData) {
 
 	const currentValue = data[`${key}`][indx];
 
-	const validationResult = list.includes(currentValue);
+	if (data.type !== "OFFICE") {
+		const validationResult = list.includes(currentValue);
 
-	if (!validationResult) {
-		const newArray = data[`${key}`];
+		if (!validationResult) {
+			const newArray = data[`${key}`];
 
-		newArray.splice(indx, 1);
-		newArray.splice(indx, 0, "");
+			newArray.splice(indx, 1);
+			newArray.splice(indx, 0, "");
 
-		setData({ ...data, key: newArray });
+			setData({ ...data, key: newArray });
+		}
 	}
 }
