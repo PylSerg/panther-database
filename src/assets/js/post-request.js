@@ -1,3 +1,5 @@
+import xc from "../../@x-console/x-console";
+
 import { pointerEventsON } from "./pointer-events";
 import { showProgress, hideProgress } from "../../redux/features/progressSlice";
 import notification from "./notification";
@@ -23,7 +25,7 @@ export async function postRequest(dispatch, reportUrl, data, rows, setReport) {
 			}
 		})
 		.catch(error => {
-			console.log(`\x1b[31m ${error}`);
+			xc.e("Request Error!", error);
 
 			dispatch(hideProgress());
 			pointerEventsON(dispatch);

@@ -1,11 +1,11 @@
-import xc from "../@x-console/x-console";
-
 import {
 	REPORT_MATERIALS_URL,
 	REPORT_ADVANCES_AND_SALARIES_URL,
 	REPORT_FUEL_URL,
+	REPORT_FOR_CLOSED_OBJECTS_URL,
 	REPORT_OFFICE_URL,
 	CURRENT_OBJECTS_LIST_URL,
+	CLOSED_OBJECTS_LIST_URL,
 	MATERIALS_LIST_URL,
 	ADVANCES_AND_SALARIES_LIST_URL,
 } from "../assets/js/urls";
@@ -24,8 +24,6 @@ export default function Profile() {
 		positionsUrl: null,
 	});
 
-	// xc.rndb("Profile");
-
 	function openReport(type, title, reportUrl, objectsUrl, positionsUrl) {
 		setReport({ show: true, type, title, reportUrl, objectsUrl, positionsUrl });
 	}
@@ -42,9 +40,7 @@ export default function Profile() {
 
 					<button onClick={() => openReport("FUEL", "Паливо", REPORT_FUEL_URL, CURRENT_OBJECTS_LIST_URL)}>Паливо</button>
 
-					<button onClick={() => openReport("CLOSED_OBJECTS", "Закриті обʼєкти")} disabled={true}>
-						Закриті обʼєкти
-					</button>
+					<button onClick={() => openReport("CLOSED_OBJECTS", "Закриті обʼєкти", REPORT_FOR_CLOSED_OBJECTS_URL, CLOSED_OBJECTS_LIST_URL, MATERIALS_LIST_URL)}>Закриті обʼєкти</button>
 
 					<button onClick={() => openReport("OFFICE", "Офіс", REPORT_OFFICE_URL)}>Офіс</button>
 				</div>

@@ -37,9 +37,9 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 		type,
 	});
 
-	const [objectsList, setObjectsList] = useState();
-	const [stagesList, setStagesList] = useState();
-	const [positionsList, setPositionsList] = useState();
+	const [objectsList, setObjectsList] = useState([]);
+	const [stagesList, setStagesList] = useState([]);
+	const [positionsList, setPositionsList] = useState([]);
 
 	const responsible = useSelector(state => state.responsible.name);
 	const deleteRowModal = useSelector(state => state.deleteRowModal);
@@ -48,8 +48,6 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 	const submitReportModal = useSelector(state => state.submitReportModal);
 
 	const dispatch = useDispatch();
-
-	// xc.`rndc`(`Report [${type}]`);
 
 	// Adds responsible and gets objects, stages and materials
 	useEffect(() => {
@@ -108,6 +106,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			.then(response => response.json())
 			.then(response => {
 				setObjectsList(response.data.objects);
+
 				getStages(type);
 			})
 			.catch(error => {
@@ -115,7 +114,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 				notification(dispatch, error);
 				dispatch(hideProgress());
 
-				console.log(`\x1b[31m ${error}`);
+				xc.e("Request Error!", error);
 			});
 	}
 
@@ -139,7 +138,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 				notification(dispatch, error);
 				dispatch(hideProgress());
 
-				console.log(`\x1b[31m ${error}`);
+				xc.e("Request Error!", error);
 			});
 	}
 
@@ -151,6 +150,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			.then(response => response.json())
 			.then(response => {
 				setPositionsList(response.data.positions);
+
 				dispatch(hideProgress());
 			})
 			.catch(error => {
@@ -158,7 +158,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 				notification(dispatch, error);
 				dispatch(hideProgress());
 
-				console.log(`\x1b[31m ${error}`);
+				xc.e("Request Error!", error);
 			});
 	}
 
