@@ -11,7 +11,7 @@
  *	Version
  */
 
-const version = "1.1.0";
+const version = "1.1.1";
 
 /*
 
@@ -225,7 +225,8 @@ class X_CONSOLE {
 	 */
 
 	e(...args) {
-		console.error(...args);
+		const message = args.join(`\n\n`);
+		console.error(`${xc.RED}${xc.BRIGHT}Details\n\n${message}\n`);
 	}
 
 	/*
