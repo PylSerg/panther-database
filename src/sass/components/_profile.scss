@@ -1,0 +1,30 @@
+.profile__create-report-block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 30px;
+}
+
+.profile__create-report-block button {
+    width: 240px;
+    height: 80px;
+
+    color: #fff;
+    font-size: 20px;
+
+    background-color: $primaryColor;
+    border-radius: 15px;
+    border: none;
+
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        transform: scale(1.05);
+
+        background-color: $secondaryColor;
+        box-shadow: 0 0 5px 1px #555;
+    }
+}

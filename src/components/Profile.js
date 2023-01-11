@@ -31,7 +31,7 @@ export default function Profile() {
 	return (
 		<div>
 			{!report.show && (
-				<div>
+				<div className="profile__create-report-block">
 					<button onClick={() => openReport("MATERIALS", "Матеріали", REPORT_MATERIALS_URL, CURRENT_OBJECTS_LIST_URL, MATERIALS_LIST_URL)}>Матеріали</button>
 
 					<button onClick={() => openReport("ADVANCES_AND_SALARIES", "Аванси та зарплати", REPORT_ADVANCES_AND_SALARIES_URL, CURRENT_OBJECTS_LIST_URL, ADVANCES_AND_SALARIES_LIST_URL)}>
