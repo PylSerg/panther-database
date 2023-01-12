@@ -1,5 +1,9 @@
+import { notificationsTime } from "../assets/js/variables";
+
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { hideNotification } from "../redux/features/notificationSlice";
 
 export default function Notification() {
 	const notification = useSelector(state => state.notification);
@@ -7,6 +11,8 @@ export default function Notification() {
 	const [notificationStyle, setNotificationStyle] = useState({
 		style: ["notification__block"],
 	});
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (!notification.success) {
@@ -18,6 +24,17 @@ export default function Notification() {
 			setNotificationStyle({ style: ["notification__block"] });
 		}
 	}, [notification]);
+
+	setTimeout(() => {
+		const hideStyle = notificationStyle.style;
+		hideStyle.push("notification__block--hide");
+
+		setNotificationStyle({ style: hideStyle });
+
+		setTimeout(() => {
+			dispatch(hideNotification());
+		}, 300);
+	}, notificationsTime);
 
 	return (
 		<div>

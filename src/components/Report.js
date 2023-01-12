@@ -11,9 +11,9 @@ import { openDeleteRowModal } from "../assets/js/open-delete-row-modal";
 import { toTop, toBottom } from "../assets/js/scrolling";
 import reportDataValidation from "../assets/js/report-data-validation";
 import closeReport from "../assets/js/close-report";
-import notification from "../assets/js/notification";
 
 import { useSelector, useDispatch } from "react-redux";
+import { showNotification } from "../redux/features/notificationSlice";
 import { showProgress, hideProgress } from "../redux/features/progressSlice";
 import { disableAbilityToSendData } from "../redux/features/abilityToSendDataSlice";
 import { showSubmitReportModal } from "../redux/features/submitReportModalSlice";
@@ -111,7 +111,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			})
 			.catch(error => {
 				closeReport(dispatch, setReport, "auto");
-				notification(dispatch, error);
+				dispatch(showNotification(error));
 				dispatch(hideProgress());
 
 				xc.e("Request Error!", error);
@@ -135,7 +135,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			})
 			.catch(error => {
 				closeReport(dispatch, setReport, "auto");
-				notification(dispatch, error);
+				dispatch(showNotification(error));
 				dispatch(hideProgress());
 
 				xc.e("Request Error!", error);
@@ -155,7 +155,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 			})
 			.catch(error => {
 				closeReport(dispatch, setReport, "auto");
-				notification(dispatch, error);
+				dispatch(showNotification(error));
 				dispatch(hideProgress());
 
 				xc.e("Request Error!", error);

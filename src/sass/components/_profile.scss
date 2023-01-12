@@ -20,6 +20,10 @@
 
     cursor: pointer;
 
+    @media screen and (max-width: 560px) {
+        width: 90%;
+    }
+
     &:hover,
     &:focus {
         transform: scale(1.05);

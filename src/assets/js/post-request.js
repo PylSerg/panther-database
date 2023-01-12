@@ -2,7 +2,7 @@ import xc from "../../@x-console/x-console";
 
 import { pointerEventsON } from "./pointer-events";
 import { showProgress, hideProgress } from "../../redux/features/progressSlice";
-import notification from "./notification";
+import { showNotification } from "../../redux/features/notificationSlice";
 import formData from "./form-data";
 import closeReport from "./close-report";
 
@@ -18,7 +18,8 @@ export async function postRequest(dispatch, reportUrl, data, rows, setReport) {
 			console.log(response);
 
 			if (response.status === 200) {
-				notification(dispatch, "Звіт успішно відправлено");
+				dispatch(showNotification("Звіт успішно відправлено"));
+
 				closeReport(dispatch, setReport, "auto");
 				dispatch(hideProgress());
 				pointerEventsON(dispatch);
@@ -29,6 +30,6 @@ export async function postRequest(dispatch, reportUrl, data, rows, setReport) {
 
 			dispatch(hideProgress());
 			pointerEventsON(dispatch);
-			notification(dispatch, error);
+			dispatch(showNotification(error));
 		});
 }
