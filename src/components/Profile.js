@@ -43,7 +43,7 @@ export default function Profile() {
 	return (
 		<div>
 			{profileNavigationBlock.show && (
-				<div>
+				<div className="profile__navigation">
 					{/*
 						Navigation
 					*/}
@@ -61,7 +61,9 @@ export default function Profile() {
 			*/}
 
 			{profileNavigation.map(block => (
-				<div key={block.name}>{block.active && <block.component setProfileNavigationBlock={setProfileNavigationBlock} />}</div>
+				<div className="profile__component" key={block.name}>
+					{block.active && <block.component setProfileNavigationBlock={setProfileNavigationBlock} />}
+				</div>
 			))}
 		</div>
 	);
