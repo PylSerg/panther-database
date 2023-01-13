@@ -9,8 +9,8 @@ export default function Profile() {
 	const [profileNavigationBlock, setProfileNavigationBlock] = useState({ show: true });
 
 	const [profileNavigation, setProfileNavigation] = useState([
-		{ name: "create", title: "Створити звіт", active: true },
-		{ name: "view", title: "Звіти", active: false },
+		{ name: "create", title: "Створити звіт", component: CreateReportBlock, active: true },
+		{ name: "view", title: "Звіти", component: ViewReportsBlock, active: false },
 	]);
 
 	function buttonStyle(blockName) {
@@ -60,8 +60,9 @@ export default function Profile() {
 				BLOCKS
 			*/}
 
-			{profileNavigation[0].active && <CreateReportBlock setProfileNavigationBlock={setProfileNavigationBlock} />}
-			{profileNavigation[1].active && <ViewReportsBlock />}
+			{profileNavigation.map(block => (
+				<div key={block.name}>{block.active && <block.component setProfileNavigationBlock={setProfileNavigationBlock} />}</div>
+			))}
 		</div>
 	);
 }
