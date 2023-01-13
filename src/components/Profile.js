@@ -1,29 +1,71 @@
+import xc from "../@x-console/x-console";
+
 import { useState } from "react";
 
 import CreateReportBlock from "./CreateReportBlock";
+import ViewReportsBlock from "./ViewReportsBlock";
 
 export default function Profile() {
 	const [profileNavigationBlock, setProfileNavigationBlock] = useState({ show: true });
-	const [profileNavigation, setProfileNavigation] = useState({
-		create: true,
-		reports: false,
-	});
+
+	const [profileNavigation, setProfileNavigation] = useState([
+		{ name: "create", title: "Створити звіт", active: true },
+		{ name: "view", title: "Звіти", active: false },
+	]);
+
+	function buttonStyle(blockName) {
+		const style = ["profile__button"].join(" ");
+		const activeStyle = [style, "profile__button--active"].join(" ");
+
+		let currentStyle = "";
+
+		for (const block of profileNavigation) {
+			if (block.name === blockName && block.active) {
+				return activeStyle;
+			} else {
+				currentStyle = style;
+			}
+		}
+
+		return currentStyle;
+	}
+
+	function showBlock(blockName) {
+		const newProfileNavigation = [];
+
+		for (const block of profileNavigation) {
+			if (block.name === blockName) {
+				newProfileNavigation.push({ ...block, active: true });
+			} else {
+				newProfileNavigation.push({ ...block, active: false });
+			}
+		}
+
+		setProfileNavigation(newProfileNavigation);
+	}
 
 	return (
 		<div>
 			{profileNavigationBlock.show && (
 				<div>
-					<button name="create" type="button">
-						Створити звіт
-					</button>
+					{/*
+						Navigation
+					*/}
 
-					<button name="reports" type="button">
-						Звіти
-					</button>
+					{profileNavigation.map(block => (
+						<button className={buttonStyle(block.name)} type="button" key={block.name} onClick={() => showBlock(block.name)}>
+							{block.title}
+						</button>
+					))}
 				</div>
 			)}
 
-			{profileNavigation.create && <CreateReportBlock setProfileNavigationBlock={setProfileNavigationBlock} />}
+			{/*
+				BLOCKS
+			*/}
+
+			{profileNavigation[0].active && <CreateReportBlock setProfileNavigationBlock={setProfileNavigationBlock} />}
+			{profileNavigation[1].active && <ViewReportsBlock />}
 		</div>
 	);
 }
