@@ -1,4 +1,4 @@
-import { scrollingSpeed } from "./variables";
+import { scrollingSpeed } from "../data/variables";
 
 // Scrolling to top
 export function toTop() {

@@ -1,6 +1,5 @@
 import xc from "../@x-console/x-console";
 
-import { STAGES_LIST_URL } from "../assets/js/urls";
 import { RiCloseFill, RiFileCopy2Line, RiDeleteBin2Line, RiDownloadLine } from "react-icons/ri";
 
 import { useState, useEffect } from "react";
@@ -22,7 +21,7 @@ import DeleteRowModal from "./DeleteRowModal";
 import CloseReportModal from "./CloseReportModal";
 import SubmitReportModal from "./SubmitReportModal";
 
-export default function Report({ type, title, reportUrl, objectsUrl, positionsUrl, setReport }) {
+export default function Report({ type, title, reportUrl, objectsUrl, stagesUrl, positionsUrl, setReport }) {
 	const [closeReportMethod, setCloseReportMethod] = useState("auto");
 	const [totalSum, setTotalSum] = useState(0);
 	const [rows, setRows] = useState({ indx: [0] });
@@ -122,7 +121,7 @@ export default function Report({ type, title, reportUrl, objectsUrl, positionsUr
 	async function getStages(type) {
 		dispatch(showProgress("Завантаження списку етапів..."));
 
-		await fetch(STAGES_LIST_URL)
+		await fetch(stagesUrl)
 			.then(response => response.json())
 			.then(response => {
 				setStagesList(response.data.stages);
