@@ -14,20 +14,16 @@ export default function Profile() {
 	]);
 
 	function buttonStyle(blockName) {
-		const style = ["profile__button"].join(" ");
-		const activeStyle = [style, "profile__button--active"].join(" ");
-
-		let currentStyle = "";
+		const style = "profile__button";
+		const activeStyle = "profile__button--active";
 
 		for (const block of profileNavigation) {
 			if (block.name === blockName && block.active) {
-				return activeStyle;
-			} else {
-				currentStyle = style;
+				return [style, activeStyle].join(" ");
 			}
 		}
 
-		return currentStyle;
+		return style;
 	}
 
 	function showBlock(blockName) {
