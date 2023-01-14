@@ -1,5 +1,3 @@
-import xc from "../@x-console/x-console";
-
 import { useState } from "react";
 
 import CreateReportBlock from "./CreateReportBlock";
