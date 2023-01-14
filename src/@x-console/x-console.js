@@ -11,7 +11,7 @@
  *	Version
  */
 
-const version = "1.1.1";
+const version = "1.2.0";
 
 /*
 
@@ -36,7 +36,7 @@ class X_CONSOLE {
 	 * Text colors
 	 */
 
-	BLACK = "\x1b[30m";
+	DARK = "\x1b[30m";
 	RED = "\x1b[31m";
 	GREEN = "\x1b[32m";
 	YELLOW = "\x1b[33m";
@@ -49,7 +49,7 @@ class X_CONSOLE {
 	 * Background colors
 	 */
 
-	BLACK_BG = "\x1b[40m";
+	DARK_BG = "\x1b[40m";
 	RED_BG = "\x1b[41m";
 	GREEN_BG = "\x1b[42m";
 	YELLOW_BG = "\x1b[43m";
@@ -75,11 +75,11 @@ class X_CONSOLE {
 		return console.log(...args);
 	}
 
-	// BLACK
+	// DARK
 	ld(...args) {
 		const data = args.join(" ");
 
-		return console.log(`${this.BLACK}${data}`);
+		return console.log(`${this.DARK}${data}`);
 	}
 
 	// RED
@@ -162,11 +162,11 @@ class X_CONSOLE {
 		return console.count(...args);
 	}
 
-	// BLACK
+	// DARK
 	cd(...args) {
 		const data = args.join(" ");
 
-		return console.count(`${this.BLACK}${data}`);
+		return console.count(`${this.DARK}${data}`);
 	}
 
 	// RED
@@ -270,9 +270,9 @@ class X_CONSOLE {
 		console.group(`${groupName.toUpperCase()}`);
 	}
 
-	// BLACK
+	// DARK
 	grpd(groupName = "GROUP") {
-		console.group(`${this.BLACK}${groupName.toUpperCase()}`);
+		console.group(`${this.DARK}${groupName.toUpperCase()}`);
 	}
 
 	// RED
@@ -333,9 +333,9 @@ class X_CONSOLE {
 		console.log(log);
 	}
 
-	// BLACK
+	// DARK
 	rndd(componentName = "Component") {
-		const log = componentRenderingLog(componentName, this.BLACK);
+		const log = componentRenderingLog(componentName, this.DARK);
 
 		console.log(log);
 	}
@@ -390,6 +390,73 @@ class X_CONSOLE {
 	}
 
 	/*
+	 * Label
+	 */
+
+	// DEFAULT
+	lbl(...args) {
+		let data = args.join(" ").toLocaleUpperCase();
+
+		console.log(`${this.DARK_BG}${this.CYAN}${this.BRIGHT}\n ${data} \n`);
+	}
+
+	// DARK
+	lbld(...args) {
+		let data = args.join(" ").toLocaleUpperCase();
+
+		console.log(`${this.DARK_BG}${this.WHITE}${this.BRIGHT}\n ${data} \n`);
+	}
+
+	// RED
+	lblr(...args) {
+		let data = args.join(" ").toLocaleUpperCase();
+
+		console.log(`${this.RED_BG}${this.WHITE}${this.BRIGHT}\n ${data} \n`);
+	}
+
+	// GREEN
+	lblg(...args) {
+		let data = args.join(" ").toLocaleUpperCase();
+
+		console.log(`${this.GREEN_BG}${this.DARK}${this.BRIGHT}\n ${data} \n`);
+	}
+
+	// YELLOW
+	lbly(...args) {
+		let data = args.join(" ").toLocaleUpperCase();
+
+		console.log(`${this.YELLOW_BG}${this.DARK}${this.BRIGHT}\n ${data} \n`);
+	}
+
+	// BLUE
+	lblb(...args) {
+		let data = args.join(" ").toLocaleUpperCase();
+
+		console.log(`${this.BLUE_BG}${this.DARK}${this.BRIGHT}\n ${data} \n`);
+	}
+
+	// MAGENTA
+	lblm(...args) {
+		let data = args.join(" ").toLocaleUpperCase();
+
+		console.log(`${this.MAGENTA_BG}${this.WHITE}${this.BRIGHT}\n ${data} \n`);
+	}
+
+	// CYAN
+	lblc(...args) {
+		let data = args.join(" ").toLocaleUpperCase();
+
+		console.log(`${this.CYAN_BG}${this.DARK}${this.BRIGHT}\n ${data} \n`);
+	}
+
+	// WHITE
+	lblw(...args) {
+		let data = args.join(" ").toLocaleUpperCase();
+
+		console.log(`${this.WHITE_BG}${this.DARK}${this.BRIGHT}\n ${data} \n`);
+	}
+
+	/*
 	 * HELP
 	 */
 
@@ -428,7 +495,7 @@ function Time() {
 }
 
 function helper() {
-	return `\n *** X-CONSOLE v${version} by PylSerg *** \n\n\n METHODS: \n\n xc.l()    - alternative to "console.log()" \n xc.t()    - alternative to "console.table()" \n xc.d()    - alternative to "console.dir()" \n xc.c()    - alternative to "console.count()" \n xc.e()    - alternative to "console.error()" \n xc.w()    - alternative to "console.warn()" \n xc.trc()  - alternative to "console.trace()" \n xc.clr()  - alternative to "console.clear()" \n xc.grp()  - creates group \n xc.gcl()  - closes group \n xc.rnd()  - logs the rendering of the component \n\n\n COLORS: \n\n d  - BLACK \n r  - RED \n g  - GREEN \n y  - YELLOW \n b  - BLUE \n m  - MAGENTA \n c  - CYAN \n w  - WHITE \n\n Example: xc.lr("test") - text color will be red \n\n Exception: color doesn't apply to objects and arrays \n\n`;
+	return `\n *** X-CONSOLE v${version} by PylSerg *** \n\n\n METHODS: \n\n xc.l()    - alternative to "console.log()" [may be color] \n xc.t()    - alternative to "console.table()" \n xc.d()    - alternative to "console.dir()" \n xc.c()    - alternative to "console.count()" [may be color] \n xc.e()    - alternative to "console.error()" \n xc.w()    - alternative to "console.warn()" \n xc.trc()  - alternative to "console.trace()" \n xc.clr()  - alternative to "console.clear()" \n xc.grp()  - creates group [may be color] \n xc.gcl()  - closes group \n xc.rnd()  - logs the rendering of the component [may be color] \n xc.lbl()  - creates label [may be color] \n\n\n COLORS: \n\n d  - DARK \n r  - RED \n g  - GREEN \n y  - YELLOW \n b  - BLUE \n m  - MAGENTA \n c  - CYAN \n w  - WHITE \n\n Example: xc.lr("test") - text color will be red \n\n Exception: color doesn't apply to objects and arrays \n\n`;
 }
 
 /*
