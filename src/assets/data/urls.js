@@ -3,7 +3,7 @@
  */
 
 // Materials
-export const REPORT_MATERIALS_URL = "https://script.google.com/macros/s/AKfycbxsMVUHectr2ISzDd4g5ZlvHUv9A5lHzMY9UjuzWjwKH2YuLVeWz7FGyhcYT_6cLjfb/exec";
+export const REPORT_MATERIALS_URL = "https://script.google.com/macros/s/AKfycbw32Zp0f9uarXPy54rJLQN9JfNR5ioWD4nd5wJHL27_AWZGbm-3laCqVW_wphhmbrxb/exec";
 
 // Advances and salaries
 export const REPORT_ADVANCES_AND_SALARIES_URL = "https://script.google.com/macros/s/AKfycbzaTFgzaHSFyj8czcl8-NRQicfV6aEE9LBza5Z97HLVwO6v3_a3cZiH232xn920ShGm/exec";
