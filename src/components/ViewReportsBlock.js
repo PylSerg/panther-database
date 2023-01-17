@@ -21,8 +21,8 @@ export default function ViewReportsBlock() {
 		returned: [],
 	});
 
-	// console.log(`materials`, materials);
-	// console.log(`materialsReports`, materialsReports);
+	console.log(`materials`, materials);
+	console.log(`materialsReports`, materialsReports);
 
 	const dispatch = useDispatch();
 
