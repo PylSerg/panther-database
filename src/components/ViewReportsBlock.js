@@ -21,15 +21,16 @@ export default function ViewReportsBlock() {
     returned: [],
   });
 
-  //   console.log(`materials`, materials);
-  // console.log(`materialsReports`, materialsReports);
-
   const dispatch = useDispatch();
 
   // xc.rnd("ViewReportsBlock");
+  // console.log(`materials`, materials);
+  // console.log(`materialsReports`, materialsReports);
 
   useEffect(() => {
     getMaterialsReport();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -91,6 +92,8 @@ export default function ViewReportsBlock() {
       ...materialsReports,
       unconfirmed: unconfirmedReports,
     });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [materials]);
 
   async function getMaterialsReport() {
