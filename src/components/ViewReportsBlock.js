@@ -33,11 +33,11 @@ export default function ViewReportsBlock() {
 	// xc.l(reportsData.unconfirmed);
 
 	useEffect(() => {
-		getReportsData(reportsList[0].reportUrl);
+		// getReportsData(reportsList[0].reportUrl);
 
-		// reportsList.map(report => {
-		// 	return getReportsData(report.reportUrl);
-		// });
+		reportsList.map(report => {
+			return getReportsData(report.reportUrl);
+		});
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -155,26 +155,13 @@ export default function ViewReportsBlock() {
 	// Shows report positions
 	function showReportPositions(number, label) {
 		const positionsArray = [];
-		const ids = [];
-		console.log(`ids`, ids);
 
 		reportsData[`${label.toLowerCase()}`].map(position => {
 			if (position.report === number) {
 				if (positionsArray.length > 0) {
-					if (
-						ids.map(id => {
-							if (id === position.id) {
-								return false;
-							}
-							return true;
-						})
-					) {
-						positionsArray.push(position);
-						ids.push(position.id);
-					}
+					positionsArray.push(position);
 				} else {
 					positionsArray.push(position);
-					ids.push(position.id);
 				}
 
 				setReportPositions({ ...reportPositions, [`${number}`]: positionsArray });
