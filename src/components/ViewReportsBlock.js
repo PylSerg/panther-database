@@ -112,20 +112,32 @@ export default function ViewReportsBlock() {
 			function addReport() {
 				const report = reportsData.unconfirmed[i];
 
+				const reportNumber = report.report;
+				const reportLabel = report.label;
+
 				const date = report.date.split("T");
 				const dateArray = date[0].split("-");
-				const dateReport = [dateArray[2], dateArray[1], dateArray[0]].join(".");
+				const dateReport = `${dateArray[2]}.${dateArray[1]}.${dateArray[0]}`;
 
 				const time = report.time.split("T");
 				const timeArray = time[1].split(":");
-				const timeReport = [timeArray[0], timeArray[1]].join(":");
+				const timeReport = `${timeArray[0]}:${timeArray[1]}`;
+
+				const reportCreated = `${dateReport} - ${timeReport}`;
+
+				let reportType = "";
+
+				reportsList.map(rep => {
+					if (rep.type === report.type) return (reportType = rep.title);
+
+					return false;
+				});
 
 				unconfirmedReports.push({
-					reportNumber: report.report,
-					reportDate: dateReport,
-					reportTime: timeReport,
-					reportType: report.type,
-					reportLabel: report.label,
+					reportNumber,
+					reportCreated,
+					reportType,
+					reportLabel,
 				});
 			}
 		}
@@ -156,7 +168,7 @@ export default function ViewReportsBlock() {
 									key={item.reportNumber}
 								>
 									<div>
-										Звіт <b>{item.reportNumber}</b> від {item.reportDate} {item.reportTime}
+										Звіт <b>{item.reportNumber}</b> від {item.reportCreated}
 									</div>
 
 									<div>{item.reportType}</div>
