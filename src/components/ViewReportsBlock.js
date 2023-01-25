@@ -1,153 +1,170 @@
 import xc from "../@x-console/x-console";
 
-import { REPORT_UNC_MATERIALS_URL } from "../assets/data/urls";
-
+// React
 import { useState, useEffect } from "react";
 
+// Redux
 import { useDispatch } from "react-redux";
 import { showNotification } from "../redux/features/notificationSlice";
 import { showProgress, hideProgress } from "../redux/features/progressSlice";
 
+// Other
+import reportsList from "../assets/data/reports-list";
+
+// Component
 export default function ViewReportsBlock() {
-  const [materials, setMaterials] = useState({
-    confirmed: [],
-    unconfirmed: [],
-    returned: [],
-  });
+	const [reportsData, setReportsData] = useState({
+		confirmed: [],
+		unconfirmed: [],
+		returned: [],
+	});
 
-  const [materialsReports, setMaterialsReports] = useState({
-    confirmed: [],
-    unconfirmed: [],
-    returned: [],
-  });
+	const [reports, setReports] = useState({
+		confirmed: [],
+		unconfirmed: [],
+		returned: [],
+	});
 
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  // xc.rnd("ViewReportsBlock");
-  // console.log(`materials`, materials);
-  // console.log(`materialsReports`, materialsReports);
+	// xc.rndc("ViewReportsBlock");
+	xc.l(reportsData.unconfirmed);
 
-  useEffect(() => {
-    getMaterialsReport();
+	useEffect(() => {
+		getReportsData(reportsList[0].reportUrl);
+		getReportsData(reportsList[1].reportUrl);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+		// reportsList.map(report => {
+		// 	return getReportsData(report.reportUrl);
+		// });
 
-  useEffect(() => {
-    const unconfirmedReports = [];
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-    const previousReport = () => {
-      if (unconfirmedReports.length > 0) {
-        return unconfirmedReports.length - 1;
-      } else {
-        return 0;
-      }
-    };
+	useEffect(() => {
+		createReportsList();
 
-    let reportSum = 0;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [reportsData]);
 
-    for (let i = 0; i < materials.unconfirmed.length; i++) {
-      if (i === 0) {
-        reportSum = materials.unconfirmed[i].sum;
+	// Get reports data
+	async function getReportsData(url) {
+		dispatch(showProgress("Завантаження звітів..."));
 
-        addReport();
-      } else {
-        if (
-          materials.unconfirmed[i].report !==
-          materials.unconfirmed[i - 1].report
-        ) {
-          unconfirmedReports[previousReport()] = {
-            ...unconfirmedReports[previousReport()],
-            reportSum,
-          };
+		await fetch(url)
+			.then(response => response.json())
+			.then(response => {
+				const newUnconfirmed = reportsData.unconfirmed;
 
-          reportSum = materials.unconfirmed[i].sum;
+				response.data.map(report => {
+					return newUnconfirmed.push(report);
+				});
 
-          addReport();
-        } else {
-          reportSum += materials.unconfirmed[i].sum;
-        }
-      }
+				setReportsData({ ...reportsData, unconfirmed: newUnconfirmed });
 
-      if (i === materials.unconfirmed.length - 1)
-        unconfirmedReports[previousReport()] = {
-          ...unconfirmedReports[previousReport()],
-          reportSum,
-        };
+				dispatch(hideProgress());
+			})
+			.catch(error => {
+				dispatch(hideProgress());
+				dispatch(showNotification(error));
 
-      function addReport() {
-        const report = materials.unconfirmed[i];
+				xc.e(error);
+			});
+	}
 
-        unconfirmedReports.push({
-          reportNumber: report.report,
-          reportDate: report.date,
-          reportTime: report.time,
-          reportType: report.type,
-          reportLabel: report.label,
-        });
-      }
-    }
+	// Creates reports list
+	function createReportsList() {
+		const unconfirmedReports = [];
 
-    setMaterialsReports({
-      ...materialsReports,
-      unconfirmed: unconfirmedReports,
-    });
+		const previousReport = () => {
+			if (unconfirmedReports.length > 0) {
+				return unconfirmedReports.length - 1;
+			} else {
+				return 0;
+			}
+		};
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [materials]);
+		let reportSum = 0;
 
-  async function getMaterialsReport() {
-    dispatch(showProgress("Завантаження звітів..."));
+		for (let i = 0; i < reportsData.unconfirmed.length; i++) {
+			if (i === 0) {
+				reportSum = reportsData.unconfirmed[i].sum;
 
-    await fetch(REPORT_UNC_MATERIALS_URL)
-      .then((response) => response.json())
-      .then((response) => {
-        setMaterials({ ...materials, unconfirmed: response.data });
-        dispatch(hideProgress());
-      })
-      .catch((error) => {
-        dispatch(hideProgress());
-        dispatch(showNotification(error));
+				addReport();
+			} else {
+				if (reportsData.unconfirmed[i].report !== reportsData.unconfirmed[i - 1].report) {
+					unconfirmedReports[previousReport()] = {
+						...unconfirmedReports[previousReport()],
+						reportSum,
+					};
 
-        xc.e(error);
-      });
-  }
+					reportSum = reportsData.unconfirmed[i].sum;
 
-  return (
-    <div>
-      {materialsReports.unconfirmed[0]?.reportNumber && (
-        <div>
-          <ul>
-            {materialsReports.unconfirmed.map((item) => {
-              return (
-                <li
-                  style={{
-                    display: "flex",
-                    width: "95%",
-                    gap: "20px",
-                    marginBottom: "20px",
-                    padding: "10px 0",
-                    borderTop: "2px solid #a55",
-                    borderBottom: "2px solid #a55",
-                  }}
-                  key={item.reportNumber}
-                >
-                  <div>
-                    Звіт <b>{item.reportNumber}</b> від {item.reportDate}{" "}
-                    {item.reportTime}
-                  </div>
+					addReport();
+				} else {
+					reportSum += reportsData.unconfirmed[i].sum;
+				}
+			}
 
-                  <div>{item.reportType}</div>
+			if (i === reportsData.unconfirmed.length - 1)
+				unconfirmedReports[previousReport()] = {
+					...unconfirmedReports[previousReport()],
+					reportSum,
+				};
 
-                  <div>
-                    Сума: <b>{item.reportSum} грн</b>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
+			function addReport() {
+				const report = reportsData.unconfirmed[i];
+
+				unconfirmedReports.push({
+					reportNumber: report.report,
+					reportDate: report.date,
+					reportTime: report.time,
+					reportType: report.type,
+					reportLabel: report.label,
+				});
+			}
+		}
+
+		setReports({
+			...reports,
+			unconfirmed: unconfirmedReports,
+		});
+	}
+
+	return (
+		<div>
+			{reports.unconfirmed[0]?.reportNumber && (
+				<div>
+					<ul>
+						{reports.unconfirmed.map(item => {
+							return (
+								<li
+									style={{
+										display: "flex",
+										width: "95%",
+										gap: "20px",
+										marginBottom: "20px",
+										padding: "10px 0",
+										borderTop: "2px solid #a55",
+										borderBottom: "2px solid #a55",
+									}}
+									key={item.reportNumber}
+								>
+									<div>
+										Звіт <b>{item.reportNumber}</b> від {item.reportDate} {item.reportTime}
+									</div>
+
+									<div>{item.reportType}</div>
+
+									<div>
+										Сума: <b>{item.reportSum} грн</b>
+									</div>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+			)}
+		</div>
+	);
 }
