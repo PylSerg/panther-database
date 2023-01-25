@@ -192,11 +192,11 @@ export default function ViewReportsBlock() {
 									}}
 									key={item.reportNumber}
 								>
-									<div>
+									{/* <div>
 										<button type="button" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
 											+
 										</button>
-									</div>
+									</div> */}
 
 									<div>
 										Звіт <b>{item.reportNumber}</b> від {item.reportCreated}
@@ -208,13 +208,13 @@ export default function ViewReportsBlock() {
 										Сума: <b>{item.reportSum} грн</b>
 									</div>
 
-									{reportPositions[`${item.reportNumber}`] && (
+									{/* {reportPositions[`${item.reportNumber}`] && (
 										<ol>
 											{reportPositions[`${item.reportNumber}`].map(position => (
 												<li key={Date.now()}>{position.position}</li>
 											))}
 										</ol>
-									)}
+									)} */}
 								</li>
 							);
 						})}
