@@ -25,15 +25,19 @@ export default function ViewReportsBlock() {
 		returned: [],
 	});
 
+	const [reportPositions, setReportPositions] = useState({});
+
 	const dispatch = useDispatch();
 
 	// xc.rndc("ViewReportsBlock");
 	// xc.l(reportsData.unconfirmed);
 
 	useEffect(() => {
-		reportsList.map(report => {
-			return getReportsData(report.reportUrl);
-		});
+		getReportsData(reportsList[0].reportUrl);
+
+		// reportsList.map(report => {
+		// 	return getReportsData(report.reportUrl);
+		// });
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -148,6 +152,40 @@ export default function ViewReportsBlock() {
 		});
 	}
 
+	// Shows report positions
+	function showReportPositions(number, label) {
+		const positionsArray = [];
+		const ids = [];
+		console.log(`ids`, ids);
+
+		reportsData[`${label.toLowerCase()}`].map(position => {
+			if (position.report === number) {
+				if (positionsArray.length > 0) {
+					if (
+						ids.map(id => {
+							if (id === position.id) {
+								return false;
+							}
+							return true;
+						})
+					) {
+						positionsArray.push(position);
+						ids.push(position.id);
+					}
+				} else {
+					positionsArray.push(position);
+					ids.push(position.id);
+				}
+
+				setReportPositions({ ...reportPositions, [`${number}`]: positionsArray });
+			}
+
+			return false;
+		});
+
+		return;
+	}
+
 	return (
 		<div>
 			{reports.unconfirmed[0]?.reportNumber && (
@@ -158,7 +196,7 @@ export default function ViewReportsBlock() {
 								<li
 									style={{
 										display: "flex",
-										width: "95%",
+										width: "98%",
 										gap: "20px",
 										marginBottom: "20px",
 										padding: "10px 0",
@@ -168,6 +206,12 @@ export default function ViewReportsBlock() {
 									key={item.reportNumber}
 								>
 									<div>
+										<button type="button" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
+											+
+										</button>
+									</div>
+
+									<div>
 										Звіт <b>{item.reportNumber}</b> від {item.reportCreated}
 									</div>
 
@@ -176,6 +220,14 @@ export default function ViewReportsBlock() {
 									<div>
 										Сума: <b>{item.reportSum} грн</b>
 									</div>
+
+									{reportPositions[`${item.reportNumber}`] && (
+										<ol>
+											{reportPositions[`${item.reportNumber}`].map(position => (
+												<li key={Date.now()}>{position.position}</li>
+											))}
+										</ol>
+									)}
 								</li>
 							);
 						})}
