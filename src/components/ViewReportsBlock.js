@@ -112,10 +112,18 @@ export default function ViewReportsBlock() {
 			function addReport() {
 				const report = reportsData.unconfirmed[i];
 
+				const date = report.date.split("T");
+				const dateArray = date[0].split("-");
+				const dateReport = [dateArray[2], dateArray[1], dateArray[0]].join(".");
+
+				const time = report.time.split("T");
+				const timeArray = time[1].split(":");
+				const timeReport = [timeArray[0], timeArray[1]].join(":");
+
 				unconfirmedReports.push({
 					reportNumber: report.report,
-					reportDate: report.date,
-					reportTime: report.time,
+					reportDate: dateReport,
+					reportTime: timeReport,
 					reportType: report.type,
 					reportLabel: report.label,
 				});
