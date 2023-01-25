@@ -72,3 +72,34 @@ function doPost(request) {
 
 	return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
 }
+
+/* 
+  GET request
+*/
+function doGet() {
+	const sheet = SpreadsheetApp.getActiveSheet();
+	const lastRow = sheet.getLastRow();
+
+	let result = { status: 200, data: [] };
+
+	for (let i = 2; i <= lastRow; i++) {
+		result.data.push({
+			id: sheet.getRange(`A${i}`).getValue(),
+			report: sheet.getRange(`B${i}`).getValue(),
+			date: sheet.getRange(`C${i}`).getValue(),
+			time: sheet.getRange(`D${i}`).getValue(),
+			responsible: sheet.getRange(`E${i}`).getValue(),
+			object: sheet.getRange(`F${i}`).getValue(),
+			stage: sheet.getRange(`G${i}`).getValue(),
+			position: sheet.getRange(`H${i}`).getValue(),
+			quantity: sheet.getRange(`I${i}`).getValue(),
+			price: sheet.getRange(`J${i}`).getValue(),
+			sum: sheet.getRange(`K${i}`).getValue(),
+			comment: sheet.getRange(`L${i}`).getValue(),
+			type: "OFFICE",
+			label: "UNCONFIRMED",
+		});
+	}
+
+	return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+}

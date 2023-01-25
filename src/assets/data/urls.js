@@ -9,13 +9,13 @@ export const REPORT_UNC_MATERIALS_URL = "https://script.google.com/macros/s/AKfy
 export const REPORT_UNC_ADVANCES_AND_SALARIES_URL = "https://script.google.com/macros/s/AKfycbyPVeiqGGdDJsZg3dE_nEaW-hXM59tFBqdZq4NUlXrHQZ5DYPRct418ytSIYKQ4C-H3/exec";
 
 // Fuel
-export const REPORT_UNC_FUEL_URL = "https://script.google.com/macros/s/AKfycbwmJ-P1vxWB5pr_pS4CjIJHKPYqmqepQqL-H02NqNeih65W4JhZrcz8Ltw3t8ZXB7S4mw/exec";
+export const REPORT_UNC_FUEL_URL = "https://script.google.com/macros/s/AKfycbyiaZI0pBvMqOfQgBzmtdzMcSbFeNuFFpmrRQ7b6HTg9bdt3VHBZaGZMWI3BwT_JL9U8g/exec";
 
 // For closed objects
-export const REPORT_UNC_FOR_CLOSED_OBJECTS_URL = "https://script.google.com/macros/s/AKfycbwNONo_XFTYhOSrW-lEXG6mPrUhCPvV12cfzWgxxD6rFxNwVmhqPwSOhLT_nJW6abkzHA/exec";
+export const REPORT_UNC_FOR_CLOSED_OBJECTS_URL = "https://script.google.com/macros/s/AKfycbx5jYKOT37sulF82_55gA5dgpVw0ZY57nEqRgnRxnoLXExkaQit04XQV7PnODmCDhUx/exec";
 
 // Office
-export const REPORT_UNC_OFFICE_URL = "https://script.google.com/macros/s/AKfycbylRGwyC5V9bQdylqQ5Hf1d_TP6HvMGCzIkyPMNfpZSUEOcBC2rik7BxmDh3QMGbH4l/exec";
+export const REPORT_UNC_OFFICE_URL = "https://script.google.com/macros/s/AKfycbyonSm0zFOqGrtjjPbW4UMPoyt1KIR--qYGgNVHnDgJ_7rQxMpiQ0lkRga0z8aa8zJY/exec";
 
 /*
  ? LISTS

@@ -28,15 +28,12 @@ export default function ViewReportsBlock() {
 	const dispatch = useDispatch();
 
 	// xc.rndc("ViewReportsBlock");
-	xc.l(reportsData.unconfirmed);
+	// xc.l(reportsData.unconfirmed);
 
 	useEffect(() => {
-		getReportsData(reportsList[0].reportUrl);
-		getReportsData(reportsList[1].reportUrl);
-
-		// reportsList.map(report => {
-		// 	return getReportsData(report.reportUrl);
-		// });
+		reportsList.map(report => {
+			return getReportsData(report.reportUrl);
+		});
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
