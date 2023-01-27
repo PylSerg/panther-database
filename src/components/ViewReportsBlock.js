@@ -189,6 +189,7 @@ export default function ViewReportsBlock() {
 								<li
 									style={{
 										display: "flex",
+										flexDirection: "column",
 										width: "98%",
 										gap: "20px",
 										marginBottom: "20px",
@@ -198,28 +199,54 @@ export default function ViewReportsBlock() {
 									}}
 									key={item.reportNumber}
 								>
-									<div>
-										<button type="button" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
-											+
-										</button>
-									</div>
+									<div
+										style={{
+											display: "flex",
+											flexDirection: "row",
+											gap: "20px",
+										}}
+									>
+										<div>
+											<button type="button" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
+												+
+											</button>
+										</div>
 
-									<div>
-										Звіт <b>{item.reportNumber}</b> від {item.reportCreated}
-									</div>
+										<div>
+											Звіт <b>{item.reportNumber}</b> від {item.reportCreated}
+										</div>
 
-									<div>{item.reportType}</div>
+										<div>{item.reportType}</div>
 
-									<div>
-										Сума: <b>{item.reportSum} грн</b>
+										<div>
+											Сума: <b>{item.reportSum} грн</b>
+										</div>
 									</div>
 
 									{reportPositions[`${transformationReportNumber(item.reportNumber)}`] && (
-										<ol>
+										<table>
+											<tr>
+												<th>Обʼєкт</th>
+												<th>Етап</th>
+												<th>Найменування</th>
+												<th>Кількість</th>
+												<th>Ціна</th>
+												<th>Сума</th>
+												<th>Коменар</th>
+											</tr>
+
 											{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
-												<li key={position.id}>{position.position}</li>
+												<tr key={position.id}>
+													<td>{position?.object}</td>
+													<td>{position?.stage}</td>
+													<td>{position?.position}</td>
+													<td>{position?.quantity}</td>
+													<td>{position?.price}</td>
+													<td>{position?.sum}</td>
+													<td>{position?.comment}</td>
+												</tr>
 											))}
-										</ol>
+										</table>
 									)}
 								</li>
 							);
