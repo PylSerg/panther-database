@@ -29,12 +29,8 @@ export default function ViewReportsBlock() {
 
 	const dispatch = useDispatch();
 
-	// xc.rndc("ViewReportsBlock");
-	// xc.l(reportsData.unconfirmed);
-
+	// Gets data of all reports
 	useEffect(() => {
-		// getReportsData(reportsList[0].reportUrl);
-
 		reportsList.map(report => {
 			return getReportsData(report.reportUrl);
 		});
@@ -42,13 +38,14 @@ export default function ViewReportsBlock() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	// Calls createReportsList() when reportsData was changed
 	useEffect(() => {
 		createReportsList();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [reportsData]);
 
-	// Get reports data
+	// Gets reports data
 	async function getReportsData(url) {
 		dispatch(showProgress("Завантаження звітів..."));
 
@@ -164,13 +161,22 @@ export default function ViewReportsBlock() {
 					positionsArray.push(position);
 				}
 
-				setReportPositions({ ...reportPositions, [`${number}`]: positionsArray });
+				const newNumber = number.split("-").join("");
+
+				setReportPositions({ ...reportPositions, [`${newNumber}`]: positionsArray });
 			}
 
 			return false;
 		});
 
 		return;
+	}
+
+	// Transforms report number
+	function transformationReportNumber(number) {
+		const newNumber = number.split("-").join("");
+
+		return newNumber;
 	}
 
 	return (
@@ -192,11 +198,11 @@ export default function ViewReportsBlock() {
 									}}
 									key={item.reportNumber}
 								>
-									{/* <div>
+									<div>
 										<button type="button" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
 											+
 										</button>
-									</div> */}
+									</div>
 
 									<div>
 										Звіт <b>{item.reportNumber}</b> від {item.reportCreated}
@@ -208,13 +214,13 @@ export default function ViewReportsBlock() {
 										Сума: <b>{item.reportSum} грн</b>
 									</div>
 
-									{/* {reportPositions[`${item.reportNumber}`] && (
+									{reportPositions[`${transformationReportNumber(item.reportNumber)}`] && (
 										<ol>
-											{reportPositions[`${item.reportNumber}`].map(position => (
+											{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
 												<li key={Date.now()}>{position.position}</li>
 											))}
 										</ol>
-									)} */}
+									)}
 								</li>
 							);
 						})}
