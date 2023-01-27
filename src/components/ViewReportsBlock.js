@@ -217,7 +217,7 @@ export default function ViewReportsBlock() {
 									{reportPositions[`${transformationReportNumber(item.reportNumber)}`] && (
 										<ol>
 											{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
-												<li key={Date.now()}>{position.position}</li>
+												<li>{position.position}</li>
 											))}
 										</ol>
 									)}
