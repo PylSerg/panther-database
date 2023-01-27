@@ -217,7 +217,7 @@ export default function ViewReportsBlock() {
 									{reportPositions[`${transformationReportNumber(item.reportNumber)}`] && (
 										<ol>
 											{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
-												<li>{position.position}</li>
+												<li key={position.id}>{position.position}</li>
 											))}
 										</ol>
 									)}
