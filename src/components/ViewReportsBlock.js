@@ -181,7 +181,7 @@ export default function ViewReportsBlock() {
 					positionsArray.push(position);
 				}
 
-				const sortedPositionsArray = positionsArray.sort((a, b) => (a.reportCreated > b.reportCreated ? 1 : -1));
+				const sortedPositionsArray = positionsArray.sort((a, b) => (a.position > b.position ? 1 : -1));
 
 				setReportPositions({ ...reportPositions, [`${shortNumber}`]: sortedPositionsArray });
 			}
