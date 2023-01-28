@@ -182,77 +182,57 @@ export default function ViewReportsBlock() {
 	return (
 		<div>
 			{reports.unconfirmed[0]?.reportNumber && (
-				<div>
-					<ul>
-						{reports.unconfirmed.map(item => {
-							return (
-								<li
-									style={{
-										display: "flex",
-										flexDirection: "column",
-										width: "98%",
-										gap: "20px",
-										marginBottom: "20px",
-										padding: "10px 0",
-										borderTop: "2px solid #a55",
-										borderBottom: "2px solid #a55",
-									}}
-									key={item.reportNumber}
-								>
-									<div
-										style={{
-											display: "flex",
-											flexDirection: "row",
-											gap: "20px",
-										}}
-									>
-										<div>
-											<button type="button" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
-												+
-											</button>
-										</div>
-
-										<div>
-											Звіт <b>{item.reportNumber}</b> від {item.reportCreated}
-										</div>
-
-										<div>{item.reportType}</div>
-
-										<div>
-											Сума: <b>{item.reportSum} грн</b>
-										</div>
+				<ul>
+					{reports.unconfirmed.map(item => {
+						return (
+							<li className="view-reports__report" key={item.reportNumber}>
+								<div className="view-reports__header">
+									<div>
+										<button type="button" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
+											+
+										</button>
 									</div>
 
-									{reportPositions[`${transformationReportNumber(item.reportNumber)}`] && (
-										<table>
-											<tr>
-												<th>Обʼєкт</th>
-												<th>Етап</th>
-												<th>Найменування</th>
-												<th>Кількість</th>
-												<th>Ціна</th>
-												<th>Сума</th>
-												<th>Коменар</th>
-											</tr>
+									<div>
+										Звіт <b>{item.reportNumber}</b> від {item.reportCreated}
+									</div>
 
-											{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
-												<tr key={position.id}>
-													<td>{position?.object}</td>
-													<td>{position?.stage}</td>
-													<td>{position?.position}</td>
-													<td>{position?.quantity}</td>
-													<td>{position?.price}</td>
-													<td>{position?.sum}</td>
-													<td>{position?.comment}</td>
-												</tr>
-											))}
-										</table>
-									)}
-								</li>
-							);
-						})}
-					</ul>
-				</div>
+									<div>{item.reportType}</div>
+
+									<div>
+										Сума: <b>{item.reportSum} грн</b>
+									</div>
+								</div>
+
+								{reportPositions[`${transformationReportNumber(item.reportNumber)}`] && (
+									<table className="report-table">
+										<tr>
+											<th>Обʼєкт</th>
+											<th>Етап</th>
+											<th>Найменування</th>
+											<th>Кількість</th>
+											<th>Ціна</th>
+											<th>Сума</th>
+											<th>Коменар</th>
+										</tr>
+
+										{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
+											<tr key={position.id}>
+												<td className="report-table__object">{position?.object}</td>
+												<td className="report-table__stage">{position?.stage}</td>
+												<td className="report-table__position">{position?.position}</td>
+												<td className="report-table__quantity">{position?.quantity}</td>
+												<td className="report-table__price">{position?.price}</td>
+												<td className="report-table__sum">{position?.sum}</td>
+												<td className="report-table__comment">{position?.comment}</td>
+											</tr>
+										))}
+									</table>
+								)}
+							</li>
+						);
+					})}
+				</ul>
 			)}
 		</div>
 	);

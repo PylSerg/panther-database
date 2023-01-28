@@ -1,0 +1,42 @@
+.report-table tr {
+    color: #000;
+
+    & td {
+        padding: 3px 10px;
+    }
+
+    &:nth-child(2n) {
+        background-color: #cfcbcb;
+    }
+
+    &:nth-child(2n+1) {
+        background-color: #ddd8d8;
+    }
+
+    &:first-child {
+        color: #eee;
+        text-align: center;
+
+        background-color: #694141;
+
+        & th {
+            padding: 10px;
+        }
+    }
+}
+
+.report-table__object,
+.report-table__position,
+.report-table__comment {
+    text-align: left;
+}
+
+.report-table__stage {
+    text-align: center;
+}
+
+.report-table__quantity,
+.report-table__price,
+.report-table__sum {
+    text-align: right;
+}
