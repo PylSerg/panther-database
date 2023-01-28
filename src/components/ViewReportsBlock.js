@@ -27,6 +27,8 @@ export default function ViewReportsBlock() {
 
 	const [reportPositions, setReportPositions] = useState({});
 
+	const [reportPositionsVisibility, setReportPositionsVisibility] = useState({});
+
 	const dispatch = useDispatch();
 
 	// Gets data of all reports
@@ -152,6 +154,13 @@ export default function ViewReportsBlock() {
 	// Shows report positions
 	function showReportPositions(number, label) {
 		const positionsArray = [];
+		const shortNumber = number.split("-").join("");
+
+		if (reportPositionsVisibility[`${shortNumber}`]?.visibility) {
+			setReportPositionsVisibility({ ...reportPositionsVisibility, [`${shortNumber}`]: { visibility: false } });
+
+			return;
+		}
 
 		reportsData[`${label.toLowerCase()}`].map(position => {
 			if (position.report === number) {
@@ -161,13 +170,13 @@ export default function ViewReportsBlock() {
 					positionsArray.push(position);
 				}
 
-				const newNumber = number.split("-").join("");
-
-				setReportPositions({ ...reportPositions, [`${newNumber}`]: positionsArray });
+				setReportPositions({ ...reportPositions, [`${shortNumber}`]: positionsArray });
 			}
 
 			return false;
 		});
+
+		setReportPositionsVisibility({ ...reportPositionsVisibility, [`${shortNumber}`]: { visibility: true } });
 
 		return;
 	}
@@ -188,8 +197,8 @@ export default function ViewReportsBlock() {
 							<li className="view-reports__report" key={item.reportNumber}>
 								<div className="view-reports__header">
 									<div>
-										<button type="button" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
-											+
+										<button style={{ width: "25px" }} type="button" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
+											{reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility ? "-" : "+"}
 										</button>
 									</div>
 
@@ -204,30 +213,34 @@ export default function ViewReportsBlock() {
 									</div>
 								</div>
 
-								{reportPositions[`${transformationReportNumber(item.reportNumber)}`] && (
-									<table className="report-table">
-										<tr>
-											<th>Обʼєкт</th>
-											<th>Етап</th>
-											<th>Найменування</th>
-											<th>Кількість</th>
-											<th>Ціна</th>
-											<th>Сума</th>
-											<th>Коменар</th>
-										</tr>
+								{reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility && (
+									<div>
+										{reportPositions[`${transformationReportNumber(item.reportNumber)}`] && (
+											<table className="report-table">
+												<tr>
+													<th>Обʼєкт</th>
+													<th>Етап</th>
+													<th>Найменування</th>
+													<th>Кількість</th>
+													<th>Ціна</th>
+													<th>Сума</th>
+													<th>Коменар</th>
+												</tr>
 
-										{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
-											<tr key={position.id}>
-												<td className="report-table__object">{position?.object}</td>
-												<td className="report-table__stage">{position?.stage}</td>
-												<td className="report-table__position">{position?.position}</td>
-												<td className="report-table__quantity">{position?.quantity}</td>
-												<td className="report-table__price">{position?.price}</td>
-												<td className="report-table__sum">{position?.sum}</td>
-												<td className="report-table__comment">{position?.comment}</td>
-											</tr>
-										))}
-									</table>
+												{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
+													<tr key={position.id}>
+														<td className="report-table__object">{position?.object}</td>
+														<td className="report-table__stage">{position?.stage}</td>
+														<td className="report-table__position">{position?.position}</td>
+														<td className="report-table__quantity">{position?.quantity}</td>
+														<td className="report-table__price">{position?.price}</td>
+														<td className="report-table__sum">{position?.sum}</td>
+														<td className="report-table__comment">{position?.comment}</td>
+													</tr>
+												))}
+											</table>
+										)}
+									</div>
 								)}
 							</li>
 						);
