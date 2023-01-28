@@ -47,7 +47,7 @@ export default function ViewReportsBlock() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [reportsData]);
 
-	// Sorts reports data
+	// Sorts reports
 	useEffect(() => {
 		const newReportData = reports.unconfirmed;
 		const sortedReportData = newReportData.sort((a, b) => (a.reportCreated > b.reportCreated ? -1 : 1));
@@ -181,13 +181,17 @@ export default function ViewReportsBlock() {
 					positionsArray.push(position);
 				}
 
-				const sortedPositionsArray = positionsArray.sort((a, b) => (a.position > b.position ? 1 : -1));
-
-				setReportPositions({ ...reportPositions, [`${shortNumber}`]: sortedPositionsArray });
+				setReportPositions({ ...reportPositions, [`${shortNumber}`]: positionsArray });
 			}
 
 			return false;
 		});
+
+		if (positionsArray.length > 1) {
+			const sortedPositionsArray = positionsArray.sort((a, b) => (a.reportPositions > b.reportPositions ? 1 : -1));
+
+			setReportPositions({ ...reportPositions, [`${shortNumber}`]: sortedPositionsArray });
+		}
 
 		setReportPositionsVisibility({ ...reportPositionsVisibility, [`${shortNumber}`]: { visibility: true } });
 
