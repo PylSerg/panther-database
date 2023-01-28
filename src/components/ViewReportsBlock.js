@@ -54,6 +54,8 @@ export default function ViewReportsBlock() {
 		console.log(`sortedReportData`, sortedReportData);
 
 		setReports({ ...reports, unconfirmed: sortedReportData });
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [reports.unconfirmed]);
 
 	// Gets reports data
@@ -179,7 +181,9 @@ export default function ViewReportsBlock() {
 					positionsArray.push(position);
 				}
 
-				setReportPositions({ ...reportPositions, [`${shortNumber}`]: positionsArray });
+				const sortedPositionsArray = positionsArray.sort((a, b) => (a.reportCreated > b.reportCreated ? 1 : -1));
+
+				setReportPositions({ ...reportPositions, [`${shortNumber}`]: sortedPositionsArray });
 			}
 
 			return false;
