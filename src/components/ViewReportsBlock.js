@@ -214,33 +214,29 @@ export default function ViewReportsBlock() {
 								</div>
 
 								{reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility && (
-									<div>
-										{reportPositions[`${transformationReportNumber(item.reportNumber)}`] && (
-											<table className="report-table">
-												<tr>
-													<th>Обʼєкт</th>
-													<th>Етап</th>
-													<th>Найменування</th>
-													<th>Кількість</th>
-													<th>Ціна</th>
-													<th>Сума</th>
-													<th>Коменар</th>
-												</tr>
+									<table className="report-table">
+										<tr>
+											<th>Обʼєкт</th>
+											<th>Етап</th>
+											<th>Найменування</th>
+											<th>Кількість</th>
+											<th>Ціна</th>
+											<th>Сума</th>
+											<th>Коменар</th>
+										</tr>
 
-												{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
-													<tr key={position.id}>
-														<td className="report-table__object">{position?.object}</td>
-														<td className="report-table__stage">{position?.stage}</td>
-														<td className="report-table__position">{position?.position}</td>
-														<td className="report-table__quantity">{position?.quantity}</td>
-														<td className="report-table__price">{position?.price}</td>
-														<td className="report-table__sum">{position?.sum}</td>
-														<td className="report-table__comment">{position?.comment}</td>
-													</tr>
-												))}
-											</table>
-										)}
-									</div>
+										{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
+											<tr key={position.id}>
+												<td className="report-table__object">{position?.object}</td>
+												<td className="report-table__stage">{position?.stage}</td>
+												<td className="report-table__position">{position?.position}</td>
+												<td className="report-table__quantity">{position?.quantity}</td>
+												<td className="report-table__price">{position?.price}</td>
+												<td className="report-table__sum">{position?.sum}</td>
+												<td className="report-table__comment">{position?.comment}</td>
+											</tr>
+										))}
+									</table>
 								)}
 							</li>
 						);
