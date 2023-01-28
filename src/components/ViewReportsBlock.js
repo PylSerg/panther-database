@@ -47,6 +47,15 @@ export default function ViewReportsBlock() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [reportsData]);
 
+	// Sorts reports data
+	useEffect(() => {
+		const newReportData = reports.unconfirmed;
+		const sortedReportData = newReportData.sort((a, b) => (a.reportCreated > b.reportCreated ? -1 : 1));
+		console.log(`sortedReportData`, sortedReportData);
+
+		setReports({ ...reports, unconfirmed: sortedReportData });
+	}, [reports.unconfirmed]);
+
 	// Gets reports data
 	async function getReportsData(url) {
 		dispatch(showProgress("Завантаження звітів..."));
