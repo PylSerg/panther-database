@@ -207,10 +207,15 @@ export default function ViewReportsBlock() {
 				<ul className="view-reports__list">
 					{reports.unconfirmed.map(item => {
 						return (
-							<li className="view-reports__report" key={uuid()}>
+							<li className="view-reports__report" data-report-label={item.reportLabel} key={uuid()}>
 								<div className="view-reports__header">
 									<div>
-										<button style={{ width: "25px" }} type="button" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
+										<button
+											className="view-report__details-button"
+											type="button"
+											title={reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility ? "Згорнути звіт" : "Розгорнути звіт"}
+											onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}
+										>
 											{reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility ? "-" : "+"}
 										</button>
 									</div>
@@ -219,7 +224,7 @@ export default function ViewReportsBlock() {
 										<div className="view-report__info-report">
 											<div>Звіт</div>
 
-											<div>
+											<div className="view-report__info-number">
 												<b>{item.reportNumber}</b>
 											</div>
 
@@ -228,7 +233,7 @@ export default function ViewReportsBlock() {
 
 										<div>{item.reportType}</div>
 
-										<div>
+										<div className="view-report__sum">
 											Сума: <b>{item.reportSum} грн</b>
 										</div>
 									</div>

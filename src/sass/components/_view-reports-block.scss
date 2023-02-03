@@ -2,25 +2,44 @@
     max-width: 1200px;
 
     margin: 0 auto;
+    padding: 0;
 }
 
 .view-reports__report {
     display: flex;
     flex-direction: column;
 
-    width: 98%;
-    gap: 20px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
 
-    margin-bottom: 20px;
-    padding: 10px 0;
+    color: #000;
 
-    border-top: 2px solid #a55;
-    border-bottom: 2px solid #a55;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+
+    // &[data-report-label=UNCONFIRMED] {
+    //     background-color: #fab86c;
+    //     border-color: #f7a74c;
+    // }
 }
 
 .view-reports__header {
     display: flex;
     flex-direction: row;
+    align-items: center;
+}
+
+.view-report__details-button {
+    width: 25px;
+
+    color: #555;
+    font-size: 14px;
+    font-weight: 700;
+
+    border: 1px solid #888;
+    border-radius: 4px;
+
+    cursor: pointer;
 }
 
 .view-report__info {
@@ -38,4 +57,14 @@
     gap: 30px;
 
     margin-left: 30px;
+}
+
+.view-report__info-number {
+    width: 80px;
+}
+
+.view-report__sum {
+    width: 200px;
+
+    text-align: right;
 }
