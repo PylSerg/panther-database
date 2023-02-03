@@ -2,9 +2,12 @@
 export function getDate() {
 	const dateNow = new Date();
 
-	const date = dateNow.getDate();
-	const month = dateNow.getMonth() + 1;
-	const year = dateNow.getFullYear();
+	let date = dateNow.getDate();
+	let month = dateNow.getMonth() + 1;
+	let year = dateNow.getFullYear();
+
+	if (date < 10) date = `0${date}`;
+	if (month < 10) month = `0${month}`;
 
 	return `${date}.${month}.${year}`;
 }
