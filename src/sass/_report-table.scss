@@ -1,9 +1,5 @@
 .report-table {
     width: 100%;
-}
-
-.report-table tr {
-    color: #000;
 
     &>thead>tr td {
         color: #eee;
@@ -13,6 +9,10 @@
 
         padding: 10px;
     }
+}
+
+.report-table tr {
+    color: #000;
 
     & td {
         padding: 3px 10px;
