@@ -169,11 +169,15 @@ export default function ViewReportsBlock() {
 
 		reportsData[`${label.toLowerCase()}`].map(position => {
 			if (position.report === number) {
-				if (positionsArray.length > 0) {
-					positionsArray.push(position);
-				} else {
-					positionsArray.push(position);
-				}
+				let newPosition = position;
+
+				newPosition = {
+					...newPosition,
+					price: Money.toString(position.price),
+					sum: Money.toString(position.sum),
+				};
+
+				positionsArray.push(newPosition);
 
 				setReportPositions({ ...reportPositions, [`${shortNumber}`]: positionsArray });
 			}
