@@ -1,8 +1,4 @@
-import xc from "../../@x-console/x-console";
-
 export default function sort(created) {
-	// const sorted = created.sort((a, b) => (a.reportCreated > b.reportCreated ? -1 : 1));
-
 	const sorted = created.sort((first, second) => {
 		/*
 		 * First
@@ -63,6 +59,8 @@ export default function sort(created) {
 		// Sorts by Minutes
 		if (firstMinutes > secondMinutes) return -1;
 		if (firstMinutes < secondMinutes) return 1;
+
+		return false;
 	});
 
 	return sorted;
