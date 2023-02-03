@@ -181,10 +181,7 @@ export default function ViewReportsBlock() {
 		});
 
 		if (positionsArray.length > 1) {
-			const sortedPositionsArray = positionsArray.sort((a, b) => (a?.object > b?.object ? 1 : -1));
-			// sorting.positions(positionsArray);
-
-			setReportPositions({ ...reportPositions, [`${shortNumber}`]: sortedPositionsArray });
+			setReportPositions({ ...reportPositions, [`${shortNumber}`]: sorting.positions(positionsArray, "ASC") });
 		}
 
 		setReportPositionsVisibility({ ...reportPositionsVisibility, [`${shortNumber}`]: { visibility: true } });

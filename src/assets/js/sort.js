@@ -15,14 +15,43 @@ class Sorting {
 	}
 
 	positions(positions, adesc) {
-		console.log(`Sorting \n positions`, positions);
 		if (adesc === "ASC" || adesc === "DESC") {
 			this.changeSort(adesc);
 		} else {
 			this.changeSort("ASC");
 		}
 
-		const sorted = positions.sort((first, second) => {});
+		const sorted = positions.sort((first, second) => {
+			/*
+			 * First
+			 */
+			const firstObject = first.object;
+			const firstStage = first.stage;
+			const firstPosition = first.position;
+
+			/*
+			 * Second
+			 */
+			const secondObject = second.object;
+			const secondStage = second.stage;
+			const secondPosition = second.position;
+
+			/*
+			 * Sort
+			 */
+
+			// Sort by Object
+			if (firstObject > secondObject) return this.ifMore;
+			if (firstObject < secondObject) return this.ifLess;
+
+			// Sort by Stage
+			if (firstStage > secondStage) return this.ifMore;
+			if (firstStage < secondStage) return this.ifLess;
+
+			// Sort by Position
+			if (firstPosition > secondPosition) return this.ifMore;
+			if (firstPosition < secondPosition) return this.ifLess;
+		});
 
 		return sorted;
 	}
