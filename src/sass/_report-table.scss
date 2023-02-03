@@ -5,6 +5,17 @@
 .report-table tr {
     color: #000;
 
+    &>thead>tr {
+        color: #eee;
+        text-align: center;
+
+        background-color: $thirdColor;
+
+        & td {
+            padding: 10px;
+        }
+    }
+
     & td {
         padding: 3px 10px;
     }
@@ -15,17 +26,6 @@
 
     &:nth-child(2n+1) {
         background-color: #ddd8d8;
-    }
-
-    &:first-child {
-        color: #eee;
-        text-align: center;
-
-        background-color: $thirdColor;
-
-        & th {
-            padding: 10px;
-        }
     }
 }
 
