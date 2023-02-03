@@ -9,6 +9,7 @@ import { showNotification } from "../redux/features/notificationSlice";
 import { showProgress, hideProgress } from "../redux/features/progressSlice";
 
 // Other
+import { v4 as uuid } from "uuid";
 import reportsList from "../assets/data/reports-list";
 import sorting from "../assets/js/sorting";
 
@@ -51,9 +52,7 @@ export default function ViewReportsBlock() {
 	// Sorts reports
 	useEffect(() => {
 		const newReportData = reports.unconfirmed;
-		// const sortedReportData = newReportData.sort((a, b) => (a.reportCreated > b.reportCreated ? -1 : 1));
 
-		// setReports({ ...reports, unconfirmed: sortedReportData });
 		setReports({ ...reports, unconfirmed: sorting.reports(newReportData, "DESC") });
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -202,7 +201,7 @@ export default function ViewReportsBlock() {
 				<ul>
 					{reports.unconfirmed.map(item => {
 						return (
-							<li className="view-reports__report" key={item.reportNumber}>
+							<li className="view-reports__report" key={uuid()}>
 								<div className="view-reports__header">
 									<div>
 										<button style={{ width: "25px" }} type="button" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
@@ -237,7 +236,7 @@ export default function ViewReportsBlock() {
 
 										<tbody>
 											{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
-												<tr key={position.id}>
+												<tr key={uuid()}>
 													<td className="report-table__object">{position?.object}</td>
 													<td className="report-table__stage">{position?.stage}</td>
 													<td className="report-table__position">{position?.position}</td>
