@@ -14,16 +14,27 @@ class Sorting {
 		}
 	}
 
-	positions(positions, adesc) {}
+	positions(positions, adesc) {
+		console.log(`Sorting \n positions`, positions);
+		if (adesc === "ASC" || adesc === "DESC") {
+			this.changeSort(adesc);
+		} else {
+			this.changeSort("ASC");
+		}
 
-	reports(created, adesc) {
+		const sorted = positions.sort((first, second) => {});
+
+		return sorted;
+	}
+
+	reports(reports, adesc) {
 		if (adesc === "ASC" || adesc === "DESC") {
 			this.changeSort(adesc);
 		} else {
 			this.changeSort("DESC");
 		}
 
-		const sorted = created.sort((first, second) => {
+		const sorted = reports.sort((first, second) => {
 			/*
 			 * First
 			 */
