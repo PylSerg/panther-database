@@ -2,7 +2,7 @@ class Sorting {
 	#ifMore;
 	#ifLess;
 
-	#changeSort(adesc) {
+	changeSort(adesc) {
 		if (adesc === "ASC") {
 			this.ifMore = 1;
 			this.ifLess = -1;
