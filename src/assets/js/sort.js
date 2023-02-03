@@ -51,6 +51,8 @@ class Sorting {
 			// Sort by Position
 			if (firstPosition > secondPosition) return this.ifMore;
 			if (firstPosition < secondPosition) return this.ifLess;
+
+			return false;
 		});
 
 		return sorted;
