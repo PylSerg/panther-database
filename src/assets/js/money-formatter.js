@@ -8,12 +8,12 @@ class MoneyFormatter {
 			const integerPart = fractionalNumberArray[0];
 			const fractionalPart = fractionalNumberArray[1];
 
-			return `${addDigs(integerPart)}.${fractionalPart}`;
+			return `${addDigs(integerPart)},${fractionalPart}`;
 		}
 
 		const integerNumberArray = stringNumber;
 
-		return `${addDigs(integerNumberArray)}.00`;
+		return `${addDigs(integerNumberArray)},00`;
 
 		function addDigs(integerNumber) {
 			const numberArray = integerNumber.split("");
@@ -27,9 +27,12 @@ class MoneyFormatter {
 	}
 
 	toNumber(number) {
-		const numberArray = number.split(" ");
+		const numberArray = number.split(",");
 
-		return Number(numberArray.join(""));
+		const integerPart = numberArray[0].split(" ").join("");
+		const fractionalPart = numberArray[1];
+
+		return Number(`${integerPart}.${fractionalPart}`);
 	}
 }
 
