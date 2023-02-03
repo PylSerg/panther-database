@@ -1,5 +1,23 @@
 class Sorting {
-	byDate(created) {
+	byDate(created, adesc) {
+		let ifMore;
+		let ifLess;
+
+		if (adesc === "ASC") {
+			ifMore = 1;
+			ifLess = -1;
+		}
+
+		if (adesc === "DESC") {
+			ifMore = -1;
+			ifLess = 1;
+		}
+
+		if (adesc === undefined) {
+			ifMore = -1;
+			ifLess = 1;
+		}
+
 		const sorted = created.sort((first, second) => {
 			/*
 			 * First
@@ -42,24 +60,24 @@ class Sorting {
 			 */
 
 			// Sorts by Year
-			if (firstYear > secondYear) return -1;
-			if (firstYear < secondYear) return 1;
+			if (firstYear > secondYear) return ifMore;
+			if (firstYear < secondYear) return ifLess;
 
 			// Sorts by Month
-			if (firstMonth > secondMonth) return -1;
-			if (firstMonth < secondMonth) return 1;
+			if (firstMonth > secondMonth) return ifMore;
+			if (firstMonth < secondMonth) return ifLess;
 
 			// Sorts by Day
-			if (firstDay > secondDay) return -1;
-			if (firstDay < secondDay) return 1;
+			if (firstDay > secondDay) return ifMore;
+			if (firstDay < secondDay) return ifLess;
 
 			// Sorts by Hours
-			if (firstHours > secondHours) return -1;
-			if (firstHours < secondHours) return 1;
+			if (firstHours > secondHours) return ifMore;
+			if (firstHours < secondHours) return ifLess;
 
 			// Sorts by Minutes
-			if (firstMinutes > secondMinutes) return -1;
-			if (firstMinutes < secondMinutes) return 1;
+			if (firstMinutes > secondMinutes) return ifMore;
+			if (firstMinutes < secondMinutes) return ifLess;
 
 			return false;
 		});
