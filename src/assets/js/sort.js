@@ -1,21 +1,26 @@
 class Sorting {
-	reports(created, adesc) {
-		let ifMore;
-		let ifLess;
+	#ifMore;
+	#ifLess;
 
+	#changeSort(adesc) {
 		if (adesc === "ASC") {
-			ifMore = 1;
-			ifLess = -1;
+			this.ifMore = 1;
+			this.ifLess = -1;
 		}
 
 		if (adesc === "DESC") {
-			ifMore = -1;
-			ifLess = 1;
+			this.ifMore = -1;
+			this.ifLess = 1;
 		}
+	}
 
-		if (adesc === undefined) {
-			ifMore = -1;
-			ifLess = 1;
+	positions(positions, adesc) {}
+
+	reports(created, adesc) {
+		if (adesc === "ASC" || adesc === "DESC") {
+			this.changeSort(adesc);
+		} else {
+			this.changeSort("DESC");
 		}
 
 		const sorted = created.sort((first, second) => {
@@ -60,24 +65,24 @@ class Sorting {
 			 */
 
 			// Sorts by Year
-			if (firstYear > secondYear) return ifMore;
-			if (firstYear < secondYear) return ifLess;
+			if (firstYear > secondYear) return this.ifMore;
+			if (firstYear < secondYear) return this.ifLess;
 
 			// Sorts by Month
-			if (firstMonth > secondMonth) return ifMore;
-			if (firstMonth < secondMonth) return ifLess;
+			if (firstMonth > secondMonth) return this.ifMore;
+			if (firstMonth < secondMonth) return this.ifLess;
 
 			// Sorts by Day
-			if (firstDay > secondDay) return ifMore;
-			if (firstDay < secondDay) return ifLess;
+			if (firstDay > secondDay) return this.ifMore;
+			if (firstDay < secondDay) return this.ifLess;
 
 			// Sorts by Hours
-			if (firstHours > secondHours) return ifMore;
-			if (firstHours < secondHours) return ifLess;
+			if (firstHours > secondHours) return this.ifMore;
+			if (firstHours < secondHours) return this.ifLess;
 
 			// Sorts by Minutes
-			if (firstMinutes > secondMinutes) return ifMore;
-			if (firstMinutes < secondMinutes) return ifLess;
+			if (firstMinutes > secondMinutes) return this.ifMore;
+			if (firstMinutes < secondMinutes) return this.ifLess;
 
 			return false;
 		});
