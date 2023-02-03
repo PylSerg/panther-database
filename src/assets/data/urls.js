@@ -6,7 +6,7 @@
 export const REPORT_UNC_MATERIALS_URL = "https://script.google.com/macros/s/AKfycbw32Zp0f9uarXPy54rJLQN9JfNR5ioWD4nd5wJHL27_AWZGbm-3laCqVW_wphhmbrxb/exec";
 
 // Advances and salaries
-export const REPORT_UNC_ADVANCES_AND_SALARIES_URL = "https://script.google.com/macros/s/AKfycby7nDmhUloY1AtXhzCM9izFLk-aI81zSCJ_TH25TJiuKDs6SthP6PmCFTfL2RDhrpNp/exec";
+export const REPORT_UNC_ADVANCES_AND_SALARIES_URL = "https://script.google.com/macros/s/AKfycbx-wfubVIYCXuurJyav46_RhsIOMM9Wn1S6_TvuiL5Ao2BnbBkVIR4qeXd7SRFZaAzm/exec";
 
 // Fuel
 export const REPORT_UNC_FUEL_URL = "https://script.google.com/macros/s/AKfycbyiaZI0pBvMqOfQgBzmtdzMcSbFeNuFFpmrRQ7b6HTg9bdt3VHBZaGZMWI3BwT_JL9U8g/exec";
