@@ -10,7 +10,7 @@ import { showProgress, hideProgress } from "../redux/features/progressSlice";
 
 // Other
 import reportsList from "../assets/data/reports-list";
-import sort from "../assets/js/sort";
+import sorting from "../assets/js/sort";
 
 // Component
 export default function ViewReportsBlock() {
@@ -54,7 +54,7 @@ export default function ViewReportsBlock() {
 		// const sortedReportData = newReportData.sort((a, b) => (a.reportCreated > b.reportCreated ? -1 : 1));
 
 		// setReports({ ...reports, unconfirmed: sortedReportData });
-		setReports({ ...reports, unconfirmed: sort(newReportData) });
+		setReports({ ...reports, unconfirmed: sorting.byDate(newReportData) });
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [reports.unconfirmed]);
