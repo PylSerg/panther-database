@@ -1,5 +1,5 @@
 class Sorting {
-	byDate(created, adesc) {
+	reports(created, adesc) {
 		let ifMore;
 		let ifLess;
 
