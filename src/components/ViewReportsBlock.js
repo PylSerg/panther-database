@@ -10,7 +10,7 @@ import { showProgress, hideProgress } from "../redux/features/progressSlice";
 
 // Other
 import reportsList from "../assets/data/reports-list";
-import sorting from "../assets/js/sort";
+import sorting from "../assets/js/sorting";
 
 // Component
 export default function ViewReportsBlock() {
