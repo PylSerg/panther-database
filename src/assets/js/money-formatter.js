@@ -1,5 +1,5 @@
 class MoneyFormatter {
-	addDigits(number) {
+	toString(number) {
 		const stringNumber = String(number);
 
 		if (stringNumber.includes(".")) {
@@ -24,6 +24,12 @@ class MoneyFormatter {
 
 			return numberArray.join("");
 		}
+	}
+
+	toNumber(number) {
+		const numberArray = number.split(" ");
+
+		return Number(numberArray.join(""));
 	}
 }
 

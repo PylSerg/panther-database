@@ -107,7 +107,7 @@ export default function ViewReportsBlock() {
 				if (reportsData.unconfirmed[i].report !== reportsData.unconfirmed[i - 1].report) {
 					unconfirmedReports[previousReport()] = {
 						...unconfirmedReports[previousReport()],
-						reportSum: Money.addDigits(reportSum),
+						reportSum: Money.toString(reportSum),
 					};
 
 					reportSum = reportsData.unconfirmed[i].sum;
@@ -121,7 +121,7 @@ export default function ViewReportsBlock() {
 			if (i === reportsData.unconfirmed.length - 1)
 				unconfirmedReports[previousReport()] = {
 					...unconfirmedReports[previousReport()],
-					reportSum: Money.addDigits(reportSum),
+					reportSum: Money.toString(reportSum),
 				};
 
 			function addReport() {
