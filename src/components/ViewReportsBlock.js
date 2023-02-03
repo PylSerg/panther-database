@@ -51,7 +51,6 @@ export default function ViewReportsBlock() {
 	useEffect(() => {
 		const newReportData = reports.unconfirmed;
 		const sortedReportData = newReportData.sort((a, b) => (a.reportCreated > b.reportCreated ? -1 : 1));
-		console.log(`sortedReportData`, sortedReportData);
 
 		setReports({ ...reports, unconfirmed: sortedReportData });
 
@@ -129,15 +128,7 @@ export default function ViewReportsBlock() {
 				const reportNumber = report.report;
 				const reportLabel = report.label;
 
-				const date = report.date.split("T");
-				const dateArray = date[0].split("-");
-				const dateReport = `${dateArray[2]}.${dateArray[1]}.${dateArray[0]}`;
-
-				const time = report.time.split("T");
-				const timeArray = time[1].split(":");
-				const timeReport = `${timeArray[0]}:${timeArray[1]}`;
-
-				const reportCreated = `${dateReport} - ${timeReport}`;
+				const reportCreated = `${report.date} - ${report.time}`;
 
 				let reportType = "";
 
