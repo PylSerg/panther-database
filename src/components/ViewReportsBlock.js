@@ -198,7 +198,7 @@ export default function ViewReportsBlock() {
 	return (
 		<div>
 			{reports.unconfirmed[0]?.reportNumber && (
-				<ul>
+				<ul className="view-reports__list">
 					{reports.unconfirmed.map(item => {
 						return (
 							<li className="view-reports__report" key={uuid()}>
@@ -209,14 +209,22 @@ export default function ViewReportsBlock() {
 										</button>
 									</div>
 
-									<div>
-										Звіт <b>{item.reportNumber}</b> від {item.reportCreated}
-									</div>
+									<div className="view-report__info">
+										<div className="view-report__info-report">
+											<div>Звіт</div>
 
-									<div>{item.reportType}</div>
+											<div>
+												<b>{item.reportNumber}</b>
+											</div>
 
-									<div>
-										Сума: <b>{item.reportSum} грн</b>
+											<div>від &nbsp; {item.reportCreated}</div>
+										</div>
+
+										<div>{item.reportType}</div>
+
+										<div>
+											Сума: <b>{item.reportSum} грн</b>
+										</div>
 									</div>
 								</div>
 

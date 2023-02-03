@@ -1,3 +1,9 @@
+.view-reports__list {
+    max-width: 1200px;
+
+    margin: 0 auto;
+}
+
 .view-reports__report {
     display: flex;
     flex-direction: column;
@@ -15,6 +21,21 @@
 .view-reports__header {
     display: flex;
     flex-direction: row;
+}
 
-    gap: 20px;
+.view-report__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.view-report__info-report {
+    display: flex;
+    flex-direction: row;
+
+    gap: 30px;
+
+    margin-left: 30px;
 }
