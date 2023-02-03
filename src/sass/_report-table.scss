@@ -5,15 +5,13 @@
 .report-table tr {
     color: #000;
 
-    &>thead>tr {
+    &>thead>tr td {
         color: #eee;
         text-align: center;
 
         background-color: $thirdColor;
 
-        & td {
-            padding: 10px;
-        }
+        padding: 10px;
     }
 
     & td {
