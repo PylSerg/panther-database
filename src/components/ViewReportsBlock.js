@@ -12,6 +12,7 @@ import { showProgress, hideProgress } from "../redux/features/progressSlice";
 import { v4 as uuid } from "uuid";
 import reportsList from "../assets/data/reports-list";
 import sorting from "../assets/js/sorting";
+import Money from "../assets/js/money-formatter";
 
 // Component
 export default function ViewReportsBlock() {
@@ -106,7 +107,7 @@ export default function ViewReportsBlock() {
 				if (reportsData.unconfirmed[i].report !== reportsData.unconfirmed[i - 1].report) {
 					unconfirmedReports[previousReport()] = {
 						...unconfirmedReports[previousReport()],
-						reportSum,
+						reportSum: Money.addDigits(reportSum),
 					};
 
 					reportSum = reportsData.unconfirmed[i].sum;
@@ -120,7 +121,7 @@ export default function ViewReportsBlock() {
 			if (i === reportsData.unconfirmed.length - 1)
 				unconfirmedReports[previousReport()] = {
 					...unconfirmedReports[previousReport()],
-					reportSum,
+					reportSum: Money.addDigits(reportSum),
 				};
 
 			function addReport() {
@@ -157,7 +158,8 @@ export default function ViewReportsBlock() {
 	// Shows report positions
 	function showReportPositions(number, label) {
 		const positionsArray = [];
-		const shortNumber = number.split("-").join("");
+
+		const shortNumber = transformationReportNumber(number);
 
 		if (reportPositionsVisibility[`${shortNumber}`]?.visibility) {
 			setReportPositionsVisibility({ ...reportPositionsVisibility, [`${shortNumber}`]: { visibility: false } });
