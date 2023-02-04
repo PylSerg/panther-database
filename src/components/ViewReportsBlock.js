@@ -1,4 +1,5 @@
 import xc from "../@x-console/x-console";
+import { RiArrowDropRightLine } from "react-icons/ri";
 
 // React
 import { useState, useEffect } from "react";
@@ -208,16 +209,14 @@ export default function ViewReportsBlock() {
 					{reports.unconfirmed.map(item => {
 						return (
 							<li className="view-reports__report" data-report-label={item.reportLabel} key={uuid()}>
-								<div className="view-reports__header">
-									<div>
-										<button
-											className="view-report__details-button"
-											type="button"
-											title={reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility ? "Згорнути звіт" : "Розгорнути звіт"}
-											onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}
-										>
-											{reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility ? "-" : "+"}
-										</button>
+								<div className="view-reports__header" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
+									<div className="view-reports__indicator">
+										<RiArrowDropRightLine
+											className="view-reports__indicator-icon"
+											style={{
+												transform: reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility ? "rotateZ(90deg)" : "rotateZ(0deg)",
+											}}
+										/>
 									</div>
 
 									<div className="view-report__info">
