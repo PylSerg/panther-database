@@ -9,6 +9,14 @@
     margin-bottom: 30px;
 
     border-bottom: 3px solid $primaryColor;
+
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
 }
 
 .profile__button {
@@ -25,6 +33,8 @@
 
     transition: all 250ms linear;
 
+    white-space: nowrap;
+
     cursor: pointer;
 
     &:first-child {
@@ -34,7 +44,19 @@
     &:hover,
     &:focus {
         color: #fff;
-        background-color: $primaryColor;
+        background-color: $secondaryColor;
+    }
+
+    @media screen and (max-width: 450px) {
+        padding: 10px;
+
+        &:first-child {
+            margin-left: 10px;
+        }
+
+        &:last-child {
+            margin-right: 10px;
+        }
     }
 }
 
@@ -43,35 +65,23 @@
 
     padding: 10px 50px;
 
+    color: #fff;
     font-weight: 700;
 
+    background-color: $primaryColor;
     border: 3px solid $primaryColor;
     border-bottom: none;
     border-radius: 10px 10px 0 0;
 
     transition: all 250ms linear;
 
-    &::after {
-        content: "";
-
-        position: absolute;
-        left: 0;
-        bottom: -3px;
-
-        width: 100%;
-        height: 3px;
-
-        background-color: $backgroundColor;
-    }
-
     &:hover,
     &:focus {
-        color: #000;
-        background-color: $backgroundColor;
+        color: #fff;
+        background-color: $primaryColor;
+    }
+
+    @media screen and (max-width: 450px) {
+        padding: 10px 30px;
     }
 }
-
-/*
-    Component
-*/
-.profile__component {}
