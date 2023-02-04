@@ -4,7 +4,15 @@
     margin: 0 auto;
     padding: 0;
 
+    overflow: hidden;
+
     cursor: default;
+
+    transition: all 250ms linear;
+
+    @media screen and(max-width: 1199px) {
+        max-width: 95%;
+    }
 }
 
 .view-reports__report {
@@ -24,12 +32,23 @@
     //     background-color: #fadcba;
     //     border-color: #f8c891;
     // }
+
+    transition: all 250ms linear;
+
+    @media screen and(max-width: 520px) {
+        padding: 10px;
+    }
 }
 
 .view-reports__header {
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    width: 100%;
+
+    margin: 0;
+    padding: 0;
 
     cursor: pointer;
 }
@@ -44,36 +63,117 @@
 
     border: 2px solid #aaa;
     border-radius: 100%;
+
+    transform-origin: 0 0;
+    transform: scaleX(1);
+    transition: all 250ms linear;
+
+    @media screen and(max-width: 767px) {
+        transform: scaleX(0);
+    }
 }
 
 .view-reports__indicator-icon {
     color: #aaa;
     font-size: 20px;
+
+    transition: all 250ms linear;
+
+    @media screen and(max-width: 767px) {
+        transform-origin: 0 0;
+
+        font-size: 0;
+    }
 }
 
 .view-report__info {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
 
     width: 100%;
+
+    white-space: nowrap;
+
+    transition: all 250ms linear;
+
+    @media screen and(max-width: 767px) {
+        gap: 20px;
+    }
 }
 
 .view-report__info-report {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 
     gap: 30px;
 
     margin-left: 30px;
+
+    &>div:first-child {
+        display: flex;
+        flex-direction: row;
+
+        gap: 30px;
+    }
+
+    transition: all 250ms linear;
+
+    @media screen and(max-width: 767px) {
+        margin-left: 0px;
+    }
+
+    @media screen and(max-width: 520px) {
+        justify-content: space-between;
+
+        width: 100%;
+
+        gap: 10px;
+
+        &>div:first-child {
+            display: flex;
+            flex-direction: row;
+
+            gap: 10px;
+        }
+    }
 }
 
 .view-report__info-number {
     width: 80px;
+
+    transition: all 250ms linear;
+
+    @media screen and(max-width: 520px) {
+        width: auto;
+    }
+}
+
+.view-report__info-type {
+    transition: all 250ms linear;
+
+    @media screen and(max-width: 520px) {
+        order: 3;
+
+        text-align: center;
+    }
+
 }
 
 .view-report__sum {
     width: 200px;
 
     text-align: right;
+
+    transition: all 250ms linear;
+
+    @media screen and (max-width: 836px) {
+        width: auto;
+    }
+
+    @media screen and (max-width: 520px) {
+        text-align: left;
+    }
 }

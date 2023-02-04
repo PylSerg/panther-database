@@ -1,3 +1,11 @@
+.report-table__block {
+    width: 100%;
+
+    @media screen and (max-width: 1199px) {
+        overflow-x: auto;
+    }
+}
+
 .report-table {
     width: 100%;
 

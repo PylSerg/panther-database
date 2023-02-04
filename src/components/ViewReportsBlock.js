@@ -203,7 +203,7 @@ export default function ViewReportsBlock() {
 	}
 
 	return (
-		<div>
+		<div style={{ width: "100%" }}>
 			{reports.unconfirmed[0]?.reportNumber && (
 				<ul className="view-reports__list">
 					{reports.unconfirmed.map(item => {
@@ -221,16 +221,18 @@ export default function ViewReportsBlock() {
 
 									<div className="view-report__info">
 										<div className="view-report__info-report">
-											<div>Звіт</div>
+											<div>
+												<div>Звіт</div>
 
-											<div className="view-report__info-number">
-												<b>{item.reportNumber}</b>
+												<div className="view-report__info-number">
+													<b>{item.reportNumber}</b>
+												</div>
 											</div>
 
-											<div>від &nbsp; {item.reportCreated}</div>
+											<div>{item.reportCreated}</div>
 										</div>
 
-										<div>{item.reportType}</div>
+										<div className="view-report__info-type">{item.reportType}</div>
 
 										<div className="view-report__sum">
 											Сума: <b>{item.reportSum} грн</b>
@@ -239,33 +241,35 @@ export default function ViewReportsBlock() {
 								</div>
 
 								{reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility && (
-									<table className="report-table">
-										<thead>
-											<tr>
-												<td>Обʼєкт</td>
-												<td>Етап</td>
-												<td>Найменування</td>
-												<td>Кількість</td>
-												<td>Ціна</td>
-												<td>Сума</td>
-												<td>Коменар</td>
-											</tr>
-										</thead>
-
-										<tbody>
-											{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
-												<tr key={uuid()}>
-													<td className="report-table__object">{position?.object}</td>
-													<td className="report-table__stage">{position?.stage}</td>
-													<td className="report-table__position">{position?.position}</td>
-													<td className="report-table__quantity">{position?.quantity}</td>
-													<td className="report-table__price">{position?.price}</td>
-													<td className="report-table__sum">{position?.sum}</td>
-													<td className="report-table__comment">{position?.comment}</td>
+									<div className="report-table__block">
+										<table className="report-table">
+											<thead>
+												<tr>
+													<td>Обʼєкт</td>
+													<td>Етап</td>
+													<td>Найменування</td>
+													<td>Кількість</td>
+													<td>Ціна</td>
+													<td>Сума</td>
+													<td>Коменар</td>
 												</tr>
-											))}
-										</tbody>
-									</table>
+											</thead>
+
+											<tbody>
+												{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
+													<tr key={uuid()}>
+														<td className="report-table__object">{position?.object}</td>
+														<td className="report-table__stage">{position?.stage}</td>
+														<td className="report-table__position">{position?.position}</td>
+														<td className="report-table__quantity">{position?.quantity}</td>
+														<td className="report-table__price">{position?.price}</td>
+														<td className="report-table__sum">{position?.sum}</td>
+														<td className="report-table__comment">{position?.comment}</td>
+													</tr>
+												))}
+											</tbody>
+										</table>
+									</div>
 								)}
 							</li>
 						);
