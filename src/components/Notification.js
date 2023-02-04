@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { hideNotification } from "../redux/features/notificationSlice";
-import xc from "../@x-console/x-console";
 
 export default function Notification() {
 	const notification = useSelector(state => state.notification);
@@ -18,7 +17,8 @@ export default function Notification() {
 	useEffect(() => {
 		if (!notification.success) {
 			const errorStyle = notificationStyle.style;
-			errorStyle.push("notification__block--error");
+
+			if (!notificationStyle.style.includes("notification__block--error")) errorStyle.push("notification__block--error");
 
 			setNotificationStyle({ style: errorStyle });
 		} else {
@@ -28,14 +28,17 @@ export default function Notification() {
 		setTimeout(() => {
 			const hideStyle = notificationStyle.style;
 
-			hideStyle.push("notification__block--hide");
+			if (!notificationStyle.style.includes("notification__block--hide")) hideStyle.push("notification__block--hide");
 
 			setNotificationStyle({ style: hideStyle });
 
 			setTimeout(() => {
 				dispatch(hideNotification());
-			}, 300);
+				setNotificationStyle({ style: ["notification__block"] });
+			}, 500);
 		}, notificationsTime);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [notification]);
 
 	return (

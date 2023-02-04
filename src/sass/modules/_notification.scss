@@ -20,17 +20,17 @@
     animation-duration: 300ms;
 }
 
+.notification__block--error {
+    color: #fff;
+
+    background-color: #d61919;
+}
+
 .notification__block--hide {
     animation-name: hideNotification;
     animation-timing-function: linear;
     animation-duration: 300ms;
     animation-fill-mode: forwards;
-}
-
-.notification__block--error {
-    color: #fff;
-
-    background-color: #d61919;
 }
 
 .notification__message {
