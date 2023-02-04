@@ -57,11 +57,15 @@ export default function Report({ type, title, reportUrl, objectsUrl, stagesUrl, 
 		if (type !== "OFFICE") {
 			getObjects(type);
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// Creates new row if rows quantity is 0
 	useEffect(() => {
 		if (rows.indx.length === 0) createNewRow(rows, setRows, data);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [rows.indx]);
 
 	// Submit validation
@@ -95,6 +99,8 @@ export default function Report({ type, title, reportUrl, objectsUrl, stagesUrl, 
 		} else {
 			setCloseReportMethod("manual");
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data]);
 
 	//Gets objects list
