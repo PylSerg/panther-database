@@ -14,6 +14,7 @@ import { v4 as uuid } from "uuid";
 import reportsList from "../assets/data/reports-list";
 import sorting from "../assets/js/sorting";
 import Money from "../assets/js/money-formatter";
+import { getValue } from "@testing-library/user-event/dist/utils";
 
 // Component
 export default function ViewReportsBlock() {
@@ -33,7 +34,39 @@ export default function ViewReportsBlock() {
 
 	const [reportPositionsVisibility, setReportPositionsVisibility] = useState({});
 
+	const [reportTypeVisibility, setReportTypeVisibility] = useState({});
+
+	const [filters, setFilters] = useState([]);
+
 	const dispatch = useDispatch();
+
+	// Creates filters
+	useEffect(() => {
+		reportsList.map(({ type, title }) => {
+			const filtersArray = filters;
+
+			filtersArray.push({
+				type,
+				title,
+				checked: false,
+			});
+
+			return setFilters(filtersArray);
+		});
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	// Creates a report visibility list by type
+	useEffect(() => {
+		let visibilityTypes = {};
+
+		reportsList.map(({ type }) => {
+			return (visibilityTypes = { ...visibilityTypes, [`${type}`]: true });
+		});
+
+		return setReportTypeVisibility(visibilityTypes);
+	}, []);
 
 	// Gets data of all reports
 	useEffect(() => {
@@ -130,13 +163,14 @@ export default function ViewReportsBlock() {
 
 				const reportNumber = report.report;
 				const reportLabel = report.label;
+				const reportType = report.type;
 
 				const reportCreated = `${report.date} - ${report.time}`;
 
-				let reportType = "";
+				let reportTitle = "";
 
 				reportsList.map(rep => {
-					if (rep.type === report.type) return (reportType = rep.title);
+					if (rep.type === report.type) return (reportTitle = rep.title);
 
 					return false;
 				});
@@ -144,6 +178,7 @@ export default function ViewReportsBlock() {
 				unconfirmedReports.push({
 					reportNumber,
 					reportCreated,
+					reportTitle,
 					reportType,
 					reportLabel,
 				});
@@ -202,76 +237,155 @@ export default function ViewReportsBlock() {
 		return newNumber;
 	}
 
+	// Changes filter
+	function changeFilter(type) {
+		let visibilityList = reportTypeVisibility;
+
+		let showedAllTypes = true;
+		let uncheckedAllFilters = true;
+
+		for (const key in reportTypeVisibility) {
+			if (!reportTypeVisibility[`${key}`]) showedAllTypes = false;
+		}
+
+		filters.map(filter => {
+			if (filter.checked) return (uncheckedAllFilters = false);
+
+			return true;
+		});
+
+		if (showedAllTypes && uncheckedAllFilters) {
+			for (const key in reportTypeVisibility) {
+				visibilityList = { ...visibilityList, [`${key}`]: false };
+			}
+
+			changeTypesVisibility();
+		} else {
+			changeTypesVisibility();
+		}
+
+		if (!showedAllTypes && uncheckedAllFilters) {
+			for (const key in reportTypeVisibility) {
+				visibilityList = { ...visibilityList, [`${key}`]: true };
+			}
+
+			changeTypesVisibility();
+		}
+
+		function changeTypesVisibility() {
+			for (const key in visibilityList) {
+				if (key === type) visibilityList = { ...visibilityList, [`${key}`]: !visibilityList[`${key}`] };
+			}
+		}
+
+		const changedFilters = filters;
+
+		for (let i = 0; i < changedFilters.length; i++) {
+			if (changedFilters[i].type === type) {
+				changedFilters.splice(i, 0, { ...filters[i], checked: !filters[i].checked });
+				changedFilters.splice(i + 1, 1);
+			}
+		}
+
+		setFilters(changedFilters);
+		setReportTypeVisibility(visibilityList);
+	}
+
 	return (
 		<div style={{ width: "100%" }}>
+			{/*
+			 *	Filters
+			 */}
+			<ul className="filters__block">
+				{filters &&
+					filters.map(filter => {
+						return (
+							<li className="filters__filter" key={uuid()}>
+								<input id={filter.type} type="checkbox" defaultChecked={filter.checked} onChange={() => changeFilter(filter.type)} />
+								<label htmlFor={filter.type}>{filter.title}</label>
+							</li>
+						);
+					})}
+			</ul>
+
+			{/*
+			 *	Report
+			 */}
 			{reports.unconfirmed[0]?.reportNumber && (
 				<ul className="view-reports__list">
 					{reports.unconfirmed.map(item => {
 						return (
-							<li className="view-reports__report" data-report-label={item.reportLabel} key={uuid()}>
-								<div className="view-reports__header" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
-									<div className="view-reports__indicator">
-										<RiArrowDropRightLine
-											className="view-reports__indicator-icon"
-											style={{
-												transform: reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility ? "rotateZ(90deg)" : "rotateZ(0deg)",
-											}}
-										/>
-									</div>
-
-									<div className="view-report__info">
-										<div className="view-report__info-report">
-											<div>
-												<div>Звіт</div>
-
-												<div className="view-report__info-number">
-													<b>{item.reportNumber}</b>
-												</div>
+							<div key={uuid()}>
+								{reportTypeVisibility[`${item.reportType}`] && (
+									<li className="view-reports__report" data-report-label={item.reportLabel}>
+										<div className="view-reports__header" onClick={() => showReportPositions(item.reportNumber, item.reportLabel)}>
+											<div className="view-reports__indicator">
+												<RiArrowDropRightLine
+													className="view-reports__indicator-icon"
+													style={{
+														transform: reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility ? "rotateZ(90deg)" : "rotateZ(0deg)",
+													}}
+												/>
 											</div>
 
-											<div>{item.reportCreated}</div>
+											<div className="view-report__info">
+												<div className="view-report__info-report">
+													<div>
+														<div>Звіт</div>
+
+														<div className="view-report__info-number">
+															<b>{item.reportNumber}</b>
+														</div>
+													</div>
+
+													<div>{item.reportCreated}</div>
+												</div>
+
+												<div className="view-report__info-type">{item.reportTitle}</div>
+
+												<div className="view-report__sum">
+													Сума: <b>{item.reportSum} грн</b>
+												</div>
+											</div>
 										</div>
 
-										<div className="view-report__info-type">{item.reportType}</div>
+										{/*
+										 *	Report details
+										 */}
+										{reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility && (
+											<div className="report-table__block">
+												<table className="report-table">
+													<thead>
+														<tr>
+															<td>Обʼєкт</td>
+															<td>Етап</td>
+															<td>Найменування</td>
+															<td>Кількість</td>
+															<td>Ціна</td>
+															<td>Сума</td>
+															<td>Коменар</td>
+														</tr>
+													</thead>
 
-										<div className="view-report__sum">
-											Сума: <b>{item.reportSum} грн</b>
-										</div>
-									</div>
-								</div>
-
-								{reportPositionsVisibility[`${transformationReportNumber(item.reportNumber)}`]?.visibility && (
-									<div className="report-table__block">
-										<table className="report-table">
-											<thead>
-												<tr>
-													<td>Обʼєкт</td>
-													<td>Етап</td>
-													<td>Найменування</td>
-													<td>Кількість</td>
-													<td>Ціна</td>
-													<td>Сума</td>
-													<td>Коменар</td>
-												</tr>
-											</thead>
-
-											<tbody>
-												{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
-													<tr key={uuid()}>
-														<td className="report-table__object">{position?.object}</td>
-														<td className="report-table__stage">{position?.stage}</td>
-														<td className="report-table__position">{position?.position}</td>
-														<td className="report-table__quantity">{position?.quantity}</td>
-														<td className="report-table__price">{position?.price}</td>
-														<td className="report-table__sum">{position?.sum}</td>
-														<td className="report-table__comment">{position?.comment}</td>
-													</tr>
-												))}
-											</tbody>
-										</table>
-									</div>
+													<tbody>
+														{reportPositions[`${transformationReportNumber(item.reportNumber)}`].map(position => (
+															<tr key={uuid()}>
+																<td className="report-table__object">{position?.object}</td>
+																<td className="report-table__stage">{position?.stage}</td>
+																<td className="report-table__position">{position?.position}</td>
+																<td className="report-table__quantity">{position?.quantity}</td>
+																<td className="report-table__price">{position?.price}</td>
+																<td className="report-table__sum">{position?.sum}</td>
+																<td className="report-table__comment">{position?.comment}</td>
+															</tr>
+														))}
+													</tbody>
+												</table>
+											</div>
+										)}
+									</li>
 								)}
-							</li>
+							</div>
 						);
 					})}
 				</ul>

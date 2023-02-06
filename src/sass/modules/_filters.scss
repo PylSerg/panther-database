@@ -1,0 +1,43 @@
+.filters__block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 20px;
+
+    list-style: none;
+}
+
+.filters__filter {
+    display: flex;
+    flex-direction: row;
+}
+
+.filters__filter input {
+    display: none;
+}
+
+.filters__filter label {
+    padding: 5px 20px;
+
+    color: #777;
+
+    border: 2px solid #aaa;
+    border-radius: 25px;
+
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        color: $thirdColor;
+        border-color: $thirdColor;
+    }
+}
+
+.filters__filter input:checked+label {
+    color: #fff;
+
+    background-color: $thirdColor;
+    border: 2px solid $thirdColor;
+}
