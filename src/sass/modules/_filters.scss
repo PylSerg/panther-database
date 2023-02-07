@@ -51,15 +51,17 @@
     display: flex;
     flex-direction: row;
 
+    margin-bottom: 10px;
+
     &:not(:last-child) {
         margin-right: 20px;
-        margin-bottom: 10px;
     }
 
     @media screen and (max-width: 520px) {
+        margin-bottom: 20px;
+
         &:not(:last-child) {
             margin-right: 10px;
-            margin-bottom: 20px;
         }
     }
 }
