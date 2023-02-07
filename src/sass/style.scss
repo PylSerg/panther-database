@@ -10,7 +10,8 @@ body {
 }
 
 @import "./components/app";
-@import "./modules/notification";
+@import "./components/notification";
+@import "./components/connection-status";
 @import "./components/progress";
 @import "./components/profile";
 @import "./components/create-report-block";
