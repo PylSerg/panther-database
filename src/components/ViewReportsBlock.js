@@ -1,5 +1,5 @@
 import xc from "../@x-console/x-console";
-import { RiArrowDropRightLine } from "react-icons/ri";
+import { RiCloseCircleLine, RiArrowDropRightLine } from "react-icons/ri";
 
 // React
 import { useState, useEffect } from "react";
@@ -14,7 +14,6 @@ import { v4 as uuid } from "uuid";
 import reportsList from "../assets/data/reports-list";
 import sorting from "../assets/js/sorting";
 import Money from "../assets/js/money-formatter";
-import { getValue } from "@testing-library/user-event/dist/utils";
 
 // Component
 export default function ViewReportsBlock() {
@@ -294,22 +293,42 @@ export default function ViewReportsBlock() {
 		setReportTypeVisibility(visibilityList);
 	}
 
+	// Clears all filters
+	function clearAllFilters() {
+		const changedFilters = filters;
+
+		for (let i = 0; i < changedFilters.length; i++) {
+			changedFilters.splice(i, 0, { ...filters[i], checked: false });
+			changedFilters.splice(i + 1, 1);
+		}
+
+		setFilters(changedFilters);
+
+		changeReportTypeVisibility();
+	}
+
 	return (
 		<div style={{ width: "100%" }}>
 			{/*
 			 *	Filters
 			 */}
-			<ul className="filters__block">
-				{filters &&
-					filters.map(filter => {
-						return (
-							<li className="filters__filter" key={uuid()}>
-								<input id={filter.type} type="checkbox" defaultChecked={filter.checked} onChange={() => changeFilter(filter.type)} />
-								<label htmlFor={filter.type}>{filter.title}</label>
-							</li>
-						);
-					})}
-			</ul>
+			<div className="filters">
+				<div title="Скасувати фільтри" onClick={clearAllFilters}>
+					<RiCloseCircleLine className="filters__clear" />
+				</div>
+
+				<ul className="filters__block">
+					{filters &&
+						filters.map(filter => {
+							return (
+								<li className="filters__filter" key={uuid()}>
+									<input id={filter.type} type="checkbox" defaultChecked={filter.checked} onChange={() => changeFilter(filter.type)} />
+									<label htmlFor={filter.type}>{filter.title}</label>
+								</li>
+							);
+						})}
+				</ul>
+			</div>
 
 			{/*
 			 *	Report
