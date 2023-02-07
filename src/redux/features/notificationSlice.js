@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	show: false,
 	success: true,
+	name: "",
 	message: "",
 };
 
@@ -11,6 +12,7 @@ export const notificationSlice = createSlice({
 	initialState,
 	reducers: {
 		showNotification: (state, actions) => {
+			let name = "";
 			let message = "";
 
 			if (actions.payload.name === undefined) {
@@ -18,16 +20,19 @@ export const notificationSlice = createSlice({
 				message = actions.payload;
 			} else {
 				state.success = false;
+				name = actions.payload.name;
 				message = actions.payload.message;
 			}
 
 			state.show = true;
+			state.name = name;
 			state.message = message;
 		},
 
 		hideNotification: state => {
 			state.show = false;
 			state.success = true;
+			state.name = "";
 			state.message = "";
 		},
 	},
