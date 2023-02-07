@@ -268,7 +268,7 @@ export default function ViewReportsBlock() {
 			if (filters[i].checked) checkedFilters++;
 		}
 
-		if (showedAllTypes && checkedFilters > 0 && checkedFilters < filters.length) {
+		if (showedAllTypes && checkedFilters === 1) {
 			for (const key in reportTypeVisibility) {
 				visibilityList = { ...visibilityList, [`${key}`]: false };
 			}
@@ -277,6 +277,7 @@ export default function ViewReportsBlock() {
 		}
 
 		if (!showedAllTypes && checkedFilters > 0) changeTypesVisibility();
+		if (showedAllTypes && checkedFilters > 1) changeTypesVisibility();
 
 		if (!showedAllTypes && checkedFilters === 0) {
 			for (const key in reportTypeVisibility) {
