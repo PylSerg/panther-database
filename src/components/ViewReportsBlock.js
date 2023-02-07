@@ -304,7 +304,7 @@ export default function ViewReportsBlock() {
 
 		setFilters(changedFilters);
 
-		changeReportTypeVisibility();
+		changeReportTypeVisibility(null);
 	}
 
 	return (
