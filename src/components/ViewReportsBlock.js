@@ -317,11 +317,11 @@ export default function ViewReportsBlock() {
 			 *	Filters
 			 */}
 			<div className="filters">
-				<div title="Скасувати фільтри" onClick={clearAllFilters}>
-					<RiCloseCircleLine className="filters__clear" />
-				</div>
-
 				<ul className="filters__block">
+					<li title="Скасувати фільтри" onClick={clearAllFilters}>
+						<RiCloseCircleLine className="filters__clear" />
+					</li>
+
 					{filters &&
 						filters.map(filter => {
 							return (

@@ -5,14 +5,15 @@
 
     max-width: 1200px;
 
-    gap: 20px;
-
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 .filters__clear {
     width: 32px;
     height: 32px;
+
+    margin-right: 20px;
 
     color: #aaa;
 
@@ -22,6 +23,10 @@
     &:focus {
         color: $thirdColor;
     }
+
+    @media screen and (max-width: 520px) {
+        margin-right: 10px;
+    }
 }
 
 .filters__block {
@@ -30,19 +35,33 @@
     flex-wrap: wrap;
     justify-content: center;
 
-    gap: 20px;
-
     margin: 0;
     margin-bottom: 30px;
 
     padding: 0;
 
     list-style: none;
+
+    @media screen and (max-width: 520px) {
+        justify-content: flex-end;
+    }
 }
 
 .filters__filter {
     display: flex;
     flex-direction: row;
+
+    &:not(:last-child) {
+        margin-right: 20px;
+        margin-bottom: 10px;
+    }
+
+    @media screen and (max-width: 520px) {
+        &:not(:last-child) {
+            margin-right: 10px;
+            margin-bottom: 20px;
+        }
+    }
 }
 
 .filters__filter input {
@@ -63,6 +82,10 @@
     &:focus {
         color: $thirdColor;
         border-color: $thirdColor;
+    }
+
+    @media screen and (max-width: 520px) {
+        padding: 5px 10px;
     }
 }
 
