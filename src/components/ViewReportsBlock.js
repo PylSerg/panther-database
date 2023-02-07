@@ -239,45 +239,6 @@ export default function ViewReportsBlock() {
 
 	// Changes filter
 	function changeFilter(type) {
-		let visibilityList = reportTypeVisibility;
-
-		let showedAllTypes = true;
-		let uncheckedAllFilters = true;
-
-		for (const key in reportTypeVisibility) {
-			if (!reportTypeVisibility[`${key}`]) showedAllTypes = false;
-		}
-
-		filters.map(filter => {
-			if (filter.checked) return (uncheckedAllFilters = false);
-
-			return true;
-		});
-
-		if (showedAllTypes && uncheckedAllFilters) {
-			for (const key in reportTypeVisibility) {
-				visibilityList = { ...visibilityList, [`${key}`]: false };
-			}
-
-			changeTypesVisibility();
-		} else {
-			changeTypesVisibility();
-		}
-
-		if (!showedAllTypes && uncheckedAllFilters) {
-			for (const key in reportTypeVisibility) {
-				visibilityList = { ...visibilityList, [`${key}`]: true };
-			}
-
-			changeTypesVisibility();
-		}
-
-		function changeTypesVisibility() {
-			for (const key in visibilityList) {
-				if (key === type) visibilityList = { ...visibilityList, [`${key}`]: !visibilityList[`${key}`] };
-			}
-		}
-
 		const changedFilters = filters;
 
 		for (let i = 0; i < changedFilters.length; i++) {
@@ -288,6 +249,47 @@ export default function ViewReportsBlock() {
 		}
 
 		setFilters(changedFilters);
+
+		changeReportTypeVisibility(type);
+	}
+
+	// Changes report type visibility
+	function changeReportTypeVisibility(type) {
+		let visibilityList = reportTypeVisibility;
+
+		let showedAllTypes = true;
+		let checkedFilters = 0;
+
+		for (const key in reportTypeVisibility) {
+			if (!reportTypeVisibility[`${key}`]) showedAllTypes = false;
+		}
+
+		for (let i = 0; i < filters.length; i++) {
+			if (filters[i].checked) checkedFilters++;
+		}
+
+		if (showedAllTypes && checkedFilters > 0 && checkedFilters < filters.length) {
+			for (const key in reportTypeVisibility) {
+				visibilityList = { ...visibilityList, [`${key}`]: false };
+			}
+
+			changeTypesVisibility();
+		}
+
+		if (!showedAllTypes && checkedFilters > 0) changeTypesVisibility();
+
+		if (!showedAllTypes && checkedFilters === 0) {
+			for (const key in reportTypeVisibility) {
+				visibilityList = { ...visibilityList, [`${key}`]: true };
+			}
+		}
+
+		function changeTypesVisibility() {
+			for (const key in visibilityList) {
+				if (key === type) visibilityList = { ...visibilityList, [`${key}`]: !visibilityList[`${key}`] };
+			}
+		}
+
 		setReportTypeVisibility(visibilityList);
 	}
 
