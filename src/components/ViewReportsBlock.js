@@ -296,15 +296,19 @@ export default function ViewReportsBlock() {
 	// Clears all filters
 	function clearAllFilters() {
 		const changedFilters = filters;
+		let visibilityList = reportTypeVisibility;
 
 		for (let i = 0; i < changedFilters.length; i++) {
 			changedFilters.splice(i, 0, { ...filters[i], checked: false });
 			changedFilters.splice(i + 1, 1);
 		}
 
-		setFilters(changedFilters);
+		for (const key in reportTypeVisibility) {
+			visibilityList = { ...visibilityList, [`${key}`]: true };
+		}
 
-		changeReportTypeVisibility();
+		setFilters(changedFilters);
+		setReportTypeVisibility(visibilityList);
 	}
 
 	return (
