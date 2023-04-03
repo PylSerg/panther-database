@@ -21,6 +21,8 @@ export default function CreateReportBlock({ setProfileNavigationBlock }) {
 		} else {
 			setProfileNavigationBlock({ show: true });
 		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [report]);
 
 	function openReport({ type, title, reportUrl, objectsUrl, stagesUrl, positionsUrl }) {

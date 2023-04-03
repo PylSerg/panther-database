@@ -26,6 +26,8 @@ export function readyToSend(dispatch, rows, data) {
 
 			if (data.type !== "OFFICE" && counter > 0 && counter < keys.length - 3) rowsCounter++;
 			if (data.type === "OFFICE" && counter - 2 > 0 && counter < keys.length - 3) rowsCounter++;
+
+			return true;
 		});
 	}
 
