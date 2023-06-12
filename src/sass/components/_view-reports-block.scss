@@ -10,7 +10,7 @@
 
     transition: all 250ms linear;
 
-    @media screen and(max-width: 1199px) {
+    @media screen and (max-width: 1199px) {
         max-width: 95%;
     }
 }
@@ -35,7 +35,7 @@
 
     transition: all 250ms linear;
 
-    @media screen and(max-width: 520px) {
+    @media screen and (max-width: 520px) {
         padding: 10px;
     }
 }
@@ -68,7 +68,7 @@
     transform: scaleX(1);
     transition: all 250ms linear;
 
-    @media screen and(max-width: 767px) {
+    @media screen and (max-width: 767px) {
         transform: scaleX(0);
     }
 }
@@ -79,7 +79,7 @@
 
     transition: all 250ms linear;
 
-    @media screen and(max-width: 767px) {
+    @media screen and (max-width: 767px) {
         transform-origin: 0 0;
 
         font-size: 0;
@@ -98,7 +98,7 @@
 
     transition: all 250ms linear;
 
-    @media screen and(max-width: 767px) {
+    @media screen and (max-width: 767px) {
         gap: 20px;
     }
 }
@@ -121,11 +121,11 @@
 
     transition: all 250ms linear;
 
-    @media screen and(max-width: 767px) {
+    @media screen and (max-width: 767px) {
         margin-left: 0px;
     }
 
-    @media screen and(max-width: 520px) {
+    @media screen and (max-width: 520px) {
         justify-content: space-between;
 
         width: 100%;
@@ -146,7 +146,7 @@
 
     transition: all 250ms linear;
 
-    @media screen and(max-width: 520px) {
+    @media screen and (max-width: 520px) {
         width: auto;
     }
 }
@@ -154,7 +154,7 @@
 .view-report__info-type {
     transition: all 250ms linear;
 
-    @media screen and(max-width: 520px) {
+    @media screen and (max-width: 520px) {
         order: 3;
 
         text-align: center;
